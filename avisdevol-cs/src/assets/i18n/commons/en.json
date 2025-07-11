@@ -1,0 +1,9 @@
+{
+  "COMMONS": {
+    "HEADER" : {
+        "TITLE": "Flight rating",
+        "ACCUEIL": "Accueil",
+        "LOGIN": "Login"
+    }
+  }
+}

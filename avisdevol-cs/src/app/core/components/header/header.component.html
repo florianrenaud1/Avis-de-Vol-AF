@@ -1,0 +1,43 @@
+<div class="flex w-full bg-gradient-to-r from-blue-700 to-blue-900 fixed top-0 z-50 shadow-lg h-20">
+    <div class="flex items-center justify-start px-4 lg:px-6 lg:py-3">
+        <div class="flex items-center">
+            <img class="w-10 h-10 md:w-12 md:h-12 logo-menu mr-2" src="assets/img/logo.png" alt="A2L Logo" />
+            <h4 class="text-white py-0">{{ 'COMMONS.HEADER.TITLE' | translate }}</h4>
+        </div>
+    </div>
+
+    <div class="hidden lg:flex items-center justify-left flex-grow z-20 gap-8">
+        <a
+            class="text-white hover-underline text-[15px] font-medium transition-all duration-300 ease-in-out"
+            routerLink="/accueil"
+            routerLinkActive="active">
+            {{ 'COMMONS.HEADER.ACCUEIL' | translate }}
+        </a>
+    </div>
+    <div class="flex items-center ml-auto pr-4 md:pr-6">
+        <button mat-button [matMenuTriggerFor]="languageMenu" class="text-white mr-4" aria-label="Change language">
+            <mat-icon class="text-white">language</mat-icon>
+            <span class="hidden sm:inline-block ml-1 text-white">{{ lang | uppercase }}</span>
+        </button>
+
+        <mat-menu #languageMenu="matMenu">
+            <button mat-menu-item *ngFor="let language of languages">
+                {{ language.label }}
+            </button>
+        </mat-menu>
+
+        <!-- Language selector -->
+        <div class="flex items-center gap-2 md:gap-4">
+            <!-- Login button -->
+            <button
+                mat-raised-button
+                color="primary"
+                class="shadow-md hover:shadow-lg transition-all duration-300"
+                routerLink="/login"
+                routerLinkActive="active">
+                <span class="hidden sm:inline-block">{{ 'COMMONS.HEADER.LOGIN' | translate }}</span>
+                <mat-icon class="sm:ml-1">login</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

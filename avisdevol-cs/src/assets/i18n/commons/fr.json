@@ -1,0 +1,9 @@
+{
+  "COMMONS": {
+    "HEADER" : {
+        "TITLE": "Avis de Vol",
+        "ACCUEIL": "Accueil",
+        "LOGIN": "Connexion"
+    }
+  }
+}
