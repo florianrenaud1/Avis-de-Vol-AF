@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://#username:#password@avis-de-vol-af.cpjimss.mongodb.net/?retryWrites=true&w=majority&appName=Avis-de-Vol-AF
+      database: avisdevol
+  application:
+    name:avisdevol
