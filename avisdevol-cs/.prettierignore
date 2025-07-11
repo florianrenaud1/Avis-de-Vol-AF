@@ -1,0 +1,8 @@
+# Prettier ignore file
+# This file specifies files and directories that should be ignored by Prettier.
+package.json
+dist/**/*
+.vscode/**/*
+coverage/**/*
+angular.json
+src/assets/**
