@@ -1,0 +1,67 @@
+<header class="bg-gradient-to-r from-air-france-700 via-air-france-600 to-air-france-800 shadow-lg sticky top-0 z-50 border-b border-air-france-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo et titre -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3 group">
+                    <div class="p-2 bg-white/10 rounded-xl group-hover:bg-white/20 transition-all duration-300">
+                        <img
+                            class="w-8 h-8 lg:w-10 lg:h-10 transition-transform duration-300 group-hover:scale-110"
+                            src="assets/img/logo.png"
+                            alt="Air France Logo" />
+                    </div>
+                    <div class="text-white">
+                        <h1 class="text-xl lg:text-2xl font-bold tracking-tight">
+                            {{ 'COMMONS.HEADER.TITLE' | translate }}
+                        </h1>
+                        <p class="text-sm text-air-france-100 hidden lg:block">{{ 'COMMONS.HEADER.DESCRIPTION' | translate }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions utilisateur -->
+            <div class="flex items-center space-x-4">
+                <!-- Sélecteur de langue -->
+                <div class="relative">
+                    <button
+                        mat-button
+                        [matMenuTriggerFor]="languageMenu"
+                        class="text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2"
+                        aria-label="Change language">
+                        <mat-icon class="text-white">language</mat-icon>
+                        <span class="hidden sm:inline text-sm font-medium text-white">{{ currentLanguage }}</span>
+                        <mat-icon class="text-white text-sm">keyboard_arrow_down</mat-icon>
+                    </button>
+
+                    <mat-menu #languageMenu="matMenu" class="mt-2">
+                        <button mat-menu-item (click)="changeLanguage('fr')" class="flex items-center space-x-2">
+                            <span class="w-6 h-4 bg-blue-600 rounded-sm flex items-center justify-center text-xs !text-white font-bold">FR</span>
+                            <span>Français</span>
+                        </button>
+                        <button mat-menu-item (click)="changeLanguage('en')" class="flex items-center space-x-2">
+                            <span class="w-6 h-4 bg-red-600 rounded-sm flex items-center justify-center text-xs !text-white font-bold">EN</span>
+                            <span>English</span>
+                        </button>
+                    </mat-menu>
+                </div>
+
+                <!-- Bouton de connexion -->
+                <button
+                    class="bg-white text-air-france-700 hover:bg-air-france-50 hover:text-air-france-800 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 shadow-sm hover:shadow-md flex items-center space-x-2 group"
+                    routerLink="/login"
+                    routerLinkActive="ring-2 ring-white ring-opacity-50">
+                    <span class="hidden sm:inline">{{ 'COMMONS.HEADER.LOGIN' | translate }}</span>
+                    <mat-icon class="text-lg group-hover:scale-110 transition-transform duration-300">login</mat-icon>
+                </button>
+
+                <!-- Menu mobile -->
+                <button class="lg:hidden text-white hover:bg-white/10 p-2 rounded-lg transition-all duration-300">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barre de progression ou indicateur de charge (optionnel) -->
+    <div class="h-1 bg-gradient-to-r from-air-france-400 to-air-france-600 opacity-0 transition-opacity duration-300" id="loading-bar"></div>
+</header>

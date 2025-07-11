@@ -1,0 +1,21 @@
+@if (startDate()?.value || endDate()?.value) {
+    <div class="whitespace-nowrap">
+        <span class="mat-body-medium">{{ label() }} </span>
+        @if (startDate()?.value) {
+            <span class="mat-body-medium" data-startDate>
+                {{ 'COMMONS.LEXICON.' + (endDate()?.value ? 'FROM' : 'FROM_LONG') | translate | lowercase }}
+            </span>
+            <span class="font-bold text-base text-neutral-variant-40">
+                {{ startDate()?.value | dateFormat }}
+            </span>
+        }
+        @if (endDate()?.value) {
+            <span class="mat-body-medium" data-endDate>
+                {{ 'COMMONS.LEXICON.' + (startDate()?.value ? 'TO' : 'TO_LONG') | translate | lowercase }}
+            </span>
+            <span class="font-bold text-base text-neutral-variant-40">
+                {{ endDate()?.value | dateFormat }}
+            </span>
+        }
+    </div>
+}

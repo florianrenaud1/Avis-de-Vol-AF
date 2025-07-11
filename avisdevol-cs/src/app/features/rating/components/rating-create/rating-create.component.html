@@ -1,0 +1,157 @@
+<div class="space-y-6">
+    <!-- Titre de la page -->
+    <app-page-title label="COMMONS.RATING_CREATE.TITLE" icon="rate_review" [buttonBack]="true" urlBack="/avis" />
+
+    <!-- Formulaire de création d'avis -->
+    <div class="bg-white rounded-xl shadow-elevation-1 overflow-hidden">
+        <!-- Header du formulaire -->
+        <div class="bg-gradient-to-r from-air-france-600 to-air-france-700 text-white px-6 py-4">
+            <div class="flex items-center space-x-3">
+                <mat-icon class="text-white text-2xl">rate_review</mat-icon>
+                <div>
+                    <h2 class="text-xl font-semibold text-white">{{ 'COMMONS.RATING_CREATE.SUBTITLE' | translate }}</h2>
+                    <p class="text-air-france-100 text-sm">{{ 'COMMONS.RATING_CREATE.DESCRIPTION' | translate }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Corps du formulaire -->
+        <form [formGroup]="ratingForm" (ngSubmit)="onSubmit()" class="p-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Numéro de vol -->
+                <div class="space-y-2">
+                    <mat-form-field class="w-full">
+                        <mat-label>{{ 'COMMONS.RATING_CREATE.FORM.FLIGHT_NUMBER' | translate }}</mat-label>
+                        <input
+                            matInput
+                            formControlName="flightNumber"
+                            [placeholder]="'COMMONS.RATING_CREATE.FORM.FLIGHT_NUMBER_PLACEHOLDER' | translate" />
+                        <mat-icon matSuffix class="text-air-france-600">flight</mat-icon>
+                        <mat-hint>{{ 'COMMONS.RATING_CREATE.FORM.FLIGHT_NUMBER_HINT' | translate }}</mat-hint>
+                        <mat-error *ngIf="ratingForm.get('flightNumber')?.hasError('required')">
+                            {{ 'COMMONS.RATING_CREATE.ERRORS.REQUIRED' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="ratingForm.get('flightNumber')?.hasError('pattern')">
+                            {{ 'COMMONS.RATING_CREATE.ERRORS.INVALID_FORMAT' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Date du vol -->
+                <div class="space-y-2">
+                    <app-datepicker
+                        class="w-full"
+                        [control]="ratingForm.controls['date']"
+                        [label]="'COMMONS.RATING_CREATE.FORM.DATE' | translate"
+                        [max]="moment()">
+                    </app-datepicker>
+                </div>
+
+                <!-- Compagnie aérienne -->
+                <div class="space-y-2">
+                    <app-airline-autocomplete
+                        class="w-full"
+                        label="COMMONS.PROPERTY.AIRLINE"
+                        [control]="ratingForm.controls['airline']"
+                        [allowFreeText]="true">
+                    </app-airline-autocomplete>
+                </div>
+
+                <!-- Note -->
+                <div class="space-y-2">
+                    <mat-form-field class="w-full">
+                        <mat-label>{{ 'COMMONS.RATING_CREATE.FORM.RATING' | translate }}</mat-label>
+                        <mat-select formControlName="rating">
+                            <mat-select-trigger>
+                                @if (ratingForm.get('rating')?.value; as selectedRating) {
+                                    <div class="flex items-center space-x-2">
+                                        <div class="flex">
+                                            @for (star of [1, 2, 3, 4, 5]; track star) {
+                                                <mat-icon class="text-sm" [ngClass]="star <= selectedRating ? 'text-yellow-400' : 'text-gray-300'">
+                                                    star
+                                                </mat-icon>
+                                            }
+                                        </div>
+                                        <span class="font-medium">{{ getRatingLabel(selectedRating) }}</span>
+                                    </div>
+                                }
+                            </mat-select-trigger>
+                            @for (option of ratingOptions; track option.value) {
+                                <mat-option [value]="option.value">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="flex">
+                                            @for (star of [1, 2, 3, 4, 5]; track star) {
+                                                <mat-icon class="text-sm" [ngClass]="star <= option.value ? 'text-yellow-400' : 'text-gray-300'">
+                                                    star
+                                                </mat-icon>
+                                            }
+                                        </div>
+                                        <span class="font-medium">{{ option.label }}</span>
+                                    </div>
+                                </mat-option>
+                            }
+                        </mat-select>
+                        <mat-icon matSuffix class="text-air-france-600">star_rate</mat-icon>
+                        <mat-error *ngIf="ratingForm.get('rating')?.hasError('required')">
+                            {{ 'COMMONS.RATING_CREATE.ERRORS.REQUIRED' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="ratingForm.get('rating')?.hasError('min')">
+                            {{ 'COMMONS.RATING_CREATE.ERRORS.MIN_RATING' | translate }}
+                        </mat-error>
+                        <mat-error *ngIf="ratingForm.get('rating')?.hasError('max')">
+                            {{ 'COMMONS.RATING_CREATE.ERRORS.MAX_RATING' | translate }}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <!-- Commentaire (pleine largeur) -->
+            <div class="mt-6 space-y-2">
+                <mat-form-field class="w-full">
+                    <mat-label>{{ 'COMMONS.RATING_CREATE.FORM.COMMENT' | translate }}</mat-label>
+                    <textarea
+                        matInput
+                        formControlName="comment"
+                        rows="4"
+                        placeholder="Décrivez votre expérience : service, confort, ponctualité, etc."></textarea>
+                    <mat-icon matSuffix class="text-air-france-600">comment</mat-icon>
+                    <mat-hint align="end"> {{ ratingForm.get('comment')?.value?.length || 0 }}/500 </mat-hint>
+                    <mat-error *ngIf="ratingForm.get('comment')?.hasError('required')">
+                        {{ 'COMMONS.RATING_CREATE.ERRORS.REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="ratingForm.get('comment')?.hasError('minlength')"> Minimum 10 caractères </mat-error>
+                    <mat-error *ngIf="ratingForm.get('comment')?.hasError('maxlength')"> Maximum 500 caractères </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- Informations complémentaires -->
+            <div class="mt-6 p-4 bg-air-france-50 rounded-lg border border-air-france-200">
+                <div class="flex items-start space-x-3">
+                    <mat-icon class="text-air-france-600 mt-0.5">info</mat-icon>
+                    <div class="text-sm text-air-france-800">
+                        <p class="font-medium mb-1">{{ 'COMMONS.RATING_CREATE.TIPS.TITLE' | translate }}</p>
+                        <ul class="list-disc list-inside space-y-1 text-air-france-700">
+                            <li>{{ 'COMMONS.RATING_CREATE.TIPS.TIP_1' | translate }}</li>
+                            <li>{{ 'COMMONS.RATING_CREATE.TIPS.TIP_2' | translate }}</li>
+                            <li>{{ 'COMMONS.RATING_CREATE.TIPS.TIP_3' | translate }}</li>
+                            <li>{{ 'COMMONS.RATING_CREATE.TIPS.TIP_4' | translate }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-gray-200">
+                <button mat-button type="button" class="flex-1 btn-secondary" (click)="onCancel()">
+                    <mat-icon class="mr-2">close</mat-icon>
+                    {{ 'COMMONS.BUTTON.CANCEL' | translate }}
+                </button>
+
+                <button mat-flat-button type="submit" class="flex-1 btn-primary" [disabled]="ratingForm.invalid">
+                    <mat-icon class="mr-2">send</mat-icon>
+                    {{ 'COMMONS.RATING_CREATE.ACTIONS.PUBLISH' | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

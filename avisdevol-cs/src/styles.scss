@@ -1,10 +1,136 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 html,
 body {
-    height: 100%;
+    height: 100% !important;
+    font-family: 'Inter', 'Roboto', sans-serif;
+    scroll-behavior: smooth;
 }
-body {
-    margin: 0;
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+:root {
+    // Snackbar
+    --mat-snack-bar-button-color: white;
+}
+
+// Configuration des snackbars avec fonds opaques
+.mat-mdc-snack-bar-container {
+    &.style-info {
+        --mdc-snackbar-container-color: #3b82f6 !important;
+        --mat-snack-bar-button-color: white !important;
+        background-color: #3b82f6 !important;
+        border-radius: 20px;
+    }
+
+    &.style-success {
+        --mdc-snackbar-container-color: #10b981 !important;
+        --mat-snack-bar-button-color: white !important;
+        background-color: #10b981 !important;
+        border-radius: 20px;
+    }
+
+    &.style-warning {
+        --mdc-snackbar-container-color: #f59e0b !important;
+        --mat-snack-bar-button-color: white !important;
+        background-color: #f59e0b !important;
+        border-radius: 20px;
+    }
+
+    &.style-error {
+        --mdc-snackbar-container-color: #ef4444 !important;
+        --mat-snack-bar-button-color: white !important;
+        background-color: #ef4444 !important;
+        border-radius: 20px;
+    }
+
+    // Style par défaut avec fond opaque
+    background-color: #374151 !important;
+
+    .mat-mdc-snack-bar-label {
+        color: white !important;
+    }
+
+    .mat-mdc-snack-bar-action {
+        color: white !important;
+    }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Professional improvements
+@layer base {
+    * {
+        @apply antialiased;
+    }
+
+    body {
+        @apply bg-gray-50 text-gray-900;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-air-france-600 hover:bg-air-france-700 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md;
+    }
+
+    .btn-secondary {
+        @apply bg-white hover:bg-gray-50 text-air-france-600 font-medium px-4 py-2 rounded-lg border border-air-france-600 transition-all duration-200 shadow-sm hover:shadow-md;
+    }
+
+    .card {
+        @apply bg-white rounded-xl shadow-elevation-1 hover:shadow-elevation-2 transition-all duration-300;
+    }
+
+    .card-header {
+        @apply bg-gradient-to-r from-air-france-600 to-air-france-700 text-white px-6 py-4 rounded-t-xl;
+    }
+
+    .table-modern {
+        @apply bg-white rounded-xl shadow-elevation-1 overflow-hidden;
+    }
+
+    .input-modern {
+        @apply block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-air-france-500 focus:border-transparent transition-all duration-200;
+    }
+}
+
+// Header height
+.main-container {
+    /* 100% height without header (80px) and footer (60px) */
+    min-height: calc(100vh - 140px);
+    @apply pt-4 pb-16;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+}
+
+// Loading animations
+.loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }

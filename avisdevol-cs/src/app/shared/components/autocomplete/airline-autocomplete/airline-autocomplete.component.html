@@ -1,0 +1,43 @@
+@if (airlines$() | async; as airlines) {
+    <mat-form-field class="w-full">
+        <mat-label data-label>{{ label() | translate }}</mat-label>
+        <input
+            #autocompleteTrigger="matAutocompleteTrigger"
+            type="text"
+            matInput
+            data-search
+            [matAutocomplete]="autocomplete"
+            [formControl]="control()"
+            [attr.aria-label]="label() | translate"
+            (blur)="onBlur($event)"
+            (keydown.enter)="onKeydownEnter($event)" />
+        <mat-autocomplete #autocomplete="matAutocomplete" class="bg-white" data-auto-complete [displayWith]="displayAirline">
+            @for (airline of airlines | slice: 0 : 4; track airline) {
+                <mat-option [value]="airline">
+                    <span class="ellipsis" appShowIfTruncated [matTooltip]="airline.name">{{ airline.name }}</span>
+                </mat-option>
+            }
+            @if ((airline?.length ?? 0) > 4) {
+                <mat-option [disabled]="true" [value]="">
+                    <span class="ellipsis pointer-events-auto" appShowIfTruncated [matTooltip]="'COMMONS.LABEL.MORE_RESULTS_LIST' | translate">
+                        {{ 'COMMONS.LABEL.MORE_RESULTS_LIST' | translate }}
+                    </span>
+                </mat-option>
+            }
+        </mat-autocomplete>
+        <button
+            matSuffix
+            type="button"
+            mat-icon-button
+            data-clear-button
+            tabindex="-1"
+            class="mr-2"
+            [attr.aria-label]="'COMMONS.BUTTON.CLEAR' | translate"
+            (click)="control().reset('')">
+            <mat-icon aria-hidden="true">close</mat-icon>
+        </button>
+        @if (control().hasError('required')) {
+            <mat-error>{{ 'COMMONS.ERROR.REQUIRED' + (!allowFreeText() ? '_FROM_LIST' : '') | translate }}</mat-error>
+        }
+    </mat-form-field>
+}

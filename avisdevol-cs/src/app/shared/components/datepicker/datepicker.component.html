@@ -1,0 +1,14 @@
+<mat-form-field class="w-full">
+    <mat-label data-label>{{ label() | translate }}</mat-label>
+    <input
+        (click)="mateDatepicker.open()"
+        [matDatepicker]="mateDatepicker"
+        [formControl]="control()"
+        [min]="min()"
+        [max]="max()"
+        readonly
+        matInput
+        data-datepicker />
+    <mat-datepicker-toggle matSuffix [for]="mateDatepicker" data-mat-datepicker-toggle></mat-datepicker-toggle>
+    <mat-datepicker #mateDatepicker data-mat-datepicker></mat-datepicker>
+</mat-form-field>

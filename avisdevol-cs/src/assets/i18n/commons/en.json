@@ -1,0 +1,152 @@
+{
+  "COMMONS": {
+    "HEADER" : {
+        "TITLE": "Flight rating",
+        "DESCRIPTION": "Share your flight experience",
+        "ACCUEIL": "Accueil",
+        "LOGIN": "Login"
+    },
+    "RATING_LIST": {
+        "TITLE": "Rating List",
+        "DESCRIPTION": "List of all ratings",
+        "ADD_RATING": "Add Rating",
+        "NO_RATINGS": "No ratings available"
+    },
+    "RATING_CREATE": {
+        "TITLE": "Create Rating",
+        "SUBTITLE": "Share your flight experience",
+        "DESCRIPTION": "Help other travelers by sharing your rating",
+        "FORM": {
+            "FLIGHT_NUMBER": "Flight Number",
+            "FLIGHT_NUMBER_PLACEHOLDER": "Ex: AF1234, LH567",
+            "FLIGHT_NUMBER_HINT": "Format: 2 letters followed by numbers",
+            "DATE": "Flight Date",
+            "AIRLINE": "Airline",
+            "RATING": "Your Rating",
+            "COMMENT": "Your Comment",
+            "COMMENT_PLACEHOLDER": "Describe your experience: service, comfort, punctuality, etc.",
+            "COMMENT_COUNTER": "characters"
+        },
+        "RATING_OPTIONS": {
+            "EXCELLENT": "Excellent (5/5)",
+            "VERY_GOOD": "Very Good (4/5)",
+            "GOOD": "Good (3/5)",
+            "DISAPPOINTING": "Disappointing (2/5)",
+            "VERY_DISAPPOINTING": "Very Disappointing (1/5)"
+        },
+        "TIPS": {
+            "TITLE": "Tips for a useful review:",
+            "TIP_1": "Be specific about your experience",
+            "TIP_2": "Mention positive and negative aspects",
+            "TIP_3": "Stay respectful and constructive",
+            "TIP_4": "Avoid personal information"
+        },
+        "ACTIONS": {
+            "PUBLISH": "Publish Review",
+            "CREATING": "Creating..."
+        },
+        "PREVIEW": {
+            "TITLE": "Preview of your review",
+            "FLIGHT_OF": "Flight of",
+            "PUBLISHED": "Published today"
+        },
+        "ERRORS": {
+            "REQUIRED": "This field is required",
+            "INVALID_FORMAT": "Invalid format (ex: AF1234)",
+            "MIN_LENGTH": "Minimum {length} characters",
+            "MAX_LENGTH": "Maximum {length} characters",
+            "MIN_RATING": "Minimum rating is 1",
+            "MAX_RATING": "Maximum rating is 5",
+            "INVALID_FIELD": "Invalid field"
+        }
+    },
+    "RATING_DETAIL": {
+        "TITLE": "Review Details",
+        "FLIGHT_DATE": "Flight Date",
+        "RATING": "Rating Given",
+        "COMMENT": "Comment",
+        "ACTIONS": {
+            "TITLE": "Available Actions",
+            "EDIT": "Edit Review",
+            "DELETE": "Delete Review"
+        },
+        "INFO": {
+            "TITLE": "Information",
+            "CREATED_AT": "Created on",
+            "UPDATED_AT": "Modified on"
+        },
+        "ANSWER": {
+            "RESPONSE": "Company Response"
+        },
+        "ERROR": {
+            "NOT_FOUND": "Review Not Found",
+            "NOT_FOUND_DESC": "The requested review does not exist or has been deleted."
+        },
+        "NOTIFICATION": {
+            "STATUS_UPDATED_SUCCESSFULLY": "Status updated successfully",
+            "ANSWER_ADDED_SUCCESSFULLY": "Answer added successfully",
+            "ERROR": "An error occurred, please try again later"
+        }
+    },
+    "LABEL": {
+        "SEARCH_FILTERS": "Search filters",
+        "MORE_RESULTS_LIST": "Type a value for more proposals..."
+      },
+    "LEXICON": {
+        "FROM": "From",
+          "FROM_LONG": "From",
+          "TO": "To",
+          "TO_LONG": "To",
+          "YES": "Yes",
+          "NO": "No"
+  },
+    "BUTTON": {
+            "SEARCH": "Search",
+            "CLEAR": "Clear",
+            "CREATE": "Add Rating",
+            "BACK": "Back",
+                        "CANCEL": "Cancel",
+            "SUBMIT": "Submit"
+
+        },
+        "PROPERTY": {
+            "AIRLINE": "Airline",
+            "RATING": "Rating",
+            "CREATION_DATE": "Creation Date",
+            "ACTIONS": "Actions",
+            "FLIGHT_NUMBER": "Flight Number",
+            "DATE": "Date",
+            "COMMENT": "Comment",
+            "ANSWERED": "Answered",
+            "STATUS": "Status"
+        },
+    "STATUS": {
+        "PROCESSED": "Processed",
+        "PUBLISHED": "Published",
+        "REJECTED": "Rejected",
+        "UNKNOWN": "Unknown",
+        "CHANGE_STATUS": "Change Status",
+        "UPDATE_SUCCESS": "Status updated successfully"
+    },
+      "ERROR": {
+        "REQUIRED": "Mandatory field.",
+        "AT_LEAST_TEN": "At least 10 characters required.",
+        "AT_MOST_FIVE_HUNDRED": "At most 500 characters allowed.",
+        "AT_MOST_ONE_THOUSAND": "At most 1000 characters allowed.",
+        "NO_DATA": "No data found."
+      },
+
+      "FIELD": {
+        "ANSWERED": "Answered",
+        "SELECT": 
+        {
+            "ALL": "Select All"
+        }
+      },
+      "NOTIFICATION": {
+        "CREATE_SUCCESS": "Rating created successfully",
+        "UPDATE_SUCCESS": "Rating updated successfully",
+        "ERROR": "An error occurred, please try again later"
+      }
+}
+}

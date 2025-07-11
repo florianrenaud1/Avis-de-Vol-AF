@@ -1,0 +1,100 @@
+// Styles spécifiques au composant de création d'avis
+.rating-create {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Amélioration du style des étoiles dans la sélection
+.mat-mdc-option {
+    .star-display {
+        transition: all 0.2s ease;
+    }
+
+    &:hover .star-display {
+        transform: scale(1.05);
+    }
+}
+
+// Style pour les champs en erreur
+.mat-form-field.mat-form-field-invalid {
+    .mat-mdc-form-field-focus-overlay {
+        background-color: rgba(244, 67, 54, 0.1);
+    }
+}
+
+// Animation pour le spinner de soumission
+.loading-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Style pour l'aperçu de l'avis
+.review-preview {
+    transition: all 0.3s ease;
+    border: 2px dashed transparent;
+
+    &:hover {
+        border-color: theme('colors.air-france.200');
+        background-color: theme('colors.air-france.50');
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .rating-form-container {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-actions {
+            flex-direction: column;
+
+            button {
+                width: 100%;
+            }
+        }
+    }
+}
+
+// Amélioration du focus sur les champs
+.mat-mdc-form-field:focus-within {
+    .mat-mdc-form-field-outline {
+        color: theme('colors.air-france.600');
+    }
+}
+
+// Style pour les hints et les erreurs
+.mat-mdc-form-field-hint,
+.mat-mdc-form-field-error {
+    font-size: 0.75rem;
+    line-height: 1.25;
+}
+
+// Animation pour les étoiles
+.star-rating {
+    .mat-icon {
+        transition: all 0.2s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}

@@ -1,0 +1,146 @@
+{
+  "COMMONS": {
+    "HEADER" : {
+        "TITLE": "Avis de Vol",
+        "DESCRIPTION": "Partagez votre expérience de vol",
+        "ACCUEIL": "Accueil",
+        "LOGIN": "Connexion"
+    },
+    "RATING_LIST": {
+        "TITLE": "Liste des avis",
+        "DESCRIPTION": "Liste de tous les avis",
+        "ADD_RATING": "Ajouter un avis",
+        "NO_RATINGS": "Aucun avis disponible"
+    },
+    "RATING_CREATE": {
+        "TITLE": "Créer un avis",
+        "SUBTITLE": "Partager votre expérience de vol",
+        "DESCRIPTION": "Aidez d'autres voyageurs en partageant votre avis",
+        "FORM": {
+            "FLIGHT_NUMBER": "Numéro de vol",
+            "FLIGHT_NUMBER_PLACEHOLDER": "Ex: AF1234, LH567",
+            "FLIGHT_NUMBER_HINT": "Format: 2 lettres suivies de chiffres",
+            "DATE": "Date du vol",
+            "AIRLINE": "Compagnie aérienne",
+            "RATING": "Votre note",
+            "COMMENT": "Votre commentaire",
+            "COMMENT_PLACEHOLDER": "Décrivez votre expérience : service, confort, ponctualité, etc.",
+            "COMMENT_COUNTER": "caractères"
+        },
+        "RATING_OPTIONS": {
+            "EXCELLENT": "Excellent (5/5)",
+            "VERY_GOOD": "Très bien (4/5)",
+            "GOOD": "Correct (3/5)",
+            "DISAPPOINTING": "Décevant (2/5)",
+            "VERY_DISAPPOINTING": "Très décevant (1/5)"
+        },
+        "TIPS": {
+            "TITLE": "Conseils pour un avis utile :",
+            "TIP_1": "Soyez précis sur votre expérience",
+            "TIP_2": "Mentionnez les aspects positifs et négatifs",
+            "TIP_3": "Restez respectueux et constructif",
+            "TIP_4": "Évitez les informations personnelles"
+        },
+        "ACTIONS": {
+            "PUBLISH": "Publier l'avis",
+            "CREATING": "Création en cours..."
+        },
+        "PREVIEW": {
+            "TITLE": "Aperçu de votre avis",
+            "FLIGHT_OF": "Vol du",
+            "PUBLISHED": "Publié aujourd'hui"
+        },
+        "ERRORS": {
+            "REQUIRED": "Ce champ est obligatoire",
+            "INVALID_FORMAT": "Format invalide (ex: AF1234)",
+            "MIN_LENGTH": "Minimum {length} caractères",
+            "MAX_LENGTH": "Maximum {length} caractères",
+            "MIN_RATING": "La note minimum est 1",
+            "MAX_RATING": "La note maximum est 5",
+            "INVALID_FIELD": "Champ invalide"
+        }
+    },
+    "RATING_DETAIL": {
+        "TITLE": "Détails de l'avis",
+        "FLIGHT_DATE": "Date du vol",
+        "RATING": "Note attribuée",
+        "COMMENT": "Commentaire",
+        "ACTIONS": {
+            "TITLE": "Actions disponibles",
+            "EDIT": "Modifier l'avis",
+            "DELETE": "Supprimer l'avis",
+            "CHANGE_STATUS": "Changer le statut"
+        },
+        "INFO": {
+            "TITLE": "Informations",
+            "CREATED_AT": "Créé le",
+            "UPDATED_AT": "Modifié le"
+        },
+        "ANSWER": {
+            "RESPONSE": "Réponse de la compagnie"
+        },
+        "ERROR": {
+            "NOT_FOUND": "Avis introuvable",
+            "NOT_FOUND_DESC": "L'avis demandé n'existe pas ou a été supprimé."
+        }
+    },
+    "LABEL": {
+            "SEARCH_FILTERS": "Filtres de recherche",
+            "MORE_RESULTS_LIST": "Saisir une valeur pour plus de propositions..."
+    },
+     "LEXICON": {
+        "FROM": "Du",
+        "FROM_LONG": "À compter du",
+        "TO": "Au",
+        "TO_LONG": "Jusqu'au",
+        "YES": "Oui",
+        "NO": "Non"
+  },
+  "BUTTON": {
+            "SEARCH": "Rechercher",
+                        "CLEAR": "Effacer",
+                        "CREATE": "Ajouter un avis",
+                        "BACK": "Retour",
+                        "CANCEL": "Annuler",
+            "SUBMIT": "Soumettre"
+        },
+         "PROPERTY": {
+            "AIRLINE": "Compagnie aérienne",
+            "RATING": "Avis",
+            "CREATION_DATE": "Date de création",
+            "ACTIONS": "Actions",
+            "FLIGHT_NUMBER": "Numéro de vol",
+            "DATE": "Date",
+            "COMMENT": "Commentaire",
+            "ANSWERED": "Répondu",
+            "STATUS": "Statut"
+  },
+  "STATUS": {
+        "PROCESSED": "Traité",
+        "PUBLISHED": "Publié", 
+        "REJECTED": "Rejeté",
+        "UNKNOWN": "Statut inconnu",
+        "CHANGE_STATUS": "Changer le statut",
+        "UPDATE_SUCCESS": "Statut mis à jour avec succès"
+  },
+  "SELECT": {
+        "ALL": "Tous"
+  },
+  "ERROR": {
+        "REQUIRED": "Champ obligatoire.",
+        "NO_DATA": "Aucune donnée trouvée.",
+        "AT_LEAST_TEN": "Au moins 10 caractères requis.",
+        "AT_MOST_FIVE_HUNDRED": "Au maximum 500 caractères autorisés.",
+        "AT_MOST_ONE_THOUSAND": "Au maximum 1000 caractères autorisés"
+      },
+  "FIELD": {
+        "ANSWERED": "Répondu",
+        "SELECT": {
+            "ALL": "Tout sélectionner"
+        }
+      },
+  "NOTIFICATION": {
+        "CREATE_SUCCESS": "Avis créé avec succès"
+      }
+}
+}

@@ -1,0 +1,250 @@
+<div class="space-y-6">
+    <!-- Titre de la page -->
+    <app-page-title label="COMMONS.RATING_LIST.TITLE" icon="reviews" />
+
+    <!-- Filtres -->
+    <app-rating-filters [filters]="filters$ | async"></app-rating-filters>
+
+    <!-- Table des avis -->
+    <div class="card">
+        <!-- En-tête de table -->
+        <div class="card-header">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <mat-icon class="text-white">format_list_bulleted</mat-icon>
+                    <h2 class="text-xl font-semibold text-white">{{ 'COMMONS.RATING_LIST.DESCRIPTION' | translate }}</h2>
+                </div>
+
+                <button
+                    class="!bg-white !text-air-france-700 !hover:bg-air-france-50 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2 shadow-sm !hover:shadow-md"
+                    mat-flat-button
+                    data-button
+                    routerLink="/create"
+                    [matTooltip]="'Ajouter un nouvel avis de vol'"
+                    [attr.aria-label]="'Ajouter un nouvel avis de vol'">
+                    <mat-icon aria-hidden="true">add</mat-icon>
+                    <span class="hidden sm:inline">{{ 'COMMONS.BUTTON.CREATE' | translate }}</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <mat-table
+                id="personal-accounts-data-table"
+                class="w-full"
+                matSort
+                matSortActive="nomUser"
+                matSortDirection="asc"
+                matSortDisableClear
+                recycleRows
+                data-table
+                role="table"
+                aria-labelledby="personal-accounts-table-caption"
+                [dataSource]="dataSource">
+                <caption id="personal-accounts-table-caption" class="sr-only">
+                    {{
+                        'COMMONS.RATING_LIST_DESCRIPTION' | translate
+                    }}
+                </caption>
+
+                <!-- Note/Avis -->
+                <ng-container matColumnDef="rating">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold text-gray-700">
+                        <div class="flex items-center space-x-1">
+                            <mat-icon class="text-air-france-600 text-sm">star</mat-icon>
+                            <span>{{ 'COMMONS.PROPERTY.RATING' | translate }}</span>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="py-4">
+                        <div class="flex items-center space-x-2">
+                            <span
+                                class="px-3 py-1 rounded-full text-sm font-medium"
+                                [ngClass]="{
+                                    'bg-green-100 text-green-800': element.rating >= 4,
+                                    'bg-yellow-100 text-yellow-800': element.rating >= 3 && element.rating < 4,
+                                    'bg-orange-100 text-orange-800': element.rating >= 2 && element.rating < 3,
+                                    'bg-red-100 text-red-800': element.rating < 2,
+                                }">
+                                {{ element.rating }}/5
+                            </span>
+                            <div class="flex">
+                                <mat-icon
+                                    *ngFor="let star of [1, 2, 3, 4, 5]"
+                                    class="text-sm"
+                                    [ngClass]="star <= element.rating ? 'text-yellow-400' : 'text-gray-300'">
+                                    star
+                                </mat-icon>
+                            </div>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Numéro de vol -->
+                <ng-container matColumnDef="flightNumber">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold text-gray-700">
+                        <div class="flex items-center space-x-1">
+                            <mat-icon class="text-air-france-600 text-sm">flight_takeoff</mat-icon>
+                            <span>{{ 'COMMONS.PROPERTY.FLIGHT_NUMBER' | translate }}</span>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="py-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <mat-icon class="text-blue-600 text-sm">flight_takeoff</mat-icon>
+                            </div>
+                            <span class="font-mono font-medium text-gray-900">
+                                {{ element.flightNumber }}
+                            </span>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Date -->
+                <ng-container matColumnDef="createdAt">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold text-gray-700">
+                        <div class="flex items-center space-x-1">
+                            <mat-icon class="text-air-france-600 text-sm">date_range</mat-icon>
+                            <span>{{ 'COMMONS.PROPERTY.CREATION_DATE' | translate }}</span>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="py-4">
+                        <div class="text-sm text-gray-900">
+                            {{ element.createdAt | uppercase }}
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Compagnie aérienne -->
+                <ng-container matColumnDef="airline">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="font-semibold text-gray-700">
+                        <div class="flex items-center space-x-1">
+                            <mat-icon class="text-air-france-600 text-sm">flight</mat-icon>
+                            <span>{{ 'COMMONS.PROPERTY.AIRLINE' | translate }}</span>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="py-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-air-france-100 rounded-full flex items-center justify-center">
+                                <mat-icon class="text-air-france-600 text-sm">flight</mat-icon>
+                            </div>
+                            <span class="font-medium text-gray-900">
+                                {{ element.airline.name | titlecase }}
+                            </span>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Statut -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700">
+                        <div class="flex items-center space-x-1">
+                            <mat-icon class="text-air-france-600 text-sm">playlist_add_check</mat-icon>
+                            <span>{{ 'COMMONS.PROPERTY.STATUS' | translate }}</span>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="py-4">
+                        <div class="flex items-center justify-center">
+                            @if (element.status) {
+                                <div class="flex items-center space-x-2 px-3 py-1 rounded-full" [ngClass]="getStatusDisplay(element.status).bgColor">
+                                    <div class="w-2 h-2 rounded-full" [ngClass]="getStatusDisplay(element.status).bgColor"></div>
+                                    <span class="text-sm font-medium" [ngClass]="getStatusDisplay(element.status).color">
+                                        {{ getStatusDisplay(element.status).label | translate }}
+                                    </span>
+                                </div>
+                            } @else {
+                                <span class="text-gray-400 text-sm italic">Non défini</span>
+                            }
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Statut de réponse -->
+                <ng-container matColumnDef="answered">
+                    <mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700">
+                        <div class="flex items-center space-x-1">
+                            <mat-icon class="text-air-france-600 text-sm">reply</mat-icon>
+                            <span>{{ 'COMMONS.PROPERTY.ANSWERED' | translate }}</span>
+                        </div>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="py-4">
+                        <div class="flex items-center justify-center">
+                            <div
+                                class="w-8 h-8 rounded-full flex items-center justify-center"
+                                [ngClass]="{
+                                    'bg-green-100': element.answer && element.answer.trim().length > 0,
+                                    'bg-red-100': !element.answer || element.answer.trim().length === 0,
+                                }">
+                                <mat-icon
+                                    class="text-sm"
+                                    [ngClass]="{
+                                        'text-green-600': element.answer && element.answer.trim().length > 0,
+                                        'text-red-600': !element.answer || element.answer.trim().length === 0,
+                                    }">
+                                    {{ element.answer && element.answer.trim().length > 0 ? 'check' : 'close' }}
+                                </mat-icon>
+                            </div>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Actions -->
+                <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700">
+                        {{ 'COMMONS.PROPERTY.ACTIONS' | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="py-4">
+                        <button
+                            class="bg-air-france-50 hover:bg-air-france-100 text-air-france-700 p-2 rounded-lg transition-all duration-200 hover:shadow-md"
+                            [routerLink]="'/avis/' + element.id"
+                            [matTooltip]="'COMMONS.RATING_DETAIL.TITLE' | translate">
+                            <mat-icon class="text-sm">visibility</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Message d'absence de données -->
+                <div *matNoDataRow class="text-center py-12">
+                    <div class="flex flex-col items-center space-y-4">
+                        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                            <mat-icon class="text-gray-400 text-2xl">search_off</mat-icon>
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">
+                                {{ 'COMMONS.ERROR.NO_DATA' | translate }}
+                            </h3>
+                            <p class="text-gray-500">Aucun avis ne correspond à vos critères de recherche.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lignes du tableau -->
+                <mat-header-row *matHeaderRowDef="displayedColumns" class="bg-gray-50"></mat-header-row>
+                <mat-row
+                    *matRowDef="let row; columns: displayedColumns; let odd = odd"
+                    class="hover:bg-air-france-25 transition-colors duration-200 cursor-pointer border-b border-gray-100"
+                    [ngClass]="{ 'bg-gray-50/50': odd }">
+                </mat-row>
+            </mat-table>
+        </div>
+
+        <!-- Pagination et actions -->
+        <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
+            <div class="flex flex-col sm:flex-row items-center justify-between space-y-3 sm:space-y-0">
+                <!-- Info de sélection -->
+                <div class="text-sm text-gray-700">
+                    Affichage des résultats 1-{{ dataSource.data?.length || 0 }} sur {{ dataSource.data?.length || 0 }}
+                </div>
+
+                <!-- Pagination -->
+                <mat-paginator
+                    class="bg-transparent border-none"
+                    showFirstLastButtons
+                    [pageSize]="pageSize$ | async"
+                    [pageSizeOptions]="pageSizeOptions"
+                    (page)="onPageChange($event)">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

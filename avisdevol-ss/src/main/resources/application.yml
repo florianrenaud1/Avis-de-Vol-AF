@@ -1,7 +1,41 @@
 spring:
-  data:
-    mongodb:
-      uri: mongodb+srv://#username:#password@avis-de-vol-af.cpjimss.mongodb.net/?retryWrites=true&w=majority&appName=Avis-de-Vol-AF
-      database: avisdevol
+  datasource:
+    url: jdbc:postgresql://localhost:5432/avisdevol
+    username: avisdevol
+    ***REMOVED***
+    driver-class-name: org.postgresql.Driver
+  mvc:
+    servlet:
+      path: /api
+
+  jpa:
+    hibernate:
+      ddl-auto: update         
+    show-sql: true            
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true       
   application:
     name:avisdevol
+
+# Default Swagger config
+springdoc:
+  packages-to-scan: fr.florianrenaud.avisdevol.rest
+  swagger-ui:
+    enabled: true
+    path: /swagger
+    tagsSorter: alpha
+    operationsSorter: method
+    docExpansion: list
+    defaultModelRendering: example
+    defaultModelsExpandDepth: -1
+    displayRequestDuration: true
+    filter: true
+    csrf:
+      enabled: true
+    syntaxHighlight:
+      theme: arta
+  api-docs:
+    enabled: true
+    path: /v3/api-docs

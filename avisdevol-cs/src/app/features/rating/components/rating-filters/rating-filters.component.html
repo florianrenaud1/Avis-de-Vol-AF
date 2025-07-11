@@ -1,0 +1,151 @@
+@if (search$ | async; as search) {
+    <div class="bg-white rounded-xl shadow-elevation-1 mb-6 overflow-hidden">
+        <form
+            [formGroup]="searchRatingsForm"
+            (submit)="isAskingFilteredRatings$$.next(searchRatingsForm?.value); searchPanel.toggle()"
+            autocomplete="off">
+            <mat-accordion class="shadow-none">
+                <mat-expansion-panel class="bg-transparent shadow-none border-none" [expanded]="true" #searchPanel>
+                    <!-- Header des filtres -->
+                    <mat-expansion-panel-header class="bg-gradient-to-r from-air-france-600 to-air-france-700 text-white rounded-t-xl">
+                        <mat-panel-title class="font-semibold text-lg text-white flex items-center space-x-2">
+                            <mat-icon class="text-white">filter_list</mat-icon>
+                            <span>{{ 'COMMONS.LABEL.SEARCH_FILTERS' | translate }}</span>
+                        </mat-panel-title>
+
+                        <mat-panel-description class="hidden lg:flex flex-wrap gap-x-6 text-air-france-100">
+                            @if (searchRatingsForm.controls.company?.value) {
+                                <div class="flex items-center space-x-1 bg-white/20 px-3 py-1 rounded-full">
+                                    <mat-icon class="text-sm">business</mat-icon>
+                                    <span class="text-sm font-medium">
+                                        {{ searchRatingsForm.controls.company.value | truncate: [20, '...'] }}
+                                    </span>
+                                </div>
+                            }
+                            @if (searchRatingsForm.controls.airline?.value) {
+                                <div class="flex items-center space-x-1 bg-white/20 px-3 py-1 rounded-full">
+                                    <mat-icon class="text-sm">flight</mat-icon>
+                                    <span class="text-sm font-medium">
+                                        {{
+                                            searchRatingsForm.controls.airline.value.name ?? searchRatingsForm.controls.airline.value
+                                                | appTruncate: [20, '...']
+                                        }}
+                                    </span>
+                                </div>
+                            }
+                            @if (searchRatingsForm.controls.flightNumber?.value) {
+                                <div class="flex items-center space-x-1 bg-white/20 px-3 py-1 rounded-full">
+                                    <mat-icon class="text-sm">flight_takeoff</mat-icon>
+                                    <span class="text-sm font-medium">
+                                        {{ searchRatingsForm.controls.flightNumber.value }}
+                                    </span>
+                                </div>
+                            }
+                            @if (searchRatingsForm.controls.status?.value) {
+                                <div class="flex items-center space-x-1 bg-white/20 px-3 py-1 rounded-full">
+                                    <mat-icon class="text-sm">playlist_add_check</mat-icon>
+                                    <span class="text-sm font-medium">
+                                        {{ getStatusLabel(searchRatingsForm.controls.status.value) | translate }}
+                                    </span>
+                                </div>
+                            }
+                            <app-date-range-summary
+                                [label]="'COMMONS.LABEL.UPDATED' | translate"
+                                [startDate]="searchRatingsForm.controls.startDate"
+                                [endDate]="searchRatingsForm.controls.endDate">
+                            </app-date-range-summary>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <!-- Corps des filtres -->
+                    <div class="p-6 bg-gray-50">
+                        <div class="space-y-6">
+                            <!-- Première ligne : Compagnie aérienne et Numéro de vol -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Compagnie aérienne -->
+                                <div class="space-y-2">
+                                    <app-airline-autocomplete
+                                        class="w-full"
+                                        pageLoaded="accounts"
+                                        data-group
+                                        label="COMMONS.PROPERTY.AIRLINE"
+                                        [control]="searchRatingsForm.controls['airline']"
+                                        [allowFreeText]="true" />
+                                </div>
+
+                                <!-- Numéro de vol -->
+                                <div class="space-y-2">
+                                    <mat-form-field class="w-full">
+                                        <mat-label>{{ 'COMMONS.PROPERTY.FLIGHT_NUMBER' | translate }}</mat-label>
+                                        <input matInput formControlName="flightNumber" placeholder="Ex: AF123, KL456..." [maxLength]="10" />
+                                        <mat-icon matSuffix class="text-air-france-600">flight_takeoff</mat-icon>
+                                        <mat-hint>Format: 2 lettres + chiffres</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <!-- Deuxième ligne : Dates, statut de réponse et statut -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <!-- Date de début -->
+                                <div class="space-y-2">
+                                    <app-datepicker
+                                        class="w-full"
+                                        [control]="searchRatingsForm.controls.startDate"
+                                        [label]="'COMMONS.LEXICON.FROM' | translate"
+                                        [max]="searchRatingsForm.controls.endDate?.value ?? moment()"
+                                        data-startDate>
+                                    </app-datepicker>
+                                </div>
+
+                                <!-- Date de fin -->
+                                <div class="space-y-2">
+                                    <app-datepicker
+                                        class="w-full"
+                                        [control]="searchRatingsForm.controls.endDate"
+                                        [label]="'COMMONS.LEXICON.TO' | translate"
+                                        [min]="searchRatingsForm.controls.startDate?.value"
+                                        [max]="moment()"
+                                        data-endDate>
+                                    </app-datepicker>
+                                </div>
+
+                                <!-- Statut de réponse -->
+                                <div class="space-y-2">
+                                    <app-yes-no-select
+                                        [control]="searchRatingsForm.controls.answered"
+                                        [allowBlankOption]="false"
+                                        label="COMMONS.FIELD.ANSWERED">
+                                    </app-yes-no-select>
+                                </div>
+
+                                <!-- Statut -->
+                                <div class="space-y-2">
+                                    <app-rating-status-select
+                                        [control]="searchRatingsForm.controls.status"
+                                        [allowBlankOption]="true"
+                                        label="COMMONS.PROPERTY.STATUS">
+                                    </app-rating-status-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <mat-action-row class="bg-white border-t border-gray-200 px-6 py-4">
+                        <div class="flex flex-col sm:flex-row gap-3 w-full">
+                            <button mat-button type="button" class="flex-1 btn-secondary" (click)="clearForm()" data-clearBtn>
+                                <mat-icon class="mr-2">clear</mat-icon>
+                                {{ 'COMMONS.BUTTON.CLEAR' | translate }}
+                            </button>
+
+                            <button mat-flat-button class="flex-1 btn-primary" type="submit" data-searchBtn>
+                                <mat-icon class="mr-2">search</mat-icon>
+                                {{ 'COMMONS.BUTTON.SEARCH' | translate }}
+                            </button>
+                        </div>
+                    </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </form>
+    </div>
+}
