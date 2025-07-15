@@ -30,7 +30,6 @@ const createTranslateLoader = (): MultiTranslateHttpLoader => {
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: '/avis' },
     { path: 'avis', children: ratingsRoutes },
-    { path: 'accueil', loadComponent: () => import('./app/features/home/home.component').then(m => m.HomeComponent) },
     {
         path: 'create',
         loadComponent: () => import('./app/features/rating/components/rating-create/rating-create.component').then(m => m.RatingCreateComponent),
