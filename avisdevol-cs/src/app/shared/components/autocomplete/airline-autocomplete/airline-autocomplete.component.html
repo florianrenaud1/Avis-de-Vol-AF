@@ -17,7 +17,7 @@
                     <span class="ellipsis" appShowIfTruncated [matTooltip]="airline.name">{{ airline.name }}</span>
                 </mat-option>
             }
-            @if ((airline?.length ?? 0) > 4) {
+            @if ((airlines?.length ?? 0) > 4) {
                 <mat-option [disabled]="true" [value]="">
                     <span class="ellipsis pointer-events-auto" appShowIfTruncated [matTooltip]="'COMMONS.LABEL.MORE_RESULTS_LIST' | translate">
                         {{ 'COMMONS.LABEL.MORE_RESULTS_LIST' | translate }}

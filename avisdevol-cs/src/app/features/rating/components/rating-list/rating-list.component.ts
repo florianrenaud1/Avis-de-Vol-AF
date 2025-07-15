@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, AfterViewInit } from '@angular/core';
 
 import { RatingFiltersComponent } from '../rating-filters/rating-filters.component';
 import {
@@ -20,6 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterLink } from '@angular/router';
 import { App, RatingForm } from '@avisdevol-cs/core';
 import { select } from '@ngrx/store';
@@ -40,6 +42,8 @@ import { TranslateModule } from '@ngx-translate/core';
         MatPaginator,
         MatTableModule,
         MatTooltip,
+        MatSelectModule,
+        MatFormFieldModule,
         MaterialModule,
         PageTitleComponent,
         ReactiveFormsModule,
@@ -49,7 +53,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './rating-list.component.html',
     styleUrl: './rating-list.component.scss',
 })
-export class RatingListComponent extends AbstractListComponent<Rating, RatingFilters> implements OnInit {
+export class RatingListComponent extends AbstractListComponent<Rating, RatingFilters> implements OnInit, AfterViewInit {
     // Dependency injection.
     private readonly _ratingService = inject(RatingService);
 
@@ -70,6 +74,10 @@ export class RatingListComponent extends AbstractListComponent<Rating, RatingFil
     public moment = moment;
     public readonly statusOptions = RATING_STATUS_OPTIONS;
 
+    // Propriétés pour le tri mobile
+    public currentSortColumn: string = 'createdAt'; // Valeur par défaut qui correspond au tri initial de la table
+    public currentSortDirection: 'asc' | 'desc' = 'desc';
+
     /**
      * Récupère les informations d'affichage pour un statut
      */
@@ -82,6 +90,36 @@ export class RatingListComponent extends AbstractListComponent<Rating, RatingFil
                 bgColor: 'bg-gray-100',
             }
         );
+    }
+
+    /**
+     * Gère le changement de tri sur mobile
+     */
+    public onMobileSortChange(): void {
+        this.applySortToDataSource();
+    }
+
+    /**
+     * Bascule la direction du tri sur mobile
+     */
+    public toggleSortDirection(): void {
+        this.currentSortDirection = this.currentSortDirection === 'asc' ? 'desc' : 'asc';
+        this.applySortToDataSource();
+    }
+
+    /**
+     * Applique le tri actuel au dataSource
+     */
+    private applySortToDataSource(): void {
+        // Met à jour le sort de Material pour refléter le tri mobile
+        if (this.sort()) {
+            const matSort = this.sort()!;
+            matSort.active = this.currentSortColumn;
+            matSort.direction = this.currentSortDirection;
+            
+            // Déclenche le rechargement des données avec les nouveaux paramètres de tri
+            this.forceSearch$$.next();
+        }
     }
 
     /**
@@ -100,6 +138,23 @@ export class RatingListComponent extends AbstractListComponent<Rating, RatingFil
     public ngOnInit(): void {
         this.initDatasource(this._personalAccountLoader, this.filters$);
         this.forceSearch$$.next();
+    }
+
+    /**
+     * Called after the view has been initialized.
+     * Synchronizes mobile sorting with Material table sorting.
+     */
+    public ngAfterViewInit(): void {
+        // Synchronise le tri mobile avec le tri de la table Material
+
+            if (this.sort()) {
+                const matSort = this.sort()!;
+                if (matSort.active) {
+                    this.currentSortColumn = matSort.active;
+                    this.currentSortDirection = (matSort.direction as 'asc' | 'desc') || 'asc';
+                }
+            }
+
     }
 
     /**

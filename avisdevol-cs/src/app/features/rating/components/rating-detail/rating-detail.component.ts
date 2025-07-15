@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { PageTitleComponent } from '@avisdevol-cs/shared';
 import moment from 'moment';
 import { catchError, shareReplay, Subject, switchMap, tap, merge, startWith } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-rating-detail',
@@ -68,7 +69,8 @@ export class RatingDetailComponent {
                         this.refreshData$$.next();
                     })
                 )
-            )
+            ),
+            takeUntilDestroyed()
         )
         .subscribe();
 
@@ -81,7 +83,8 @@ export class RatingDetailComponent {
                         this.refreshData$$.next();
                     })
                 )
-            )
+            ),
+            takeUntilDestroyed()
         )
         .subscribe();
 

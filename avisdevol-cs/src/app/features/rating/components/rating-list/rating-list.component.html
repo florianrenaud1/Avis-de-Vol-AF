@@ -5,7 +5,6 @@
     <!-- Filtres -->
     <app-rating-filters [filters]="filters$ | async"></app-rating-filters>
 
-    <!-- Table des avis -->
     <div class="card">
         <!-- En-tête de table -->
         <div class="card-header">
@@ -28,14 +27,14 @@
             </div>
         </div>
 
-        <!-- Table -->
-        <div class="overflow-x-auto">
+        <!-- Affichage Table (Desktop) -->
+        <div class="hidden lg:block overflow-x-auto">
             <mat-table
-                id="personal-accounts-data-table"
+                id="ratings-data-table"
                 class="w-full"
                 matSort
-                matSortActive="nomUser"
-                matSortDirection="asc"
+                matSortActive="createdAt"
+                matSortDirection="desc"
                 matSortDisableClear
                 recycleRows
                 data-table
@@ -226,6 +225,139 @@
                     [ngClass]="{ 'bg-gray-50/50': odd }">
                 </mat-row>
             </mat-table>
+        </div>
+
+        <!-- Affichage Cards (Mobile & Tablet) -->
+        <div class="block lg:hidden">
+            <!-- Contrôles de tri pour mobile -->
+            <div class="bg-white rounded-lg border border-gray-200 p-4 mb-4 mx-4">
+                <div class="flex items-center justify-between space-x-4">
+                    <span class="text-sm font-medium text-gray-700">Trier par :</span>
+                    <div class="flex items-center space-x-2">
+                        <!-- Sélecteur de colonne de tri -->
+                        <mat-form-field class="w-40">
+                            <mat-select [(value)]="currentSortColumn" (selectionChange)="onMobileSortChange()">
+                                <mat-option value="rating">Note</mat-option>
+                                <mat-option value="flightNumber">Vol</mat-option>
+                                <mat-option value="createdAt">Date</mat-option>
+                                <mat-option value="airline">Compagnie</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <!-- Bouton de direction de tri -->
+                        <button
+                            mat-icon-button
+                            class="text-air-france-600"
+                            (click)="toggleSortDirection()"
+                            [matTooltip]="currentSortDirection === 'asc' ? 'Tri croissant' : 'Tri décroissant'">
+                            <mat-icon>{{ currentSortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            @if (dataSource.connect() | async; as ratings) {
+                @if (ratings && ratings.length > 0) {
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                        @for (rating of ratings; track rating.id) {
+                            <div class="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-all duration-200">
+                                <!-- Header de la card -->
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-air-france-100 rounded-full flex items-center justify-center">
+                                            <mat-icon class="text-air-france-600">flight_takeoff</mat-icon>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-gray-900">{{ rating.flightNumber }}</div>
+                                            <div class="text-sm text-gray-500">{{ rating.airline.name | titlecase }}</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Note -->
+                                    <div class="flex items-center space-x-2">
+                                        <span
+                                            class="px-3 py-1 rounded-full text-sm font-medium"
+                                            [ngClass]="{
+                                                'bg-green-100 text-green-800': rating.rating >= 4,
+                                                'bg-yellow-100 text-yellow-800': rating.rating >= 3 && rating.rating < 4,
+                                                'bg-orange-100 text-orange-800': rating.rating >= 2 && rating.rating < 3,
+                                                'bg-red-100 text-red-800': rating.rating < 2,
+                                            }">
+                                            {{ rating.rating }}/5
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Informations détaillées -->
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <!-- Date -->
+                                    <div class="flex items-center space-x-2">
+                                        <mat-icon class="text-gray-400 text-sm">date_range</mat-icon>
+                                        <span class="text-sm text-gray-600">{{ rating.createdAt | uppercase }}</span>
+                                    </div>
+
+                                    <!-- Statut de réponse -->
+                                    <div class="flex items-center space-x-2">
+                                        <mat-icon
+                                            class="text-sm"
+                                            [ngClass]="{
+                                                'text-green-600': rating.answer && rating.answer.trim().length > 0,
+                                                'text-red-600': !rating.answer || rating.answer.trim().length === 0,
+                                            }">
+                                            {{ rating.answer && rating.answer.trim().length > 0 ? 'check_circle' : 'cancel' }}
+                                        </mat-icon>
+                                        <span class="text-sm text-gray-600">
+                                            {{ rating.answer && rating.answer.trim().length > 0 ? 'Répondu' : 'Non répondu' }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Statut et actions -->
+                                <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                                    <!-- Statut -->
+                                    <div>
+                                        @if (rating.status) {
+                                            <div
+                                                class="flex items-center space-x-2 px-3 py-1 rounded-full"
+                                                [ngClass]="getStatusDisplay(rating.status).bgColor">
+                                                <div class="w-2 h-2 rounded-full" [ngClass]="getStatusDisplay(rating.status).bgColor"></div>
+                                                <span class="text-xs font-medium" [ngClass]="getStatusDisplay(rating.status).color">
+                                                    {{ getStatusDisplay(rating.status).label | translate }}
+                                                </span>
+                                            </div>
+                                        } @else {
+                                            <span class="text-gray-400 text-xs italic">Non défini</span>
+                                        }
+                                    </div>
+
+                                    <!-- Action -->
+                                    <button
+                                        class="bg-air-france-50 hover:bg-air-france-100 text-air-france-700 p-2 rounded-lg transition-all duration-200"
+                                        [routerLink]="'/avis/' + rating.id"
+                                        [matTooltip]="'COMMONS.RATING_DETAIL.TITLE' | translate">
+                                        <mat-icon class="text-sm">visibility</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                } @else {
+                    <!-- Message d'absence de données (mobile) -->
+                    <div class="text-center py-12">
+                        <div class="flex flex-col items-center space-y-4">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+                                <mat-icon class="text-gray-400 text-2xl">search_off</mat-icon>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">
+                                    {{ 'COMMONS.ERROR.NO_DATA' | translate }}
+                                </h3>
+                                <p class="text-gray-500">Aucun avis ne correspond à vos critères de recherche.</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
 
         <!-- Pagination et actions -->

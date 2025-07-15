@@ -12,8 +12,8 @@ import { MatInputModule } from '@angular/material/input';
     imports: [MatDatepickerModule, ReactiveFormsModule, TranslateModule, MatFormFieldModule, MatInputModule],
 })
 export class DatepickerComponent {
-    public readonly control = input.required<FormControl>();
-    public readonly label = input.required<string>();
-    public readonly min = input<Date | Moment>();
-    public readonly max = input<Date | Moment>();
+    public control = input.required<FormControl>();
+    public label = input.required<string>();
+    public min = input<Date | Moment>();
+    public max = input<Date | Moment>();
 }

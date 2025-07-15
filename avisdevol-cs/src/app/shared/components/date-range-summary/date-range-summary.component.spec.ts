@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
-import { ScalaAdmDateFormatPipe } from '@scalaadm-cs/shared';
 import moment from 'moment';
 
 import { DateRangeSummaryComponent } from './date-range-summary.component';
+import { DateFormatPipe } from '@avisdevol-cs/shared';
 
 describe('DateRangeSummaryComponent', () => {
     let component: DateRangeSummaryComponent;
@@ -13,12 +13,16 @@ describe('DateRangeSummaryComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [DateRangeSummaryComponent, ScalaAdmDateFormatPipe],
-            imports: [TranslateModule.forRoot()],
+            imports: [
+                DateRangeSummaryComponent,
+                DateFormatPipe,
+                TranslateModule.forRoot()
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(DateRangeSummaryComponent);
         component = fixture.componentInstance;
+
         fixture.detectChanges();
     });
 
