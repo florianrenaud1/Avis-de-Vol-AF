@@ -6,6 +6,9 @@ import fr.florianrenaud.avisdevol.dao.exceptions.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+/**
+ * Service interface for managing ratings.
+ */
 public interface RatingService {
 
 	/**
@@ -15,8 +18,19 @@ public interface RatingService {
 	 */
 	Page<RatingEntity> getRatingsByFilters(RatingFiltersResource searchFilters, Pageable pageable);
 
+	/**
+	 * Creates a new Rating.
+	 * @param ratingEntity the RatingEntity to create
+	 * @throws NotFoundException if the Rating cannot be created due to missing dependencies
+	 */
 	void createRating(RatingEntity ratingEntity) throws NotFoundException;
 
+	/**
+	 * Gets a Rating by its ID.
+	 * @param ratingId ID of the Rating to retrieve
+	 * @return RatingEntity
+	 * @throws NotFoundException if the Rating is not found
+	 */
 	RatingEntity getRatingById(Integer ratingId) throws NotFoundException;
 	
 	/**

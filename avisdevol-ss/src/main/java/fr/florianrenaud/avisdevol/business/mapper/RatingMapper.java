@@ -1,11 +1,7 @@
 package fr.florianrenaud.avisdevol.business.mapper;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -47,43 +43,4 @@ public interface RatingMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(source = "answer", target = "answer")
     RatingEntity ratingResourceToRatingEntity(RatingResource resource);
-    
-   /* @Mapping(source = "airline", target = "airline")
-    @Mapping(source = "comments", target = "comment")
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    RatingEntity ratingResourceForCreationToRatingEntity(RatingResourceForCreation resource);*/
-
-    /**
-     * Converts a Long to Integer.
-     */
-    @Named("longToInteger")
-    default Integer longToInteger(Long value) {
-        return value != null ? value.intValue() : null;
-    }
-
-    /**
-     * Converts a Long to String.
-     */
-    @Named("longToString")
-    default String longToString(Long value) {
-        return value != null ? value.toString() : null;
-    }
-
-    /**
-     * Converts an Integer to String.
-     */
-    @Named("integerToString")
-    default String integerToString(Integer value) {
-        return value != null ? value.toString() : null;
-    }
-
-    /**
-     * Converts a LocalDate to String using ISO date format.
-     */
-    @Named("localDateToString")
-    default String localDateToString(LocalDate date) {
-        return date != null ? date.format(DateTimeFormatter.ISO_LOCAL_DATE) : null;
-    }
 }

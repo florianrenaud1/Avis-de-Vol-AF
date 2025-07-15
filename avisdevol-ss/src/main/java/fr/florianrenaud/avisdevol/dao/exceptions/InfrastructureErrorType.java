@@ -9,10 +9,7 @@ public enum InfrastructureErrorType {
 
 	/* Airline not found */
 	AIRLINE_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMONS.ERROR.SERVER.AIRLINE_NOT_FOUND"),
-	RATING_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMONS.ERROR.SERVER.RATING_NOT_FOUND"),
-
-	;
-
+	RATING_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMONS.ERROR.SERVER.RATING_NOT_FOUND");
 
 	/** i18n key value. */
 	private final String i18nKey;

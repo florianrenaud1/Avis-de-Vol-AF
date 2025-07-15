@@ -14,6 +14,9 @@ import fr.florianrenaud.avisdevol.business.service.BizAirlineService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+/**
+ * Controller for managing airline endpoints.
+ */
 @RestController
 @CrossOrigin(originPatterns = "http://localhost:4200", allowCredentials = "true")
 @Tag(name = "Airline", description = "Airline endpoints")
@@ -22,10 +25,19 @@ public class AirlineController {
 	
 	private final BizAirlineService bizAirlineService;
 	
+	/**
+	 * Constructor for AirlineController.
+	 * @param bizAirlineService the BizAirlineService to use
+	 */
 	public AirlineController(BizAirlineService bizAirlineService) {
 		this.bizAirlineService = bizAirlineService;
 	}
 
+	/**
+	 * Retrieves a list of airlines by their name.
+	 * @param name the name to search for
+	 * @return List of AirlineResource matching the name
+	 */
 	@Operation(summary = "Search rating")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AirlineResource> getAirlineByName(@RequestParam("name") String name) {

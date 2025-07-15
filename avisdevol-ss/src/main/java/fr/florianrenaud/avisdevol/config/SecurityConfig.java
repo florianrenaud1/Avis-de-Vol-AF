@@ -11,6 +11,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+/**
+ * Configuration class for security settings.
+ * This class configures CORS and HTTP security for the application.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

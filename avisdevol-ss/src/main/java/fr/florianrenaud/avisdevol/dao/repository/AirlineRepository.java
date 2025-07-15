@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import fr.florianrenaud.avisdevol.dao.entity.AirlineEntity;
@@ -12,7 +14,8 @@ import fr.florianrenaud.avisdevol.dao.entity.AirlineEntity;
 @Repository
 public interface AirlineRepository  extends JpaRepository<AirlineEntity, Long>, JpaSpecificationExecutor<AirlineEntity> {
 	
-	List<AirlineEntity> findTop5ByNameContainingIgnoreCase(String name);
+	@Query("SELECT a FROM AirlineEntity a WHERE :name IS NOT NULL AND :name != '' AND LOWER(a.name) LIKE LOWER(CONCAT('%', :name, '%')) ORDER BY a.name LIMIT 5")
+	List<AirlineEntity> findTop5ByNameContainingIgnoreCase(@Param("name") String name);
 		
 	Optional<AirlineEntity> findByNameIgnoreCase(String name);
 

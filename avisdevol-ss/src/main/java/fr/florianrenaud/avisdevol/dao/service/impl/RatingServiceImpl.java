@@ -1,5 +1,6 @@
 package fr.florianrenaud.avisdevol.dao.service.impl;
 
+import fr.florianrenaud.avisdevol.business.enums.RatingStatus;
 import fr.florianrenaud.avisdevol.business.resources.RatingFiltersResource;
 import fr.florianrenaud.avisdevol.dao.entity.RatingEntity;
 import fr.florianrenaud.avisdevol.dao.exceptions.NotFoundException;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Service;
 import static fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType.AIRLINE_NOT_FOUND;
 import static fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType.RATING_NOT_FOUND;
 
+/**
+ * Implementation of the RatingService interface.
+ */
 @Service
 public class RatingServiceImpl implements RatingService {
 
@@ -34,6 +38,9 @@ public class RatingServiceImpl implements RatingService {
 		this.airlineRepository = airlineRepository;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Page<RatingEntity> getRatingsByFilters(RatingFiltersResource searchFilters, Pageable pageable) {
 		// Search rating by given filters
@@ -41,6 +48,9 @@ public class RatingServiceImpl implements RatingService {
 		return this.ratingRepository.findAll(specification, pageable);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void createRating(RatingEntity ratingEntity) throws NotFoundException {
 		// Save the rating entity
@@ -48,6 +58,9 @@ public class RatingServiceImpl implements RatingService {
 		this.ratingRepository.save(ratingEntity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public RatingEntity getRatingById(Integer ratingId) throws NotFoundException {
 		// Retrieve the rating by ID
@@ -55,42 +68,42 @@ public class RatingServiceImpl implements RatingService {
 				.orElseThrow(() -> new NotFoundException(RATING_NOT_FOUND));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public RatingEntity updateRatingComment(Integer ratingId, String comment) throws NotFoundException {
-		// Retrieve the rating by ID
 		RatingEntity ratingEntity = this.ratingRepository.findById(ratingId)
 				.orElseThrow(() -> new NotFoundException(RATING_NOT_FOUND));
 		
-		// Update the comment (replaces the existing comment)
 		ratingEntity.setComment(comment);
 		
-		// Save and return the updated entity
 		return this.ratingRepository.save(ratingEntity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void addAnswerToRating(Integer ratingId, String answer) throws NotFoundException {
-		// Retrieve the rating by ID
 		RatingEntity ratingEntity = this.ratingRepository.findById(ratingId)
 				.orElseThrow(() -> new NotFoundException(RATING_NOT_FOUND));
 		
-		// Update the answer
 		ratingEntity.setAnswer(answer);
 		
-		// Save the updated entity
 		this.ratingRepository.save(ratingEntity);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public RatingEntity updateRatingStatus(Integer ratingId, fr.florianrenaud.avisdevol.business.enums.RatingStatus status) throws NotFoundException {
-		// Retrieve the rating by ID
+	public RatingEntity updateRatingStatus(Integer ratingId, RatingStatus status) throws NotFoundException {
 		RatingEntity ratingEntity = this.ratingRepository.findById(ratingId)
 				.orElseThrow(() -> new NotFoundException(RATING_NOT_FOUND));
 		
-		// Update the status
 		ratingEntity.setStatus(status);
 		
-		// Save and return the updated entity
 		return this.ratingRepository.save(ratingEntity);
 	}
 }

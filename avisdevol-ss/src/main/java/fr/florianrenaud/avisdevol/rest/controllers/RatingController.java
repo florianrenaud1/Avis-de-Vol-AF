@@ -24,6 +24,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+/**
+ * Controller for managing ratings.
+ * Provides endpoints for creating, retrieving, and updating ratings.
+ */
 @RestController
 @CrossOrigin(originPatterns = "http://localhost:4200", allowCredentials = "true")
 @Tag(name = "Rating", description = "Rating endpoints")
@@ -32,10 +36,23 @@ public class RatingController {
 
 	private final BizRatingService bizRatingService;
 
+	/**
+	 * Constructor for RatingController.
+	 * @param bizRatingService the BizRatingService to use
+	 */
 	public RatingController(BizRatingService bizRatingService) {
 		this.bizRatingService = bizRatingService;
 	}
 
+	/**
+	 * Retrieves a pageable list of ratings based on filters.
+	 * @param filters Filter criteria
+	 * @param page Page index
+	 * @param size Number of elements
+	 * @param sortColumn Sort column
+	 * @param sortDirection Sort direction
+	 * @return pageable list of RatingResource
+	 */
 	@Operation(summary = "Search rating")
 	@PostMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Pagination<RatingResource> search(
@@ -44,7 +61,6 @@ public class RatingController {
 			@RequestParam(defaultValue = "20") int size,
 			@RequestParam(value = "col", defaultValue = "rating") String sortColumn,
 			@RequestParam(value = "direction", defaultValue = "asc") String sortDirection) {
-		// Filters are optional
 		if (filters == null) {
 			filters = new RatingFiltersResource();
 		}
@@ -52,6 +68,12 @@ public class RatingController {
 		return this.bizRatingService.getRatingsByFilters(filters, page, size, sortColumn, sortDirection);
 	}
 
+	/**
+	 * Create a new Rating.
+	 * @param createRating the RatingResource to create
+	 * @throws RestException raised if the Rating cannot be created due to validation errors
+	 * @throws NotFoundException raised if the Rating cannot be created due to missing dependencies
+	 */
 	@Operation(summary = "Create a new Rating.")
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
 	public void createRating(@RequestBody RatingResource createRating) throws RestException, NotFoundException {
@@ -95,13 +117,10 @@ public class RatingController {
 	@PutMapping(value = "/status/{ratingId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RatingResource updateStatus(@PathVariable("ratingId") Integer ratingId, @RequestBody String status) throws NotFoundException, RestException {
 		try {
-			// Convert string to RatingStatus enum
 			RatingStatus ratingStatus = RatingStatus.valueOf(status.trim().toUpperCase());
 			return this.bizRatingService.updateRatingStatus(ratingId, ratingStatus);
 		} catch (IllegalArgumentException e) {
 			throw new RestException(RestErrorType.UNPROCESSABLE_ENTITY);
 		}
 	}
-
-	
 }

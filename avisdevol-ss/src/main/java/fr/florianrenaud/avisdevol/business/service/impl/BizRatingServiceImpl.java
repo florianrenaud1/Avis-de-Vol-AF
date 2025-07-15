@@ -96,7 +96,7 @@ public class BizRatingServiceImpl implements BizRatingService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public RatingResource updateRatingStatus(Integer ratingId, fr.florianrenaud.avisdevol.business.enums.RatingStatus status) throws NotFoundException {
+	public RatingResource updateRatingStatus(Integer ratingId, RatingStatus status) throws NotFoundException {
 		// Update the rating status
 		RatingEntity updatedRatingEntity = this.ratingService.updateRatingStatus(ratingId, status);
 		// Convert the updated entity to resource and return

@@ -2,6 +2,7 @@ package fr.florianrenaud.avisdevol.business.service;
 
 import org.springframework.stereotype.Service;
 
+import fr.florianrenaud.avisdevol.business.enums.RatingStatus;
 import fr.florianrenaud.avisdevol.business.resources.RatingFiltersResource;
 import fr.florianrenaud.avisdevol.business.resources.RatingResource;
 import fr.florianrenaud.avisdevol.business.utils.Pagination;
@@ -25,8 +26,19 @@ public interface BizRatingService {
 	 */
 	Pagination<RatingResource> getRatingsByFilters(RatingFiltersResource searchFilters, int page, int size, String col, String direction);
 
+	/**
+	 * Creates a new Rating.
+	 * @param ratingResource The RatingResource to create
+	 * @throws NotFoundException if the Rating cannot be created due to missing dependencies
+	 */
 	void createRating(RatingResource ratingResource) throws NotFoundException;
 
+	/**
+	 * Gets a Rating by its ID.
+	 * @param ratingId ID of the Rating to retrieve
+	 * @return RatingResource
+	 * @throws NotFoundException if the Rating is not found
+	 */
 	RatingResource getRatingById(Integer ratingId) throws NotFoundException;
 	
 	/**
@@ -53,5 +65,5 @@ public interface BizRatingService {
 	 * @return the updated RatingResource
 	 * @throws NotFoundException if the rating is not found
 	 */
-	RatingResource updateRatingStatus(Integer ratingId, fr.florianrenaud.avisdevol.business.enums.RatingStatus status) throws NotFoundException;
+	RatingResource updateRatingStatus(Integer ratingId, RatingStatus status) throws NotFoundException;
 }

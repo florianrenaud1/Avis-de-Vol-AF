@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Generic class for pagination of domain model
- * @param <T> T is a Domain model type (can be ScalaUser, Company...)
+ * @param <T> the type of the content in the pagination
  */
 public record Pagination<T>(List<T> content, Integer totalElements, Pageable pageable) {
 }

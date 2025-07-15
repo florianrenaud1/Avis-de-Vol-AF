@@ -15,6 +15,9 @@ import fr.florianrenaud.avisdevol.utils.Helpers;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Specification for searching ratings based on various filters.
+ */
 @Component
 public class RatingSearchSpecification {
 
@@ -25,9 +28,6 @@ public class RatingSearchSpecification {
 	 */
 	public Specification<RatingEntity> getRatingSearch(@NotNull RatingFiltersResource filters) {
 		return (root, query, criteriaBuilder) -> {
-			// Only apply distinct for count queries or when not ordering
-				//query.distinct(true);
-			
 
 			Set<Predicate> predicates = new HashSet<>();
 			
@@ -66,13 +66,11 @@ public class RatingSearchSpecification {
 			// Filter by answered status
 			if (filters.getAnswered() != null) {
 				if (filters.getAnswered()) {
-					// Si answered = true, on veut les ratings qui ont une réponse (answer != null et answer != "")
 					predicates.add(criteriaBuilder.and(
 						criteriaBuilder.isNotNull(root.get("answer")),
 						criteriaBuilder.notEqual(root.get("answer"), "")
 					));
 				} else {
-					// Si answered = false, on veut les ratings sans réponse (answer == null ou answer == "")
 					predicates.add(criteriaBuilder.or(
 						criteriaBuilder.isNull(root.get("answer")),
 						criteriaBuilder.equal(root.get("answer"), "")

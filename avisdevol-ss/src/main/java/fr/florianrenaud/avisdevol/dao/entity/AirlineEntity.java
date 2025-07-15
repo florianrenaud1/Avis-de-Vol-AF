@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
+/**
+ * Entity representing an airline.
+ */
 @Entity
 @Table(name = "AIRLINE")
 @SequenceGenerator(name = "SEQ_AIRLINE", sequenceName = "SEQ_AIRLINE", allocationSize = 1)
