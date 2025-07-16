@@ -35,7 +35,6 @@ export class CreateAccountComponent {
                 tap(() => {
                     this.navigateToLogin();
                 }),
-                takeUntilDestroyed()
             )
             .subscribe();
     }

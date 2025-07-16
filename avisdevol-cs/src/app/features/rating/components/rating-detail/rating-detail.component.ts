@@ -54,7 +54,6 @@ export class RatingDetailComponent {
     public readonly ratings$ = merge(this.refreshData$$.pipe(startWith(null))).pipe(
         switchMap(() => this._ratingService.getOne(this._activatedRoute.snapshot.params['id'])),
         tap((rating: Rating) => {
-            console.log('Rating loaded:', rating);
             this.answerForm.controls['answer'].setValue(rating.answer || '');
             this.statusForm.controls['status'].setValue(rating.status || '');
         }),

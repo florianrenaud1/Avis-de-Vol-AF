@@ -37,7 +37,6 @@ export class RatingCreateComponent {
 
     public readonly createRating$: Observable<RatingForCreation> = this.submitCreateRating$$.pipe(
         switchMap((rating: RatingForCreation) => {
-            console.log('Creating rating:', rating);
             return this._ratingService.createRating(rating);
         })
     );
@@ -103,9 +102,6 @@ export class RatingCreateComponent {
                 createdAt: new Date(),
                 updatedAt: new Date(),
             };
-
-            console.log('Données du formulaire:', formValues);
-            console.log('Objet Rating créé:', newRating);
 
             this.submitCreateRating$$.next(newRating);
         } else {

@@ -60,7 +60,6 @@ export class RatingFiltersComponent {
     public readonly isAskingFilteredRatings$$: Subject<RatingFilters> = new Subject<RatingFilters>();
     public readonly search$: Observable<RatingFilters> = this.isAskingFilteredRatings$$.pipe(
         tap((ratingFilters: RatingFilters) => {
-            console.log('Search initiated with filters:', ratingFilters);
             this._store.dispatch(RatingActions.search(ratingFilters));
         }),
         shareReplay({ bufferSize: 1, refCount: true }),

@@ -16,11 +16,6 @@ export class RatingService extends AbstractHttpService<Rating, number> {
     public search(filters: Partial<RatingFilters>, page: number, size: number, col: string, direction: string): Observable<Pageable<Rating>> {
         const params = objectToHttpParams({ col, direction, page, size });
         const url = `${this.servicePath}/search`;
-        console.log('filter values:', col);
-        this.httpClient.post<Pageable<Rating>>(url, filters, { params }).subscribe({
-            next: ratings => console.log('Ratings fetched successfully:', ratings),
-            error: error => console.error('Error fetching ratings:', error),
-        });
         return this.httpClient.post<Pageable<Rating>>(url, filters, { params });
     }
 
@@ -31,7 +26,6 @@ export class RatingService extends AbstractHttpService<Rating, number> {
 
     public addAnswer(id: string, answer: string): Observable<void> {
         const url = `${this.servicePath}/answer/${id}`;
-        console.log('Adding answer:', { id, answer });
         return this.httpClient.put<void>(url, trim(answer));
     }
 
@@ -40,7 +34,6 @@ export class RatingService extends AbstractHttpService<Rating, number> {
      */
     public updateStatus(id: string, status: RatingStatus): Observable<void> {
         const url = `${this.servicePath}/status/${id}`;
-        console.log('Updating status:', { id, status });
         return this.httpClient.put<void>(url, status);
     }
 }

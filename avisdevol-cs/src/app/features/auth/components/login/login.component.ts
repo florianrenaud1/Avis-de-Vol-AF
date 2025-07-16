@@ -135,7 +135,6 @@ export class LoginComponent implements OnInit {
             .pipe(
                 tap(response => {
                     const payload: any = jwtDecode(response.token);
-                    console.log(payload.role);
                     localStorage.setItem('jwtToken', response.token);
 
                     this.isLoggedIn.set(true);

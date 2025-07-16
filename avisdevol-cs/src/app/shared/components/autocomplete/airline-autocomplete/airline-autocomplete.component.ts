@@ -54,7 +54,6 @@ export class AirlineAutocompleteComponent extends AbstractAutocompleteComponent<
      * @returns The airline name to display
      */
     public displayAirline = (airline: Airline | string): string => {
-        console.log('Display airline:', airline);
         if (airline && typeof airline === 'object') {
             return airline.name || '';
         }

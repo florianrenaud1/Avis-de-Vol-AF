@@ -61,7 +61,6 @@ export class LoginComponent {
             .pipe(
                 tap(response => {
                     const payloadRole: JwtPayload = jwtDecode(response.token);
-                    console.log(payloadRole.role);
                     localStorage.setItem('jwtToken', response.token);
                     const payload: JwtPayload = JSON.parse(atob(response.token.split('.')[1]));
                     this._store.dispatch(setUser({ token: payload.sub }));
