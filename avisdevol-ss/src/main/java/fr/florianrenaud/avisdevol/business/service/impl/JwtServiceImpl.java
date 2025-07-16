@@ -1,5 +1,6 @@
-package fr.florianrenaud.avisdevol.config;
+package fr.florianrenaud.avisdevol.business.service.impl;
 
+import fr.florianrenaud.avisdevol.business.service.JwtService;
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
@@ -13,8 +14,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+/**
+ * Service for handling JWT operations such as token generation, validation, and extraction of claims.
+ */
 @Service
-public class JwtService {
+public class JwtServiceImpl implements JwtService {
     private static final String SECRET = "#put-secret-here";
     private static final Key SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes()); 
 
@@ -63,11 +67,11 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
     
-    public Date extractExpiration(String token) {
+    private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
     
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }

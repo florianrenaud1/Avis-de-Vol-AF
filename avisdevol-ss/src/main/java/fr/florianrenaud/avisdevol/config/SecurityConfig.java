@@ -19,6 +19,12 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Configures the security filter chain for the application.
+     * @param http the HttpSecurity object to configure
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -34,6 +40,10 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Configures CORS settings for the application.
+     * @return the CorsConfigurationSource with the specified settings
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

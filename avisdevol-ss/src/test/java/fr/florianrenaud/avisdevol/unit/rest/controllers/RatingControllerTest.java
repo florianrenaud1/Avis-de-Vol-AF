@@ -38,7 +38,7 @@ import fr.florianrenaud.avisdevol.business.resources.RatingResource;
 import fr.florianrenaud.avisdevol.business.service.BizRatingService;
 import fr.florianrenaud.avisdevol.business.utils.Pagination;
 import fr.florianrenaud.avisdevol.config.JwtFilter;
-import fr.florianrenaud.avisdevol.config.JwtService;
+import fr.florianrenaud.avisdevol.business.service.impl.JwtServiceImpl;
 import fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType;
 import fr.florianrenaud.avisdevol.dao.exceptions.NotFoundException;
 import fr.florianrenaud.avisdevol.rest.controllers.RatingController;
@@ -50,7 +50,7 @@ import fr.florianrenaud.avisdevol.utils.mothers.RatingMother;
     },
     excludeFilters = @ComponentScan.Filter(
         type = FilterType.ASSIGNABLE_TYPE, 
-        classes = {JwtFilter.class, JwtService.class}
+        classes = {JwtFilter.class, JwtServiceImpl.class}
     ))
 @ActiveProfiles("test")
 class RatingControllerTest {

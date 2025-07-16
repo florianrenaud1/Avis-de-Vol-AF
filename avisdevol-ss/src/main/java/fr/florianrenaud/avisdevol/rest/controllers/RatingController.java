@@ -1,5 +1,7 @@
 package fr.florianrenaud.avisdevol.rest.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,6 +39,8 @@ public class RatingController {
 
 	private final BizRatingService bizRatingService;
 
+	private static final Logger LOG = LoggerFactory.getLogger(RatingController.class);
+
 	/**
 	 * Constructor for RatingController.
 	 * @param bizRatingService the BizRatingService to use
@@ -66,6 +70,8 @@ public class RatingController {
 			filters = new RatingFiltersResource();
 		}
 		// Force responsible as current connected user
+		LOG.info("Searching ratings with filters: {}, page: {}, size: {}, sortColumn: {}, sortDirection: {}",
+				filters, page, size, sortColumn, sortDirection);
 		return this.bizRatingService.getRatingsByFilters(filters, page, size, sortColumn, sortDirection);
 	}
 
@@ -79,6 +85,7 @@ public class RatingController {
 	@Operation(summary = "Create a new Rating.")
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
 	public void createRating(@RequestBody RatingResource createRating) throws RestException, NotFoundException {
+		LOG.info("Creating new rating: {}", createRating);
 		RatingValidator.validateRatingResource(createRating);
 		this.bizRatingService.createRating(createRating);
 	}
@@ -93,6 +100,7 @@ public class RatingController {
 	@Operation(summary = "Retrieve information of a Rating.")
 	@GetMapping(value = "/{ratingId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RatingResource getRating(@PathVariable("ratingId") Integer ratingId) throws NotFoundException {
+		LOG.info("Retrieving rating with ID: {}", ratingId);
 		return this.bizRatingService.getRatingById(ratingId);
 	}
 
@@ -122,6 +130,7 @@ public class RatingController {
 	@PutMapping(value = "/status/{ratingId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RatingResource updateStatus(@PathVariable("ratingId") Integer ratingId, @RequestBody String status) throws NotFoundException, RestException {
 		try {
+			LOG.info("Updating status of rating with ID: {} to status: {}", ratingId, status);
 			RatingStatus ratingStatus = RatingStatus.valueOf(status.trim().toUpperCase());
 			return this.bizRatingService.updateRatingStatus(ratingId, ratingStatus);
 		} catch (IllegalArgumentException e) {

@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import fr.florianrenaud.avisdevol.business.resources.AirlineResource;
 import fr.florianrenaud.avisdevol.business.service.BizAirlineService;
 import fr.florianrenaud.avisdevol.config.JwtFilter;
-import fr.florianrenaud.avisdevol.config.JwtService;
+import fr.florianrenaud.avisdevol.business.service.impl.JwtServiceImpl;
 import fr.florianrenaud.avisdevol.rest.controllers.AirlineController;
 import fr.florianrenaud.avisdevol.utils.mothers.AirlineMother;
 
@@ -36,7 +36,7 @@ import fr.florianrenaud.avisdevol.utils.mothers.AirlineMother;
     },
     excludeFilters = @ComponentScan.Filter(
         type = FilterType.ASSIGNABLE_TYPE, 
-        classes = {JwtFilter.class, JwtService.class}
+        classes = {JwtFilter.class, JwtServiceImpl.class}
     ))
 @ActiveProfiles("test")
 class AirlineControllerTest {

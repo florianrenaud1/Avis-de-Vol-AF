@@ -2,6 +2,8 @@ package fr.florianrenaud.avisdevol.rest.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Airline", description = "Airline endpoints")
 @RequestMapping("/rest/airline")
 public class AirlineController {
+
+	private static final Logger LOG = LoggerFactory.getLogger(AirlineController.class);
 	
 	private final BizAirlineService bizAirlineService;
 	
@@ -41,6 +45,7 @@ public class AirlineController {
 	@Operation(summary = "Search rating")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<AirlineResource> getAirlineByName(@RequestParam("name") String name) {
+		LOG.info("Searching airlines by name: {}", name);
 		return bizAirlineService.getAirlinesByName(name);
 	}
 

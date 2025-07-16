@@ -2,6 +2,8 @@ package fr.florianrenaud.avisdevol.business.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import fr.florianrenaud.avisdevol.business.mapper.AirlineMapper;
@@ -15,7 +17,10 @@ import fr.florianrenaud.avisdevol.dao.service.AirlineService;
  */
 @Service
 public class BizAirlineServiceImpl implements BizAirlineService {
-	
+
+	private static final Logger LOG = LoggerFactory.getLogger(BizAirlineServiceImpl.class);
+
+
 	private final AirlineService airlineService;
 	private final AirlineMapper airlineMapper;
 	
@@ -34,6 +39,7 @@ public class BizAirlineServiceImpl implements BizAirlineService {
 	 */
 	@Override
 	public List<AirlineResource> getAirlinesByName(String name) {
+		LOG.info("Searching airlines by name: {}", name);
 		List<AirlineEntity> airlinesEntities = this.airlineService.getAirlinesWhereNameContains(name);
 		return this.airlineMapper.airlineEntitiesToAirlineResources(airlinesEntities);
 	}

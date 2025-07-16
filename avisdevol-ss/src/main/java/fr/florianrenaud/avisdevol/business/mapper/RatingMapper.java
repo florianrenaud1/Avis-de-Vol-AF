@@ -36,9 +36,15 @@ public interface RatingMapper {
     @Mapping(source = "answer", target = "answer")
     RatingResource ratingEntityToRatingResource(RatingEntity entity);
 
+    /**
+     * Converts a RatingResource to a RatingEntity.
+     *
+     * @param resource the RatingResource to convert
+     * @return the converted RatingEntity
+     */
     @Mapping(source = "airline", target = "airline")
     @Mapping(source = "comments", target = "comment")
-    @Mapping(target = "id", ignore = true) // Ignorer l'ID lors de la création
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(source = "answer", target = "answer")
