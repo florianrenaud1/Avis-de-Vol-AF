@@ -130,6 +130,9 @@
         "CHANGE_STATUS": "Change Status",
         "UPDATE_SUCCESS": "Status updated successfully"
     },
+    "SELECT": {
+        "ALL": "All"
+    },
       "ERROR": {
         "REQUIRED": "Mandatory field.",
         "AT_LEAST_TEN": "At least 10 characters required.",

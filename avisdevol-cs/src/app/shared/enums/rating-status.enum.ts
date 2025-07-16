@@ -3,6 +3,11 @@
  */
 export enum RatingStatus {
     /**
+     * All statuses (for filtering)
+     */
+    ALL = 'ALL',
+
+    /**
      * Rating has been processed
      */
     PROCESSED = 'PROCESSED',
@@ -22,6 +27,15 @@ export enum RatingStatus {
  * Options for the rating status select
  */
 export const RATING_STATUS_OPTIONS = [
+    {
+        value: RatingStatus.ALL,
+        label: 'COMMONS.SELECT.ALL',
+        color: 'text-gray-600',
+        bgColor: 'bg-gray-100',
+        textColor: 'text-gray-800',
+        borderColor: 'border-gray-200',
+        dotColor: 'bg-gray-600',
+    },
     {
         value: RatingStatus.PROCESSED,
         label: 'COMMONS.STATUS.PROCESSED',

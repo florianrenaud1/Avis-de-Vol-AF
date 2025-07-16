@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import fr.florianrenaud.avisdevol.business.enums.RatingStatus;
 import fr.florianrenaud.avisdevol.business.resources.RatingFiltersResource;
 import fr.florianrenaud.avisdevol.dao.entity.RatingEntity;
 import fr.florianrenaud.avisdevol.utils.Helpers;
@@ -78,9 +79,14 @@ public class RatingSearchSpecification {
 				}
 			}
 			
-			// Filter by status
-			if (filters.getStatus() != null) {
+			// Filter by status - ignore filter if status is ALL
+			if (filters.getStatus() != null && filters.getStatus() != RatingStatus.ALL) {
 				predicates.add(criteriaBuilder.equal(root.get("status"), filters.getStatus()));
+			}
+			
+			// Filter by user ID
+			if (filters.getUserId() != null) {
+				predicates.add(criteriaBuilder.equal(root.get("user").get("id"), filters.getUserId()));
 			}
 
 			return criteriaBuilder.and(predicates.stream().filter(Objects::nonNull).toArray(Predicate[]::new));

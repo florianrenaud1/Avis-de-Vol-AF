@@ -14,7 +14,6 @@ export class RatingStatusSelectComponent {
     public readonly control = input.required<AbstractControl>();
     public readonly label = input.required<string>();
     public readonly placeholder = input<string>('');
-    public readonly allowBlankOption = input<boolean>(true);
 
     public readonly statusOptions = RATING_STATUS_OPTIONS;
 }

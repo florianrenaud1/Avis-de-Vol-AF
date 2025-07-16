@@ -206,7 +206,7 @@ export class RatingListComponent extends AbstractListComponent<Rating, RatingFil
             endDate: formFields.endDate ? moment(formFields.endDate).utc(true) : undefined,
             answered: formFields.answered,
             flightNumber: formFields.flightNumber ? formFields.flightNumber.trim() : undefined,
-            status: formFields.status,
+            status: formFields.status === RatingStatus.ALL ? undefined : formFields.status,
         };
         // Trim & remove null or empty value from result
         return trimAndCleanObject(accountFilters);
