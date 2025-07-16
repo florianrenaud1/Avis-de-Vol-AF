@@ -4,12 +4,15 @@
             <mat-icon class="text-air-france-600 text-lg">{{ icon() }}</mat-icon>
         </div>
         <div>
-            <h1 class="text-xl font-semibold text-gray-900">
+            <h1 class="text-xl font-semibold text-gray-900" 
+                [attr.aria-label]="'ACCESSIBILITY.ARIA.NAVIGATION.PAGE_TITLE' | translate">
                 {{ label() | translate: params }}
             </h1>
         </div>
         @if (infoTooltip()) {
-            <button class="p-1 text-gray-400 hover:text-gray-600 transition-colors duration-200" [matTooltip]="infoTooltip() | translate">
+            <button class="p-1 text-gray-400 hover:text-gray-600 transition-colors duration-200" 
+                    [matTooltip]="infoTooltip() | translate"
+                    [attr.aria-label]="'ACCESSIBILITY.ARIA.STATUS.INFO' | translate">
                 <mat-icon class="text-sm">help_outline</mat-icon>
             </button>
         }
@@ -21,6 +24,7 @@
             type="button"
             class="text-gray-600 hover:text-air-france-600 hover:bg-air-france-50 px-3 py-2 rounded-lg transition-all duration-200 flex items-center space-x-1"
             data-backbtn
+            [attr.aria-label]="'ACCESSIBILITY.ARIA.BACK' | translate"
             (click)="redirectToBackUrl()">
             <mat-icon class="text-sm">arrow_back</mat-icon>
             <span class="text-sm">{{ 'COMMONS.BUTTON.BACK' | translate }}</span>

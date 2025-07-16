@@ -1,6 +1,97 @@
 {
   "aria": {
     "menu": "Main menu",
-    "close": "Close"
+    "close": "Close",
+    "open": "Open",
+    "search": "Search",
+    "clear": "Clear",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "sort": "Sort",
+    "filter": "Filter",
+    "header": {
+      "logo": "Air France Logo - Back to home",
+      "language_selector": "Select language",
+      "language_menu": "Language selection menu",
+      "change_language_to": "Change language to {{language}}",
+      "login_button": "Sign in",
+      "user_menu": "User menu for {{username}}",
+      "user_menu_trigger": "Open user menu",
+      "logout": "Sign out"
+    },
+    "footer": {
+      "main": "Main footer",
+      "copyright": "Copyright information"
+    },
+    "form": {
+      "required_field": "Required field",
+      "optional_field": "Optional field",
+      "email_field": "Email address",
+      "password_field": "Password",
+      "username_field": "Username",
+      "date_field": "Select a date",
+      "date_picker": "Open date picker",
+      "rating_field": "Rating out of 5",
+      "comment_field": "Comment",
+      "flight_number": "Flight number",
+      "airline_field": "Airline",
+      "autocomplete": "Autocomplete for {{field}}",
+      "clear_field": "Clear {{field}} field",
+      "select_option": "Select an option for {{field}}"
+    },
+    "table": {
+      "sort_by": "Sort by {{column}}",
+      "sort_ascending": "Sort ascending",
+      "sort_descending": "Sort descending",
+      "row_actions": "Actions for {{item}} row",
+      "view_details": "View details of {{item}}",
+      "edit_item": "Edit {{item}}",
+      "delete_item": "Delete {{item}}",
+      "select_row": "Select {{item}} row",
+      "pagination": "Page navigation",
+      "items_per_page": "Items per page",
+      "page_info": "Page {{current}} of {{total}}"
+    },
+    "rating": {
+      "create_title": "Create new review",
+      "list_title": "Reviews list",
+      "detail_title": "Review details",
+      "filters_title": "Search filters",
+      "filters_toggle": "Show/hide filters",
+      "status_badge": "Status: {{status}}",
+      "answered_badge": "Review with response",
+      "not_answered_badge": "Review without response",
+      "rating_stars": "Rating of {{rating}} stars out of 5",
+      "flight_info": "Flight {{flightNumber}} on {{date}}",
+      "management_panel": "Management panel",
+      "response_section": "Administrative response section"
+    },
+    "auth": {
+      "login_form": "Login form",
+      "register_form": "Registration form",
+      "forgot_password": "Forgot password",
+      "show_password": "Show password",
+      "hide_password": "Hide password"
+    },
+    "navigation": {
+      "main_navigation": "Main navigation",
+      "breadcrumb": "Breadcrumb",
+      "page_title": "Page title",
+      "back_to": "Back to {{page}}",
+      "go_to": "Go to {{page}}"
+    },
+    "status": {
+      "loading": "Loading",
+      "error": "Error",
+      "success": "Success",
+      "warning": "Warning",
+      "info": "Information"
+    }
   }
 }

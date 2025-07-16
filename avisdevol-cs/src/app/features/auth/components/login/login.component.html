@@ -11,7 +11,9 @@
             </div>
 
             <div class="px-8 py-8">
-                <form class="space-y-5" [formGroup]="connexionGroup">
+                <form class="space-y-5" 
+                      [formGroup]="connexionGroup"
+                      [attr.aria-label]="'ACCESSIBILITY.ARIA.AUTH.LOGIN_FORM' | translate">
                     <div>
                         <h3 class="text-slate-700 font-medium mb-2 flex items-center">
                             <mat-icon class="mr-2 text-blue-600">person</mat-icon>
@@ -19,9 +21,13 @@
                         </h3>
                         <mat-form-field class="w-full">
                             <mat-label>{{ 'COMMONS.CONNEXIONPAGE.EMAIL' | translate }}</mat-label>
-                            <input matInput formControlName="email" placeholder="email@exemple.com" />
+                            <input matInput 
+                                   formControlName="email" 
+                                   placeholder="email@exemple.com"
+                                   [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.EMAIL_FIELD' | translate"
+                                   [attr.aria-describedby]="connexionGroup.get('email')?.hasError('required') || connexionGroup.get('email')?.hasError('email') ? 'email-error' : null" />
                             <mat-icon matPrefix class="mr-2 text-slate-500">email</mat-icon>
-                            <mat-error>
+                            <mat-error id="email-error">
                                 @if (connexionGroup.get('email')?.hasError('required')) {
                                     {{ 'COMMONS.CONNEXIONPAGE.EMAIL_REQUIRED' | translate }}
                                 }
@@ -39,10 +45,15 @@
                         </h3>
                         <mat-form-field class="w-full">
                             <mat-label>{{ 'COMMONS.CONNEXIONPAGE.PWD' | translate }}</mat-label>
-                            <input matInput type="password" formControlName="password" placeholder="••••••••" />
+                            <input matInput 
+                                   type="password" 
+                                   formControlName="password" 
+                                   placeholder="••••••••"
+                                   [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.PASSWORD_FIELD' | translate"
+                                   [attr.aria-describedby]="connexionGroup.controls.password.hasError('required') && connexionGroup.controls.password.touched ? 'password-error' : null" />
                             <mat-icon matPrefix class="mr-2 text-slate-500">lock</mat-icon>
                             @if (connexionGroup.controls.password.hasError('required') && connexionGroup.controls.password.touched) {
-                                <mat-error>
+                                <mat-error id="password-error">
                                     {{ 'COMMONS.CONNEXIONPAGE.REQUIREDPASSWORD' | translate }}
                                 </mat-error>
                             }
@@ -50,7 +61,9 @@
                     </div>
 
                     <div class="flex justify-center items-center mt-2">
-                        <a routerLink="/forgot-password" class="text-blue-600 hover:text-blue-800 text-sm transition-colors duration-300">
+                        <a routerLink="/forgot-password" 
+                           class="text-blue-600 hover:text-blue-800 text-sm transition-colors duration-300"
+                           [attr.aria-label]="'ACCESSIBILITY.ARIA.AUTH.FORGOT_PASSWORD' | translate">
                             {{ 'COMMONS.CONNEXIONPAGE.FORGOT' | translate }}
                         </a>
                     </div>
@@ -61,7 +74,8 @@
                             color="primary"
                             class="w-full py-3 px-4 rounded-md shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex justify-center items-center"
                             (click)="connexion()"
-                            [disabled]="connexionGroup.invalid">
+                            [disabled]="connexionGroup.invalid"
+                            [attr.aria-label]="'ACCESSIBILITY.ARIA.SUBMIT' | translate">
                             <span class="text-lg font-medium text-white">{{ 'COMMONS.HEADER.LOGIN' | translate }}</span>
                             <mat-icon class="ml-2">login</mat-icon>
                         </button>

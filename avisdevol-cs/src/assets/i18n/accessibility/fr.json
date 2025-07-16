@@ -1,6 +1,97 @@
 {
   "aria": {
     "menu": "Menu principal",
-    "close": "Fermer"
+    "close": "Fermer",
+    "open": "Ouvrir",
+    "search": "Rechercher",
+    "clear": "Effacer",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Sauvegarder",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "sort": "Trier",
+    "filter": "Filtrer",
+    "header": {
+      "logo": "Logo Air France - Retour à l'accueil",
+      "language_selector": "Sélectionner la langue",
+      "language_menu": "Menu de sélection de langue",
+      "change_language_to": "Changer la langue vers {{language}}",
+      "login_button": "Se connecter",
+      "user_menu": "Menu utilisateur pour {{username}}",
+      "user_menu_trigger": "Ouvrir le menu utilisateur",
+      "logout": "Se déconnecter"
+    },
+    "footer": {
+      "main": "Pied de page principal",
+      "copyright": "Informations de copyright"
+    },
+    "form": {
+      "required_field": "Champ obligatoire",
+      "optional_field": "Champ optionnel",
+      "email_field": "Adresse email",
+      "password_field": "Mot de passe",
+      "username_field": "Nom d'utilisateur",
+      "date_field": "Sélectionner une date",
+      "date_picker": "Ouvrir le sélecteur de date",
+      "rating_field": "Note sur 5",
+      "comment_field": "Commentaire",
+      "flight_number": "Numéro de vol",
+      "airline_field": "Compagnie aérienne",
+      "autocomplete": "Saisie semi-automatique pour {{field}}",
+      "clear_field": "Effacer le champ {{field}}",
+      "select_option": "Sélectionner une option pour {{field}}"
+    },
+    "table": {
+      "sort_by": "Trier par {{column}}",
+      "sort_ascending": "Tri croissant",
+      "sort_descending": "Tri décroissant",
+      "row_actions": "Actions pour la ligne {{item}}",
+      "view_details": "Voir les détails de {{item}}",
+      "edit_item": "Modifier {{item}}",
+      "delete_item": "Supprimer {{item}}",
+      "select_row": "Sélectionner la ligne {{item}}",
+      "pagination": "Navigation entre les pages",
+      "items_per_page": "Éléments par page",
+      "page_info": "Page {{current}} sur {{total}}"
+    },
+    "rating": {
+      "create_title": "Créer un nouveau avis",
+      "list_title": "Liste des avis",
+      "detail_title": "Détails de l'avis",
+      "filters_title": "Filtres de recherche",
+      "filters_toggle": "Afficher/masquer les filtres",
+      "status_badge": "Statut: {{status}}",
+      "answered_badge": "Avis avec réponse",
+      "not_answered_badge": "Avis sans réponse",
+      "rating_stars": "Note de {{rating}} étoiles sur 5",
+      "flight_info": "Vol {{flightNumber}} du {{date}}",
+      "management_panel": "Panneau de gestion",
+      "response_section": "Section de réponse administrative"
+    },
+    "auth": {
+      "login_form": "Formulaire de connexion",
+      "register_form": "Formulaire d'inscription",
+      "forgot_password": "Mot de passe oublié",
+      "show_password": "Afficher le mot de passe",
+      "hide_password": "Masquer le mot de passe"
+    },
+    "navigation": {
+      "main_navigation": "Navigation principale",
+      "breadcrumb": "Fil d'Ariane",
+      "page_title": "Titre de la page",
+      "back_to": "Retour à {{page}}",
+      "go_to": "Aller à {{page}}"
+    },
+    "status": {
+      "loading": "Chargement en cours",
+      "error": "Erreur",
+      "success": "Succès",
+      "warning": "Avertissement",
+      "info": "Information"
+    }
   }
 }
