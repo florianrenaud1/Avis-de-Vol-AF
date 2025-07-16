@@ -67,6 +67,7 @@ Avis-de-Vol-AF/
   - Un avis concerne une seule compagnie
   - Relation unidirectionnelle (`FetchType.LAZY`) pour éviter les surcharges
 - **Rating ↔ AccountEntity**
+    (je n'ai pas eu le temps d'implementer cet liaison mais j'aurais fait la meme implementation)
   - Même principe : un utilisateur peut poster plusieurs avis
 
 ---
@@ -77,6 +78,7 @@ Avis-de-Vol-AF/
 - Excellente gestion des performances
 - Support natif des types avancés (JSON, UUID…)
 - Scalabilité pour forte volumétrie
+- Base relationnelle open-source
 
 ---
 
