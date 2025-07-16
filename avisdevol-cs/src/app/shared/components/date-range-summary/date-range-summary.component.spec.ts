@@ -13,11 +13,7 @@ describe('DateRangeSummaryComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                DateRangeSummaryComponent,
-                DateFormatPipe,
-                TranslateModule.forRoot()
-            ],
+            imports: [DateRangeSummaryComponent, DateFormatPipe, TranslateModule.forRoot()],
         }).compileComponents();
 
         fixture = TestBed.createComponent(DateRangeSummaryComponent);

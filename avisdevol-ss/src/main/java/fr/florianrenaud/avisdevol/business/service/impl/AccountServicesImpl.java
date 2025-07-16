@@ -8,7 +8,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.florianrenaud.avisdevol.business.resources.AccountResources;
-import fr.florianrenaud.avisdevol.business.resources.JwtRessource;
+import fr.florianrenaud.avisdevol.business.resources.JwtResource;
 import fr.florianrenaud.avisdevol.business.enums.Role;
 import fr.florianrenaud.avisdevol.business.service.AccountServices;
 import fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType;
@@ -51,7 +51,7 @@ public class AccountServicesImpl implements AccountServices {
 	 * {@inheritDoc}
 	 */
 	@Override
-    public JwtRessource login(AccountResources account) throws AvisDeVolException {
+    public JwtResource login(AccountResources account) throws AvisDeVolException {
 		LOG.info("Logging in user");
         AccountResources accountResource = accountService.findUser(account.getEmail());
         if (accountResource == null) {
@@ -64,7 +64,7 @@ public class AccountServicesImpl implements AccountServices {
 	        throw new AvisDeVolException("Invalid credentials");
 	    }
 	    
-	    return new JwtRessource(jwtServiceImpl.generateToken(accountResource));
+	    return new JwtResource(jwtServiceImpl.generateToken(accountResource));
         
     }
 }

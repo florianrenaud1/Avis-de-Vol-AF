@@ -41,10 +41,10 @@ const appRoutes: Routes = [
         loadComponent: () => import('./app/features/auth/components/login/login.component').then(m => m.LoginComponent),
         canActivate: [guestGuard],
     },
-        {
+    {
         path: 'register',
         loadComponent: () => import('./app/features/auth/components/create-account/create-account.component').then(m => m.CreateAccountComponent),
-    canActivate: [guestGuard],
+        canActivate: [guestGuard],
     },
 ];
 

@@ -88,7 +88,8 @@
     },
     "LABEL": {
             "SEARCH_FILTERS": "Filtres de recherche",
-            "MORE_RESULTS_LIST": "Saisir une valeur pour plus de propositions..."
+            "MORE_RESULTS_LIST": "Saisir une valeur pour plus de propositions...",
+            "UPDATED" : "Mis à jour"
     },
      "LEXICON": {
         "FROM": "Du",

@@ -75,7 +75,7 @@ export class RatingListComponent extends AbstractListComponent<Rating, RatingFil
     public readonly statusOptions = RATING_STATUS_OPTIONS;
 
     // Propriétés pour le tri mobile
-    public currentSortColumn: string = 'createdAt'; // Valeur par défaut qui correspond au tri initial de la table
+    public currentSortColumn = 'createdAt'; // Valeur par défaut qui correspond au tri initial de la table
     public currentSortDirection: 'asc' | 'desc' = 'desc';
 
     /**
@@ -116,7 +116,7 @@ export class RatingListComponent extends AbstractListComponent<Rating, RatingFil
             const matSort = this.sort()!;
             matSort.active = this.currentSortColumn;
             matSort.direction = this.currentSortDirection;
-            
+
             // Déclenche le rechargement des données avec les nouveaux paramètres de tri
             this.forceSearch$$.next();
         }
@@ -147,14 +147,13 @@ export class RatingListComponent extends AbstractListComponent<Rating, RatingFil
     public ngAfterViewInit(): void {
         // Synchronise le tri mobile avec le tri de la table Material
 
-            if (this.sort()) {
-                const matSort = this.sort()!;
-                if (matSort.active) {
-                    this.currentSortColumn = matSort.active;
-                    this.currentSortDirection = (matSort.direction as 'asc' | 'desc') || 'asc';
-                }
+        if (this.sort()) {
+            const matSort = this.sort()!;
+            if (matSort.active) {
+                this.currentSortColumn = matSort.active;
+                this.currentSortDirection = (matSort.direction as 'asc' | 'desc') || 'asc';
             }
-
+        }
     }
 
     /**

@@ -4,15 +4,15 @@
             <mat-icon class="text-air-france-600 text-lg">{{ icon() }}</mat-icon>
         </div>
         <div>
-            <h1 class="text-xl font-semibold text-gray-900" 
-                [attr.aria-label]="'ACCESSIBILITY.ARIA.NAVIGATION.PAGE_TITLE' | translate">
+            <h1 class="text-xl font-semibold text-gray-900" [attr.aria-label]="'ACCESSIBILITY.ARIA.NAVIGATION.PAGE_TITLE' | translate">
                 {{ label() | translate: params }}
             </h1>
         </div>
         @if (infoTooltip()) {
-            <button class="p-1 text-gray-400 hover:text-gray-600 transition-colors duration-200" 
-                    [matTooltip]="infoTooltip() | translate"
-                    [attr.aria-label]="'ACCESSIBILITY.ARIA.STATUS.INFO' | translate">
+            <button
+                class="p-1 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                [matTooltip]="infoTooltip() | translate"
+                [attr.aria-label]="'ACCESSIBILITY.ARIA.STATUS.INFO' | translate">
                 <mat-icon class="text-sm">help_outline</mat-icon>
             </button>
         }

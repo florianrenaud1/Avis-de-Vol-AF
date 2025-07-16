@@ -2,12 +2,12 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/avisdevol
     username: avisdevol
-    password: ##password##
+    password: #Password
     driver-class-name: org.postgresql.Driver
   mvc:
     servlet:
       path: /api
-
+      
   jpa:
     hibernate:
       ddl-auto: update         
@@ -39,3 +39,5 @@ springdoc:
   api-docs:
     enabled: true
     path: /v3/api-docs
+
+debug: false

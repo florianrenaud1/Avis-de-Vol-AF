@@ -2,9 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
             <!-- Logo et titre -->
-            <div class="flex items-center space-x-4" 
-                 routerLink="/avis" 
-                 [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.LOGO' | translate">
+            <div class="flex items-center space-x-4" routerLink="/avis" [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.LOGO' | translate">
                 <div class="flex items-center space-x-3 group">
                     <div class="p-2 bg-white/10 rounded-xl group-hover:bg-white/20 transition-all duration-300">
                         <img
@@ -37,20 +35,20 @@
                         <mat-icon class="text-white text-sm">keyboard_arrow_down</mat-icon>
                     </button>
 
-                    <mat-menu #languageMenu="matMenu" 
-                              class="mt-2"
-                              [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.LANGUAGE_MENU' | translate">
-                        <button mat-menu-item 
-                                (click)="changeLanguage('fr')" 
-                                class="flex items-center space-x-2"
-                                [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.CHANGE_LANGUAGE_TO' | translate:{ language: 'Français' }">
+                    <mat-menu #languageMenu="matMenu" class="mt-2" [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.LANGUAGE_MENU' | translate">
+                        <button
+                            mat-menu-item
+                            (click)="changeLanguage('fr')"
+                            class="flex items-center space-x-2"
+                            [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.CHANGE_LANGUAGE_TO' | translate: { language: 'Français' }">
                             <span class="w-6 h-4 bg-blue-600 rounded-sm flex items-center justify-center text-xs !text-white font-bold">FR</span>
                             <span>Français</span>
                         </button>
-                        <button mat-menu-item 
-                                (click)="changeLanguage('en')" 
-                                class="flex items-center space-x-2"
-                                [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.CHANGE_LANGUAGE_TO' | translate:{ language: 'English' }">
+                        <button
+                            mat-menu-item
+                            (click)="changeLanguage('en')"
+                            class="flex items-center space-x-2"
+                            [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.CHANGE_LANGUAGE_TO' | translate: { language: 'English' }">
                             <span class="w-6 h-4 bg-red-600 rounded-sm flex items-center justify-center text-xs !text-white font-bold">EN</span>
                             <span>English</span>
                         </button>
@@ -75,7 +73,7 @@
                             mat-button
                             [matMenuTriggerFor]="userMenu"
                             class="!bg-white text-air-france-700 hover:bg-air-france-50 hover:text-air-france-800 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 shadow-sm hover:shadow-md flex items-center space-x-2 group"
-                            [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.USER_MENU_TRIGGER' | translate:{ username: username() }"
+                            [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.USER_MENU_TRIGGER' | translate: { username: username() }"
                             [attr.aria-expanded]="false"
                             aria-haspopup="true">
                             <div class="flex items-center space-x-2">
@@ -87,13 +85,15 @@
                             <mat-icon class="text-sm group-hover:scale-110 transition-transform duration-300">keyboard_arrow_down</mat-icon>
                         </button>
 
-                        <mat-menu #userMenu="matMenu" 
-                                  class="mt-2"
-                                  [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.USER_MENU' | translate:{ username: username() }">
-                            <button mat-menu-item 
-                                    (click)="logout()" 
-                                    class="flex items-center space-x-2 text-red-600"
-                                    [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.LOGOUT' | translate">
+                        <mat-menu
+                            #userMenu="matMenu"
+                            class="mt-2"
+                            [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.USER_MENU' | translate: { username: username() }">
+                            <button
+                                mat-menu-item
+                                (click)="logout()"
+                                class="flex items-center space-x-2 text-red-600"
+                                [attr.aria-label]="'ACCESSIBILITY.ARIA.HEADER.LOGOUT' | translate">
                                 <mat-icon class="text-red-600">logout</mat-icon>
                                 <span>{{ 'COMMONS.HEADER.LOGOUT' | translate }}</span>
                             </button>

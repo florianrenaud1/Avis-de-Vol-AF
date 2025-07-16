@@ -2,33 +2,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 
 import { RatingListComponent } from './rating-list.component';
 import { RatingService } from '../../../../shared/services/http/rating.service';
-import { 
-    Rating, 
-    RatingFilters, 
-    RatingStatus, 
-    Airline, 
-    Pageable,
-    ObservableDataSource 
-} from '@avisdevol-cs/shared';
+import { Rating, RatingFilters, RatingStatus, Airline, Pageable, ObservableDataSource } from '@avisdevol-cs/shared';
 
 describe('RatingListComponent', () => {
     let component: RatingListComponent;
     let fixture: ComponentFixture<RatingListComponent>;
     let mockStore: jasmine.SpyObj<Store>;
-    let mockRouter: jasmine.SpyObj<Router>;
     let mockRatingService: jasmine.SpyObj<RatingService>;
     let mockTranslateService: jasmine.SpyObj<TranslateService>;
-
-    let mockActivatedRoute: jasmine.SpyObj<ActivatedRoute>;
 
     const mockRatings: Rating[] = [
         {
@@ -41,7 +31,7 @@ describe('RatingListComponent', () => {
             comments: 'Excellent vol',
             date: new Date('2025-01-10'),
             updatedAt: new Date('2025-01-16T10:00:00Z'),
-            answer: 'Merci pour votre avis'
+            answer: 'Merci pour votre avis',
         },
         {
             id: '2',
@@ -53,8 +43,8 @@ describe('RatingListComponent', () => {
             comments: 'Vol en retard',
             date: new Date('2025-01-12'),
             updatedAt: new Date('2025-01-13T10:00:00Z'),
-            answer: undefined
-        }
+            answer: undefined,
+        },
     ];
 
     const mockPageableResponse: Pageable<Rating> = {
@@ -65,8 +55,8 @@ describe('RatingListComponent', () => {
         numberOfElements: 2,
         pageable: {
             pageNumber: 0,
-            pageSize: 10
-        }
+            pageSize: 10,
+        },
     };
 
     const mockFilters: RatingFilters = {
@@ -75,7 +65,7 @@ describe('RatingListComponent', () => {
         startDate: moment('2025-01-01'),
         endDate: moment('2025-01-31'),
         answered: true,
-        status: RatingStatus.PUBLISHED
+        status: RatingStatus.PUBLISHED,
     };
 
     beforeEach(async () => {
@@ -86,15 +76,11 @@ describe('RatingListComponent', () => {
         const activatedRouteSpy = jasmine.createSpyObj('ActivatedRoute', ['snapshot'], {
             params: of({}),
             queryParams: of({}),
-            data: of({})
+            data: of({}),
         });
 
         await TestBed.configureTestingModule({
-            imports: [
-                RatingListComponent,
-                TranslateModule.forRoot(),
-                NoopAnimationsModule
-            ],
+            imports: [RatingListComponent, TranslateModule.forRoot(), NoopAnimationsModule],
             providers: [
                 { provide: Store, useValue: storeSpy },
                 { provide: Router, useValue: routerSpy },
@@ -102,15 +88,14 @@ describe('RatingListComponent', () => {
                 { provide: RatingService, useValue: ratingServiceSpy },
                 { provide: TranslateService, useValue: translateSpy },
             ],
-            schemas: [NO_ERRORS_SCHEMA]
-        })
-        .compileComponents();
+            schemas: [NO_ERRORS_SCHEMA],
+        }).compileComponents();
 
         fixture = TestBed.createComponent(RatingListComponent);
         component = fixture.componentInstance;
         mockStore = TestBed.inject(Store) as jasmine.SpyObj<Store>;
-        mockRouter = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-        mockActivatedRoute = TestBed.inject(ActivatedRoute) as jasmine.SpyObj<ActivatedRoute>;
+        const mockRouter = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+        const mockActivatedRoute = TestBed.inject(ActivatedRoute) as jasmine.SpyObj<ActivatedRoute>;
         mockRatingService = TestBed.inject(RatingService) as jasmine.SpyObj<RatingService>;
         mockTranslateService = TestBed.inject(TranslateService) as jasmine.SpyObj<TranslateService>;
 
@@ -121,31 +106,33 @@ describe('RatingListComponent', () => {
         mockTranslateService.instant.and.returnValue('Instant translation');
 
         // Mock dataSource to avoid dependency issues
-        component.dataSource = jasmine.createSpyObj('ObservableDataSource', ['loadData']) as jasmine.SpyObj<ObservableDataSource<Rating, RatingFilters>>;
-        
+        component.dataSource = jasmine.createSpyObj('ObservableDataSource', ['loadData']) as jasmine.SpyObj<
+            ObservableDataSource<Rating, RatingFilters>
+        >;
+
         // Mock the filters$ observable directly to avoid issues with combineLatest
         Object.defineProperty(component, 'filters$', {
             value: of(mockFilters),
-            writable: false
+            writable: false,
         });
-        
+
         // Mock viewChild methods for sort and paginator to return proper mock objects
         const mockSortChange = new Subject();
         const mockPageChange = new Subject();
-        
+
         const mockSort = {
             active: 'createdAt',
             direction: 'desc',
-            sortChange: mockSortChange.asObservable()
+            sortChange: mockSortChange.asObservable(),
         };
-        
+
         const mockPaginator = {
             pageIndex: 0,
             pageSize: 10,
             length: 0,
-            page: mockPageChange.asObservable()
+            page: mockPageChange.asObservable(),
         };
-        
+
         spyOn(component, 'sort').and.returnValue(mockSort as MatSort);
         spyOn(component, 'paginator').and.returnValue(mockPaginator as MatPaginator);
     });
@@ -163,7 +150,7 @@ describe('RatingListComponent', () => {
             expect(component.statusOptions).toBeDefined();
         });
 
-        it('should setup filters observable', (done) => {
+        it('should setup filters observable', done => {
             component.filters$.subscribe(filters => {
                 expect(filters).toEqual(mockFilters);
                 done();
@@ -185,7 +172,7 @@ describe('RatingListComponent', () => {
     describe('Status Management', () => {
         it('should get status display for known status', () => {
             const display = component.getStatusDisplay(RatingStatus.PUBLISHED);
-            
+
             expect(display).toBeDefined();
             expect(display.value).toBe(RatingStatus.PUBLISHED);
         });
@@ -193,7 +180,7 @@ describe('RatingListComponent', () => {
         it('should get default status display for unknown status', () => {
             const unknownStatus = 'UNKNOWN_STATUS' as RatingStatus;
             const display = component.getStatusDisplay(unknownStatus);
-            
+
             expect(display.value).toBe(unknownStatus);
             expect(display.label).toBe('COMMONS.STATUS.UNKNOWN');
             expect(display.color).toBe('text-gray-600');
@@ -202,49 +189,44 @@ describe('RatingListComponent', () => {
     });
 
     describe('Mobile Sorting', () => {
-
         it('should handle mobile sort change', () => {
             spyOn(component as any, 'applySortToDataSource');
-            
+
             component.onMobileSortChange();
-            
+
             expect((component as any).applySortToDataSource).toHaveBeenCalled();
         });
 
         it('should toggle sort direction', () => {
             spyOn(component as any, 'applySortToDataSource');
-            
+
             component.currentSortDirection = 'asc';
             component.toggleSortDirection();
-            
+
             expect(component.currentSortDirection).toBe('desc');
             expect((component as any).applySortToDataSource).toHaveBeenCalled();
         });
 
         it('should toggle sort direction from desc to asc', () => {
             spyOn(component as any, 'applySortToDataSource');
-            
+
             component.currentSortDirection = 'desc';
             component.toggleSortDirection();
-            
+
             expect(component.currentSortDirection).toBe('asc');
         });
 
         it('should apply sort to data source', () => {
-            const mockSort = {
-                active: '',
-                direction: ''
-            };
             // Use the existing sort spy, just reset the properties
             (component.sort() as any).active = '';
             (component.sort() as any).direction = '';
             spyOn(component.forceSearch$$, 'next');
-            
+
             component.currentSortColumn = 'rating';
             component.currentSortDirection = 'asc';
-            
+
             (component as any).applySortToDataSource();
-            
+
             expect((component.sort() as any).active).toBe('rating');
             expect((component.sort() as any).direction).toBe('asc');
             expect(component.forceSearch$$.next).toHaveBeenCalled();
@@ -259,7 +241,7 @@ describe('RatingListComponent', () => {
                 startDate: moment('2025-01-15'),
                 endDate: moment('2025-01-31'),
                 answered: true,
-                status: RatingStatus.PUBLISHED
+                status: RatingStatus.PUBLISHED,
             };
 
             const result = (component as any)._computeFilters(filters);
@@ -279,12 +261,12 @@ describe('RatingListComponent', () => {
                 iataCode: 'AF',
                 icaoCode: 'AFR',
                 country: 'France',
-                active: true
+                active: true,
             };
 
             const filters: any = {
                 airline: airlineObject,
-                flightNumber: 'AF123'
+                flightNumber: 'AF123',
             };
 
             const result = (component as any)._computeFilters(filters);
@@ -313,7 +295,7 @@ describe('RatingListComponent', () => {
         it('should trim whitespace from text fields', () => {
             const filters: RatingFilters = {
                 airline: '  Air France  ',
-                flightNumber: '  AF123  '
+                flightNumber: '  AF123  ',
             };
 
             const result = (component as any)._computeFilters(filters);
@@ -333,13 +315,7 @@ describe('RatingListComponent', () => {
 
             const result = (component as any)._personalAccountLoader(filters, pageIndex, pageSize, sortCol, sortDirection);
 
-            expect(mockRatingService.search).toHaveBeenCalledWith(
-                jasmine.any(Object),
-                pageIndex,
-                pageSize,
-                sortCol,
-                sortDirection
-            );
+            expect(mockRatingService.search).toHaveBeenCalledWith(jasmine.any(Object), pageIndex, pageSize, sortCol, sortDirection);
 
             result.subscribe((data: Pageable<Rating>) => {
                 expect(data).toEqual(mockPageableResponse);
@@ -364,15 +340,15 @@ describe('RatingListComponent', () => {
             const originalSortSpy = component.sort;
             Object.defineProperty(component, 'sort', {
                 value: jasmine.createSpy('sort').and.returnValue(undefined),
-                writable: true
+                writable: true,
             });
 
             expect(() => component.ngAfterViewInit()).not.toThrow();
-            
+
             // Restore original spy
             Object.defineProperty(component, 'sort', {
                 value: originalSortSpy,
-                writable: true
+                writable: true,
             });
         });
 
@@ -412,7 +388,6 @@ describe('RatingListComponent', () => {
     });
 
     describe('Accessibility', () => {
-
         it('should have table caption for screen readers', () => {
             const caption = fixture.nativeElement.querySelector('caption.sr-only');
             expect(caption).toBeTruthy();
@@ -420,11 +395,10 @@ describe('RatingListComponent', () => {
     });
 
     describe('Error Handling', () => {
-
         it('should handle malformed filter data', () => {
             const malformedFilters = {
                 airline: { invalidProperty: 'test' },
-                startDate: 'invalid-date'
+                startDate: 'invalid-date',
             } as any;
 
             expect(() => (component as any)._computeFilters(malformedFilters)).not.toThrow();
@@ -434,7 +408,7 @@ describe('RatingListComponent', () => {
     describe('Edge Cases', () => {
         it('should handle empty airline object', () => {
             const filters: RatingFilters = {
-                airline: {} as any
+                airline: {} as any,
             };
 
             const result = (component as any)._computeFilters(filters);
@@ -443,7 +417,7 @@ describe('RatingListComponent', () => {
 
         it('should handle airline object with airline property', () => {
             const filters: RatingFilters = {
-                airline: { airline: 'Free text airline' } as any
+                airline: { airline: 'Free text airline' } as any,
             };
 
             const result = (component as any)._computeFilters(filters);
@@ -453,7 +427,7 @@ describe('RatingListComponent', () => {
         it('should handle invalid moment dates', () => {
             const filters: any = {
                 startDate: moment('invalid-date'),
-                endDate: moment('also-invalid')
+                endDate: moment('also-invalid'),
             };
 
             expect(() => (component as any)._computeFilters(filters)).not.toThrow();

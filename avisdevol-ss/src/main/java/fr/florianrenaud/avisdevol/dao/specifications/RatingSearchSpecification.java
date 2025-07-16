@@ -84,11 +84,6 @@ public class RatingSearchSpecification {
 				predicates.add(criteriaBuilder.equal(root.get("status"), filters.getStatus()));
 			}
 			
-			// Filter by user ID
-			if (filters.getUserId() != null) {
-				predicates.add(criteriaBuilder.equal(root.get("user").get("id"), filters.getUserId()));
-			}
-
 			return criteriaBuilder.and(predicates.stream().filter(Objects::nonNull).toArray(Predicate[]::new));
 		};
 	}

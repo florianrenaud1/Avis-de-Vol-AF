@@ -11,10 +11,11 @@
         readonly
         matInput
         data-datepicker />
-    <mat-datepicker-toggle matSuffix 
-                           [for]="mateDatepicker" 
-                           [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.DATE_PICKER' | translate"
-                           data-mat-datepicker-toggle></mat-datepicker-toggle>
+    <mat-datepicker-toggle
+        matSuffix
+        [for]="mateDatepicker"
+        [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.DATE_PICKER' | translate"
+        data-mat-datepicker-toggle></mat-datepicker-toggle>
     <mat-datepicker #mateDatepicker data-mat-datepicker></mat-datepicker>
     @if (control().hasError('required')) {
         <mat-error id="date-error">{{ 'COMMONS.ERROR.REQUIRED' | translate }}</mat-error>

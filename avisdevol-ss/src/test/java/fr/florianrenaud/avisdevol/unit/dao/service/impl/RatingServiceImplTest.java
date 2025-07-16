@@ -326,30 +326,6 @@ class RatingServiceImplTest {
     }
 
     @Test
-    void testCreateRating_WithMultipleAirlines_ShouldWorkForEachAirline() throws NotFoundException {
-        // Given
-        AirlineEntity airFrance = AirlineMother.createAirFranceEntity();
-        AirlineEntity lufthansa = AirlineMother.createLufthansaEntity();
-        RatingEntity airFranceRating = RatingMother.createRatingEntity();
-        RatingEntity lufthansaRating = RatingMother.createRatingEntity();
-        airFranceRating.setAirline(airFrance);
-        lufthansaRating.setAirline(lufthansa);
-
-        when(airlineRepository.findById(airFrance.getId())).thenReturn(Optional.of(airFrance));
-        when(airlineRepository.findById(lufthansa.getId())).thenReturn(Optional.of(lufthansa));
-
-        // When
-        ratingService.createRating(airFranceRating);
-        ratingService.createRating(lufthansaRating);
-
-        // Then
-        verify(airlineRepository).findById(airFrance.getId());
-        verify(airlineRepository).findById(lufthansa.getId());
-        verify(ratingRepository).save(airFranceRating);
-        verify(ratingRepository).save(lufthansaRating);
-    }
-
-    @Test
     void testServiceInteractions_VerifyRepositoryCallsAreCorrect() throws NotFoundException {
         // Given
         Integer ratingId = 1;

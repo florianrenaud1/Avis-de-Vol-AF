@@ -13,6 +13,7 @@
         "ADD_RATING": "Add Rating",
         "NO_RATINGS": "No ratings available",
         "HINT_FLIGHT": "Format: 2 letters + numbers"
+
     },
     "RATING_CREATE": {
         "TITLE": "Create Rating",
@@ -85,6 +86,7 @@
             "NOT_FOUND_DESC": "The requested review does not exist or has been deleted."
         },
         "NOTIFICATION": {
+
             "STATUS_UPDATED_SUCCESSFULLY": "Status updated successfully",
             "ANSWER_ADDED_SUCCESSFULLY": "Answer added successfully",
             "ERROR": "An error occurred, please try again later"
@@ -92,7 +94,8 @@
     },
     "LABEL": {
         "SEARCH_FILTERS": "Search filters",
-        "MORE_RESULTS_LIST": "Type a value for more proposals..."
+        "MORE_RESULTS_LIST": "Type a value for more proposals...",
+        "UPDATED" : "Updated"
       },
     "LEXICON": {
         "FROM": "From",

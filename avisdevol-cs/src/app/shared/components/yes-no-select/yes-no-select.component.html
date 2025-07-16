@@ -1,15 +1,14 @@
 <mat-form-field class="w-full">
     <mat-label>{{ label() | translate }}</mat-label>
-    <mat-select [formControl]="control()" 
-                data-type
-                [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.SELECT_OPTION' | translate:{ field: (label() | translate) }">
+    <mat-select
+        [formControl]="control()"
+        data-type
+        [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.SELECT_OPTION' | translate: { field: (label() | translate) }">
         @if (allowBlankOption()) {
-            <mat-option [value]=""
-                        [attr.aria-label]="'COMMONS.SELECT.ALL' | translate"></mat-option>
+            <mat-option [value]="" [attr.aria-label]="'COMMONS.SELECT.FIELD.ALL' | translate"></mat-option>
         }
         @for (option of [true, false]; track $index) {
-            <mat-option [value]="option"
-                        [attr.aria-label]="option | booleanPipe | translate">
+            <mat-option [value]="option" [attr.aria-label]="option | booleanPipe | translate">
                 {{ option | booleanPipe | translate }}
             </mat-option>
         }

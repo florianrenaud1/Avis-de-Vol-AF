@@ -6,47 +6,47 @@
         max-width: 80px;
         text-align: center;
     }
-    
+
     .mat-column-answered {
         width: 120px;
         max-width: 120px;
         text-align: center;
     }
-    
+
     .mat-column-status {
         width: 140px;
         max-width: 140px;
         text-align: center;
     }
-    
+
     .mat-column-createdAt {
         width: 120px;
         max-width: 120px;
         text-align: center;
     }
-    
+
     // Colonnes avec largeur flexible
     .mat-column-rating {
         width: 160px;
         min-width: 160px;
     }
-    
+
     .mat-column-flightNumber {
         min-width: 110px;
         max-width: 110px;
     }
-    
+
     .mat-column-airline {
         flex: 1;
         min-width: 200px;
     }
-    
+
     // Styles pour les cellules d'en-tête
     .mat-header-cell {
         padding: 12px 8px;
         font-weight: 600;
         color: #374151;
-        
+
         &.mat-column-action,
         &.mat-column-answered,
         &.mat-column-status,
@@ -54,11 +54,11 @@
             justify-content: center;
         }
     }
-    
+
     // Styles pour les cellules de données
     .mat-cell {
         padding: 12px 8px;
-        
+
         &.mat-column-action,
         &.mat-column-answered,
         &.mat-column-status,

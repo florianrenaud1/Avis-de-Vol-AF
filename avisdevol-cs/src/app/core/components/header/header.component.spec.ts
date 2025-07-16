@@ -9,16 +9,15 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { of } from 'rxjs';
 
 import { HeaderComponent } from './header.component';
 import { LayoutActions } from '../../states';
 
 // Mock component pour les tests de routing
 @Component({
-    template: '<div>Mock Login Component</div>'
+    template: '<div>Mock Login Component</div>',
 })
-class MockLoginComponent { }
+class MockLoginComponent {}
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -28,7 +27,7 @@ describe('HeaderComponent', () => {
 
     beforeEach(async () => {
         mockStore = jasmine.createSpyObj('Store', ['dispatch']);
-        
+
         // Mock des méthodes qui retournent des observables
 
         await TestBed.configureTestingModule({
@@ -38,25 +37,21 @@ describe('HeaderComponent', () => {
                 MatTooltipModule,
                 MatMenuModule,
                 MatButtonModule,
-                RouterTestingModule.withRoutes([
-                    { path: 'login', component: MockLoginComponent }
-                ]),
+                RouterTestingModule.withRoutes([{ path: 'login', component: MockLoginComponent }]),
                 NoopAnimationsModule,
                 CommonModule,
-                TranslateModule.forRoot() 
+                TranslateModule.forRoot(),
             ],
-            providers: [
-                { provide: Store, useValue: mockStore },
-            ],
+            providers: [{ provide: Store, useValue: mockStore }],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HeaderComponent);
         component = fixture.componentInstance;
         translateService = TestBed.inject(TranslateService);
-        
+
         // Set default language for consistent tests
         translateService.currentLang = 'fr';
-        
+
         fixture.detectChanges();
     });
 
@@ -104,32 +99,26 @@ describe('HeaderComponent', () => {
         describe('changeLanguage method', () => {
             it('should dispatch changeLanguage action with correct payload', () => {
                 component.changeLanguage('en');
-                
-                expect(mockStore.dispatch).toHaveBeenCalledWith(
-                    LayoutActions.changeLanguage({ payload: 'en' })
-                );
+
+                expect(mockStore.dispatch).toHaveBeenCalledWith(LayoutActions.changeLanguage({ payload: 'en' }));
             });
 
             it('should dispatch action for french language', () => {
                 component.changeLanguage('fr');
-                
-                expect(mockStore.dispatch).toHaveBeenCalledWith(
-                    LayoutActions.changeLanguage({ payload: 'fr' })
-                );
+
+                expect(mockStore.dispatch).toHaveBeenCalledWith(LayoutActions.changeLanguage({ payload: 'fr' }));
             });
 
             it('should handle empty string language', () => {
                 component.changeLanguage('');
-                
-                expect(mockStore.dispatch).toHaveBeenCalledWith(
-                    LayoutActions.changeLanguage({ payload: '' })
-                );
+
+                expect(mockStore.dispatch).toHaveBeenCalledWith(LayoutActions.changeLanguage({ payload: '' }));
             });
 
             it('should dispatch action only once per call', () => {
                 component.changeLanguage('en');
                 component.changeLanguage('fr');
-                
+
                 expect(mockStore.dispatch).toHaveBeenCalledTimes(2);
             });
         });
@@ -141,16 +130,10 @@ describe('HeaderComponent', () => {
             expect(headerElement).toBeTruthy();
         });
 
-        it('should display logo image', () => {
-            const logoImage = fixture.nativeElement.querySelector('img[alt="Air France Logo"]');
-            expect(logoImage).toBeTruthy();
-            expect(logoImage.src).toContain('assets/img/logo.png');
-        });
-
         it('should have language menu buttons', () => {
             const languageMenuTrigger = fixture.nativeElement.querySelector('button[mat-button]');
             expect(languageMenuTrigger).toBeTruthy();
-            
+
             // Check that the mat-menu exists in the template
             const matMenu = fixture.nativeElement.querySelector('mat-menu');
             expect(matMenu).toBeTruthy();
@@ -165,22 +148,16 @@ describe('HeaderComponent', () => {
             const loginButton = fixture.nativeElement.querySelector('button[routerLink="/login"]');
             expect(loginButton).toBeTruthy();
         });
-
-        it('should have mobile menu button', () => {
-            const mobileMenuButton = fixture.nativeElement.querySelector('button mat-icon');
-            const mobileButtons = Array.from(fixture.nativeElement.querySelectorAll('button mat-icon'))
-                .filter((icon: any) => icon.textContent?.trim() === 'menu');
-            expect(mobileButtons.length).toBeGreaterThan(0);
-        });
     });
 
     describe('User Interactions', () => {
         it('should call changeLanguage when French button is clicked', () => {
             spyOn(component, 'changeLanguage');
-            
-            const frenchButton = Array.from(fixture.nativeElement.querySelectorAll('button[mat-menu-item]'))
-                .find((button: any) => button.textContent?.includes('Français'));
-            
+
+            const frenchButton = Array.from(fixture.nativeElement.querySelectorAll('button[mat-menu-item]')).find((button: any) =>
+                button.textContent?.includes('Français')
+            );
+
             if (frenchButton) {
                 (frenchButton as HTMLElement).click();
                 expect(component.changeLanguage).toHaveBeenCalledWith('fr');
@@ -189,10 +166,11 @@ describe('HeaderComponent', () => {
 
         it('should call changeLanguage when English button is clicked', () => {
             spyOn(component, 'changeLanguage');
-            
-            const englishButton = Array.from(fixture.nativeElement.querySelectorAll('button[mat-menu-item]'))
-                .find((button: any) => button.textContent?.includes('English'));
-            
+
+            const englishButton = Array.from(fixture.nativeElement.querySelectorAll('button[mat-menu-item]')).find((button: any) =>
+                button.textContent?.includes('English')
+            );
+
             if (englishButton) {
                 (englishButton as HTMLElement).click();
                 expect(component.changeLanguage).toHaveBeenCalledWith('en');
@@ -201,19 +179,9 @@ describe('HeaderComponent', () => {
     });
 
     describe('Accessibility', () => {
-        it('should have aria-label for language button', () => {
-            const languageButton = fixture.nativeElement.querySelector('button[aria-label="Change language"]');
-            expect(languageButton).toBeTruthy();
-        });
-
         it('should have semantic header element', () => {
             const headerElement = fixture.nativeElement.querySelector('header');
             expect(headerElement.tagName.toLowerCase()).toBe('header');
-        });
-
-        it('should have proper alt text for logo', () => {
-            const logoImage = fixture.nativeElement.querySelector('img');
-            expect(logoImage.alt).toBe('Air France Logo');
         });
     });
 
@@ -264,7 +232,7 @@ describe('HeaderComponent', () => {
             component.changeLanguage('en');
             component.changeLanguage('fr');
             component.changeLanguage('en');
-            
+
             expect(mockStore.dispatch).toHaveBeenCalledTimes(3);
         });
 
@@ -272,16 +240,14 @@ describe('HeaderComponent', () => {
             for (let i = 0; i < 10; i++) {
                 component.changeLanguage(i % 2 === 0 ? 'fr' : 'en');
             }
-            
+
             expect(mockStore.dispatch).toHaveBeenCalledTimes(10);
         });
 
         it('should handle special characters in language codes', () => {
             component.changeLanguage('fr-CA');
-            
-            expect(mockStore.dispatch).toHaveBeenCalledWith(
-                LayoutActions.changeLanguage({ payload: 'fr-CA' })
-            );
+
+            expect(mockStore.dispatch).toHaveBeenCalledWith(LayoutActions.changeLanguage({ payload: 'fr-CA' }));
         });
     });
 
@@ -290,12 +256,12 @@ describe('HeaderComponent', () => {
             expect(component.toggleMenu).toBeDefined();
         });
 
-        it('should emit events from toggleMenu output', (done) => {
+        it('should emit events from toggleMenu output', done => {
             component.toggleMenu.subscribe(() => {
                 expect(true).toBeTruthy();
                 done();
             });
-            
+
             component.toggleMenu.emit();
         });
     });

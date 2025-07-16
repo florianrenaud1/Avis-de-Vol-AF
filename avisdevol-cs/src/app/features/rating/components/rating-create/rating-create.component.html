@@ -142,12 +142,12 @@
 
             <!-- Actions -->
             <div class="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-gray-200">
-                <button mat-button type="button" class="flex-1 btn-secondary" (click)="onCancel()">
+                <button mat-button type="button" class="flex-1 btn-secondary min-h-8" (click)="onCancel()">
                     <mat-icon class="mr-2">close</mat-icon>
                     {{ 'COMMONS.BUTTON.CANCEL' | translate }}
                 </button>
 
-                <button mat-flat-button type="submit" class="flex-1 btn-primary" [disabled]="ratingForm.invalid">
+                <button mat-flat-button type="submit" class="flex-1 btn-primary min-h-8" [disabled]="ratingForm.invalid">
                     <mat-icon class="mr-2">send</mat-icon>
                     {{ 'COMMONS.RATING_CREATE.ACTIONS.PUBLISH' | translate }}
                 </button>

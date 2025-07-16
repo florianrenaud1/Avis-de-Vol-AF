@@ -4,7 +4,7 @@ import fr.florianrenaud.avisdevol.business.utils.AvisDeVolException;
 import org.springframework.stereotype.Service;
 
 import fr.florianrenaud.avisdevol.business.resources.AccountResources;
-import fr.florianrenaud.avisdevol.business.resources.JwtRessource;
+import fr.florianrenaud.avisdevol.business.resources.JwtResource;
 import fr.florianrenaud.avisdevol.dao.exceptions.NotFoundException;
 
 /**
@@ -25,5 +25,5 @@ public interface AccountServices {
      * @return the account resources for the specified user
      * @throws NotFoundException if the user account is not found
      */
-    JwtRessource login(AccountResources accountResources) throws AvisDeVolException;
+    JwtResource login(AccountResources accountResources) throws AvisDeVolException;
 }

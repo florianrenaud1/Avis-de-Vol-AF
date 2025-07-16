@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.florianrenaud.avisdevol.business.resources.AccountResources;
-import fr.florianrenaud.avisdevol.business.resources.JwtRessource;
+import fr.florianrenaud.avisdevol.business.resources.JwtResource;
 import fr.florianrenaud.avisdevol.business.service.AccountServices;
 import fr.florianrenaud.avisdevol.dao.exceptions.NotFoundException;
 
@@ -47,7 +47,7 @@ public class AuthenticationController {
 	}
 
 	@PostMapping(value = "/login")
-	public JwtRessource login(@RequestBody AccountResources requestAccount) throws AvisDeVolException {
+	public JwtResource login(@RequestBody AccountResources requestAccount) throws AvisDeVolException {
 		LOG.info("Logging in user: {}", requestAccount.getUsername());
 	    return this.accountServices.login(requestAccount);
 	}

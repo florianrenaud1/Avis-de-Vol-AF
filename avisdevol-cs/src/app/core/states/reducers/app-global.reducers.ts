@@ -15,7 +15,6 @@ export interface State {
     ratings: RatingForm.State;
     page: Page.State;
     user: User.State;
-
 }
 
 /**

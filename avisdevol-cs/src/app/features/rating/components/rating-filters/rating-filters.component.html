@@ -120,9 +120,7 @@
 
                                 <!-- Statut -->
                                 <div class="space-y-2">
-                                    <app-rating-status-select
-                                        [control]="searchRatingsForm.controls.status"
-                                        label="COMMONS.PROPERTY.STATUS">
+                                    <app-rating-status-select [control]="searchRatingsForm.controls.status" label="COMMONS.PROPERTY.STATUS">
                                     </app-rating-status-select>
                                 </div>
                             </div>
@@ -132,12 +130,12 @@
                     <!-- Actions -->
                     <mat-action-row class="bg-white border-t border-gray-200 px-6 py-4">
                         <div class="flex flex-col sm:flex-row gap-3 w-full">
-                            <button mat-button type="button" class="flex-1 btn-secondary" (click)="clearForm()" data-clearBtn>
+                            <button mat-button type="button" class="flex-1 btn-secondary min-h-8" (click)="clearForm()" data-clearBtn>
                                 <mat-icon class="mr-2">clear</mat-icon>
                                 {{ 'COMMONS.BUTTON.CLEAR' | translate }}
                             </button>
 
-                            <button mat-flat-button class="flex-1 btn-primary" type="submit" data-searchBtn>
+                            <button mat-flat-button class="flex-1 btn-primary min-h-8" type="submit" data-searchBtn>
                                 <mat-icon class="mr-2">search</mat-icon>
                                 {{ 'COMMONS.BUTTON.SEARCH' | translate }}
                             </button>

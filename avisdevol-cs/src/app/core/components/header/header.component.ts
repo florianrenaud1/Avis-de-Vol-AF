@@ -10,12 +10,21 @@ import { CommonModule } from '@angular/common';
 import { App, LayoutActions } from '../../states';
 import { Store } from '@ngrx/store';
 import { jwtDecode } from 'jwt-decode';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-header',
-    imports: [MatMenuModule, MatButtonModule, MatDividerModule, TranslateModule, RouterLink, RouterLinkActive, MatIconModule, MatTooltipModule, CommonModule],
+    imports: [
+        MatMenuModule,
+        MatButtonModule,
+        MatDividerModule,
+        TranslateModule,
+        RouterLink,
+        RouterLinkActive,
+        MatIconModule,
+        MatTooltipModule,
+        CommonModule,
+    ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
 })
@@ -34,9 +43,7 @@ export class HeaderComponent implements OnInit {
 
     // Computed pour le texte du bouton de connexion
     public readonly loginButtonText = computed(() => {
-        return this.isLoggedIn() 
-            ? this.username()
-            : this._translateService.instant('COMMONS.HEADER.LOGIN');
+        return this.isLoggedIn() ? this.username() : this._translateService.instant('COMMONS.HEADER.LOGIN');
     });
 
     // Computed pour l'icône du bouton de connexion
@@ -47,14 +54,12 @@ export class HeaderComponent implements OnInit {
     ngOnInit(): void {
         this.checkAuthenticationStatus();
 
-    this._router.events.pipe(
-            filter(event => event instanceof NavigationEnd)
-        ).subscribe(() => {
+        this._router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
             this.checkAuthenticationStatus();
         });
 
         window.addEventListener('storage', event => {
-            if(event.key === 'jwtToken') {
+            if (event.key === 'jwtToken') {
                 this.checkAuthenticationStatus();
             }
         });

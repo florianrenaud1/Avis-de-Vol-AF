@@ -3,7 +3,6 @@ import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { trimAndCleanObject } from '../../helpers';
 
-
 export abstract class AbstractHttpService<T extends Record<string, any>, I> {
     // Dependency injection.
     protected readonly httpClient = inject(HttpClient);

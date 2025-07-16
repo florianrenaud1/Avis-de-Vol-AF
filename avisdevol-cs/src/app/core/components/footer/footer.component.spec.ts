@@ -2,8 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 import { FooterComponent } from './footer.component';
 
@@ -14,21 +12,14 @@ describe('FooterComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                FooterComponent,
-                TranslateModule.forRoot(),
-                MatIconModule,
-                NoopAnimationsModule,
-            ],
-            providers: [
-                TranslateService,
-            ],
+            imports: [FooterComponent, TranslateModule.forRoot(), MatIconModule, NoopAnimationsModule],
+            providers: [TranslateService],
         }).compileComponents();
 
         fixture = TestBed.createComponent(FooterComponent);
         component = fixture.componentInstance;
         translateService = TestBed.inject(TranslateService);
-        
+
         fixture.detectChanges();
     });
 

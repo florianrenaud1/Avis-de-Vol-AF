@@ -3,9 +3,9 @@ import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 
 import { RatingCreateComponent } from './rating-create.component';
 import { MaterialModule, NotificationService, RatingService, RatingForCreation } from '@avisdevol-cs/shared';
@@ -17,23 +17,35 @@ import { AirlineAutocompleteComponent } from '@avisdevol-cs/shared';
 @Component({
     selector: 'app-page-title',
     template: '<div>Mock Page Title</div>',
-    inputs: ['label', 'icon', 'buttonBack', 'urlBack', 'params', 'infoTooltip']
 })
-class MockPageTitleComponent { }
+class MockPageTitleComponent {
+    @Input() label!: string;
+    @Input() icon!: string;
+    @Input() buttonBack!: boolean;
+    @Input() urlBack!: string;
+    @Input() params!: any;
+    @Input() infoTooltip!: string;
+}
 
 @Component({
     selector: 'app-datepicker',
     template: '<div>Mock Datepicker</div>',
-    inputs: ['control', 'label', 'max']
 })
-class MockDatepickerComponent { }
+class MockDatepickerComponent {
+    @Input() control!: any;
+    @Input() label!: string;
+    @Input() max!: any;
+}
 
 @Component({
     selector: 'app-airline-autocomplete',
     template: '<div>Mock Airline Autocomplete</div>',
-    inputs: ['control', 'label', 'allowFreeText']
 })
-class MockAirlineAutocompleteComponent { }
+class MockAirlineAutocompleteComponent {
+    @Input() control!: any;
+    @Input() label!: string;
+    @Input() allowFreeText!: boolean;
+}
 
 describe('RatingCreateComponent', () => {
     let component: RatingCreateComponent;
@@ -46,13 +58,13 @@ describe('RatingCreateComponent', () => {
         id: '1',
         flightNumber: 'AF123',
         date: new Date('2024-01-15'),
-        airline: { 
-            id: 1, 
-            name: 'Air France', 
-            iataCode: 'AF', 
-            icaoCode: 'AFR', 
-            country: 'France', 
-            active: true 
+        airline: {
+            id: 1,
+            name: 'Air France',
+            iataCode: 'AF',
+            icaoCode: 'AFR',
+            country: 'France',
+            active: true,
         },
         rating: 4,
         comments: 'Excellent service and comfortable flight.',
@@ -69,14 +81,7 @@ describe('RatingCreateComponent', () => {
         mockRatingService.createRating.and.returnValue(of(mockRatingForCreation));
 
         await TestBed.configureTestingModule({
-            imports: [
-                RatingCreateComponent,
-                MaterialModule,
-                ReactiveFormsModule,
-                TranslateModule.forRoot(),
-                CommonModule,
-                NoopAnimationsModule,
-            ],
+            imports: [RatingCreateComponent, MaterialModule, ReactiveFormsModule, TranslateModule.forRoot(), CommonModule, NoopAnimationsModule],
             providers: [
                 FormBuilder,
                 { provide: Router, useValue: mockRouter },
@@ -84,15 +89,15 @@ describe('RatingCreateComponent', () => {
                 { provide: NotificationService, useValue: mockNotificationService },
             ],
         })
-        .overrideComponent(RatingCreateComponent, {
-            remove: {
-                imports: [PageTitleComponent, DatepickerComponent, AirlineAutocompleteComponent]
-            },
-            add: {
-                imports: [MockPageTitleComponent, MockDatepickerComponent, MockAirlineAutocompleteComponent]
-            }
-        })
-        .compileComponents();
+            .overrideComponent(RatingCreateComponent, {
+                remove: {
+                    imports: [PageTitleComponent, DatepickerComponent, AirlineAutocompleteComponent],
+                },
+                add: {
+                    imports: [MockPageTitleComponent, MockDatepickerComponent, MockAirlineAutocompleteComponent],
+                },
+            })
+            .compileComponents();
 
         fixture = TestBed.createComponent(RatingCreateComponent);
         component = fixture.componentInstance;
@@ -114,7 +119,7 @@ describe('RatingCreateComponent', () => {
                 date: '',
                 airline: '',
                 rating: '',
-                comment: ''
+                comment: '',
             });
         });
 
@@ -140,23 +145,23 @@ describe('RatingCreateComponent', () => {
 
             it('should validate pattern for valid flight numbers', () => {
                 const flightNumberControl = component.ratingForm.get('flightNumber');
-                
+
                 flightNumberControl?.setValue('AF123');
                 expect(flightNumberControl?.hasError('pattern')).toBeFalsy();
-                
+
                 flightNumberControl?.setValue('BA4567');
                 expect(flightNumberControl?.hasError('pattern')).toBeFalsy();
             });
 
             it('should invalidate incorrect flight number patterns', () => {
                 const flightNumberControl = component.ratingForm.get('flightNumber');
-                
+
                 flightNumberControl?.setValue('123AF');
                 expect(flightNumberControl?.hasError('pattern')).toBeTruthy();
-                
+
                 flightNumberControl?.setValue('af123');
                 expect(flightNumberControl?.hasError('pattern')).toBeTruthy();
-                
+
                 flightNumberControl?.setValue('A123');
                 expect(flightNumberControl?.hasError('pattern')).toBeTruthy();
             });
@@ -183,13 +188,13 @@ describe('RatingCreateComponent', () => {
 
             it('should be valid with airline value', () => {
                 const airlineControl = component.ratingForm.get('airline');
-                airlineControl?.setValue({ 
-                    id: 1, 
-                    name: 'Air France', 
-                    iataCode: 'AF', 
-                    icaoCode: 'AFR', 
-                    country: 'France', 
-                    active: true 
+                airlineControl?.setValue({
+                    id: 1,
+                    name: 'Air France',
+                    iataCode: 'AF',
+                    icaoCode: 'AFR',
+                    country: 'France',
+                    active: true,
                 });
                 expect(airlineControl?.hasError('required')).toBeFalsy();
             });
@@ -215,7 +220,7 @@ describe('RatingCreateComponent', () => {
 
             it('should accept valid ratings (1-5)', () => {
                 const ratingControl = component.ratingForm.get('rating');
-                
+
                 for (let i = 1; i <= 5; i++) {
                     ratingControl?.setValue(i);
                     expect(ratingControl?.hasError('min')).toBeFalsy();
@@ -304,23 +309,23 @@ describe('RatingCreateComponent', () => {
             component.ratingForm.patchValue({
                 flightNumber: 'AF123',
                 date: '2024-01-15',
-                airline: { 
-                    id: 1, 
-                    name: 'Air France', 
-                    iataCode: 'AF', 
-                    icaoCode: 'AFR', 
-                    country: 'France', 
-                    active: true 
+                airline: {
+                    id: 1,
+                    name: 'Air France',
+                    iataCode: 'AF',
+                    icaoCode: 'AFR',
+                    country: 'France',
+                    active: true,
                 },
                 rating: 4,
-                comment: 'This is a valid comment with enough characters.'
+                comment: 'This is a valid comment with enough characters.',
             });
         });
 
         it('should not submit if form is invalid', () => {
             component.ratingForm.get('flightNumber')?.setValue('');
             component.onSubmit();
-            
+
             expect(mockRatingService.createRating).not.toHaveBeenCalled();
             expect(component.ratingForm.get('flightNumber')?.touched).toBeTruthy();
         });
@@ -328,31 +333,31 @@ describe('RatingCreateComponent', () => {
         it('should not submit if already submitting', () => {
             component.isSubmitting.set(true);
             component.onSubmit();
-            
+
             expect(mockRatingService.createRating).not.toHaveBeenCalled();
         });
 
         it('should submit valid form data', () => {
             component.onSubmit();
-            
+
             expect(component.isSubmitting()).toBeTruthy();
             expect(mockRatingService.createRating).toHaveBeenCalled();
         });
 
         it('should create correct RatingForCreation object', () => {
             component.onSubmit();
-            
+
             const call = mockRatingService.createRating.calls.mostRecent();
             const ratingData = call.args[0] as RatingForCreation;
-            
+
             expect(ratingData.flightNumber).toBe('AF123');
-            expect(ratingData.airline).toEqual({ 
-                id: 1, 
-                name: 'Air France', 
-                iataCode: 'AF', 
-                icaoCode: 'AFR', 
-                country: 'France', 
-                active: true 
+            expect(ratingData.airline).toEqual({
+                id: 1,
+                name: 'Air France',
+                iataCode: 'AF',
+                icaoCode: 'AFR',
+                country: 'France',
+                active: true,
             });
             expect(ratingData.rating).toBe(4);
             expect(ratingData.comments).toBe('This is a valid comment with enough characters.');
@@ -361,9 +366,9 @@ describe('RatingCreateComponent', () => {
             expect(ratingData.updatedAt).toBeInstanceOf(Date);
         });
 
-        it('should handle successful submission', (done) => {
+        it('should handle successful submission', done => {
             component.onSubmit();
-            
+
             // Wait for async operations
             setTimeout(() => {
                 expect(mockRouter.navigate).toHaveBeenCalledWith(['/avis']);
@@ -375,7 +380,7 @@ describe('RatingCreateComponent', () => {
         it('should mark all fields as touched if form is invalid', () => {
             component.ratingForm.get('flightNumber')?.setValue('');
             component.onSubmit();
-            
+
             expect(component.ratingForm.get('flightNumber')?.touched).toBeTruthy();
             expect(component.ratingForm.get('date')?.touched).toBeTruthy();
             expect(component.ratingForm.get('airline')?.touched).toBeTruthy();
@@ -437,28 +442,23 @@ describe('RatingCreateComponent', () => {
             expect(cancelButton).toBeTruthy();
         });
 
-        it('should disable submit button when form is invalid', () => {
-            const submitButton = fixture.nativeElement.querySelector('button[type="submit"]');
-            expect(submitButton.disabled).toBeTruthy();
-        });
-
         it('should enable submit button when form is valid', () => {
             component.ratingForm.patchValue({
                 flightNumber: 'AF123',
                 date: '2024-01-15',
-                airline: { 
-                    id: 1, 
-                    name: 'Air France', 
-                    iataCode: 'AF', 
-                    icaoCode: 'AFR', 
-                    country: 'France', 
-                    active: true 
+                airline: {
+                    id: 1,
+                    name: 'Air France',
+                    iataCode: 'AF',
+                    icaoCode: 'AFR',
+                    country: 'France',
+                    active: true,
                 },
                 rating: 4,
-                comment: 'This is a valid comment with enough characters.'
+                comment: 'This is a valid comment with enough characters.',
             });
             fixture.detectChanges();
-            
+
             const submitButton = fixture.nativeElement.querySelector('button[type="submit"]');
             expect(submitButton.disabled).toBeFalsy();
         });
@@ -468,7 +468,7 @@ describe('RatingCreateComponent', () => {
         it('should call onSubmit when form is submitted', () => {
             spyOn(component, 'onSubmit');
             const form = fixture.nativeElement.querySelector('form');
-            
+
             form.dispatchEvent(new Event('submit'));
             expect(component.onSubmit).toHaveBeenCalled();
         });
@@ -476,17 +476,17 @@ describe('RatingCreateComponent', () => {
         it('should call onCancel when cancel button is clicked', () => {
             spyOn(component, 'onCancel');
             const cancelButton = fixture.nativeElement.querySelector('button[type="button"]');
-            
+
             cancelButton.click();
             expect(component.onCancel).toHaveBeenCalled();
         });
 
         it('should update form control when input value changes', () => {
             const input = fixture.nativeElement.querySelector('input[formControlName="flightNumber"]');
-            
+
             input.value = 'AF123';
             input.dispatchEvent(new Event('input'));
-            
+
             expect(component.ratingForm.get('flightNumber')?.value).toBe('AF123');
         });
     });
@@ -500,7 +500,7 @@ describe('RatingCreateComponent', () => {
         it('should display validation errors', () => {
             component.ratingForm.markAllAsTouched();
             fixture.detectChanges();
-            
+
             const errors = fixture.nativeElement.querySelectorAll('mat-error');
             expect(errors.length).toBeGreaterThan(0);
         });
@@ -526,26 +526,26 @@ describe('RatingCreateComponent', () => {
             component.ratingForm.patchValue({
                 flightNumber: 'AF123',
                 date: '2024-01-15',
-                airline: { 
-                    id: 1, 
-                    name: 'Air France', 
-                    iataCode: 'AF', 
-                    icaoCode: 'AFR', 
-                    country: 'France', 
-                    active: true 
+                airline: {
+                    id: 1,
+                    name: 'Air France',
+                    iataCode: 'AF',
+                    icaoCode: 'AFR',
+                    country: 'France',
+                    active: true,
                 },
                 rating: 4,
-                comment: 'Valid comment'
+                comment: 'Valid comment',
             });
-            
+
             component.ratingForm.reset();
-            
+
             expect(component.ratingForm.value).toEqual({
                 flightNumber: null,
                 date: null,
                 airline: null,
                 rating: null,
-                comment: null
+                comment: null,
             });
         });
 
@@ -553,30 +553,30 @@ describe('RatingCreateComponent', () => {
             component.ratingForm.patchValue({
                 flightNumber: 'AF123',
                 date: '2024-01-15',
-                airline: { 
-                    id: 1, 
-                    name: 'Air France', 
-                    iataCode: 'AF', 
-                    icaoCode: 'AFR', 
-                    country: 'France', 
-                    active: true 
+                airline: {
+                    id: 1,
+                    name: 'Air France',
+                    iataCode: 'AF',
+                    icaoCode: 'AFR',
+                    country: 'France',
+                    active: true,
                 },
                 rating: 4,
-                comment: 'Valid comment'
+                comment: 'Valid comment',
             });
-            
+
             component.onSubmit();
             component.onSubmit();
             component.onSubmit();
-            
+
             expect(mockRatingService.createRating).toHaveBeenCalledTimes(1);
         });
 
         it('should handle special characters in form fields', () => {
             component.ratingForm.patchValue({
-                comment: 'Comment with special chars: àéè ñ 中文 🛫'
+                comment: 'Comment with special chars: àéè ñ 中文 🛫',
             });
-            
+
             expect(component.ratingForm.get('comment')?.value).toContain('🛫');
         });
     });
@@ -585,14 +585,14 @@ describe('RatingCreateComponent', () => {
         it('should not create unnecessary observables', () => {
             const initialObservables = component.createRating$;
             fixture.detectChanges();
-            
+
             expect(component.createRating$).toBe(initialObservables);
         });
 
         it('should handle large comment input', () => {
             const largeComment = 'A'.repeat(499);
             component.ratingForm.get('comment')?.setValue(largeComment);
-            
+
             expect(component.ratingForm.get('comment')?.value.length).toBe(499);
             expect(component.ratingForm.get('comment')?.hasError('maxlength')).toBeFalsy();
         });

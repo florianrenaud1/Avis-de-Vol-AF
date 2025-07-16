@@ -4,30 +4,29 @@ import { Store } from '@ngrx/store';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 
-const createMockActivatedRoute = (id: string = '1') => ({
+const createMockActivatedRoute = (id = '1') => ({
     snapshot: {
-        params: { id }
-    }
+        params: { id },
+    },
 });
 
 describe('AppComponent', () => {
-    let mockStore: jasmine.SpyObj<Store>;
-     mockStore = jasmine.createSpyObj('Store', ['dispatch']);
-     let translateService: TranslateService;
-         let mockActivatedRoute: any;
+    const mockStore: jasmine.SpyObj<Store> = jasmine.createSpyObj('Store', ['dispatch']);
+    let translateService: TranslateService;
+    let mockActivatedRoute: any;
 
     beforeEach(async () => {
-                mockActivatedRoute = createMockActivatedRoute('1');
+        mockActivatedRoute = createMockActivatedRoute('1');
 
         await TestBed.configureTestingModule({
-            imports: [AppComponent, TranslateModule.forRoot() ],
+            imports: [AppComponent, TranslateModule.forRoot()],
             providers: [
-            { provide: Store, useValue: mockStore },
-            { provide: ActivatedRoute, useValue: mockActivatedRoute }
-                        ],
+                { provide: Store, useValue: mockStore },
+                { provide: ActivatedRoute, useValue: mockActivatedRoute },
+            ],
         }).compileComponents();
 
-        translateService = TestBed.inject(TranslateService);       
+        translateService = TestBed.inject(TranslateService);
         // Set default language for consistent tests
         translateService.currentLang = 'fr';
     });

@@ -22,7 +22,7 @@ public interface AirlineRepository extends JpaRepository<AirlineEntity, Long>, J
 	 * @param name the name to search for
 	 * @return a list of AirlineEntity objects
 	 */
-	@Query("SELECT a FROM AirlineEntity a WHERE :name IS NOT NULL AND :name != '' AND LOWER(a.name) LIKE LOWER(CONCAT('%', :name, '%')) ORDER BY a.name LIMIT 5")
+	@Query("SELECT DISTINCT a FROM AirlineEntity a WHERE :name IS NOT NULL AND :name != '' AND LOWER(a.name) LIKE LOWER(CONCAT('%', :name, '%')) ORDER BY a.name LIMIT 5")
 	List<AirlineEntity> findTop5ByNameContainingIgnoreCase(@Param("name") String name);
 
 	/**

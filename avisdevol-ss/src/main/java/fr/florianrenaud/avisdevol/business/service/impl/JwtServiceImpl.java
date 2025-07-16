@@ -1,6 +1,5 @@
 package fr.florianrenaud.avisdevol.business.service.impl;
 
-import fr.florianrenaud.avisdevol.business.service.JwtService;
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
@@ -9,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import fr.florianrenaud.avisdevol.business.resources.AccountResources;
+import fr.florianrenaud.avisdevol.business.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
  */
 @Service
 public class JwtServiceImpl implements JwtService {
-    private static final String SECRET = "#put-secret-here";
+    private static final String SECRET = "#secret";
     private static final Key SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes()); 
 
     

@@ -1,5 +1,15 @@
 package fr.florianrenaud.avisdevol.dao.service.impl;
 
+import static fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType.AIRLINE_NOT_FOUND;
+import static fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType.RATING_NOT_FOUND;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
 import fr.florianrenaud.avisdevol.business.enums.RatingStatus;
 import fr.florianrenaud.avisdevol.business.resources.RatingFiltersResource;
 import fr.florianrenaud.avisdevol.dao.entity.RatingEntity;
@@ -8,15 +18,6 @@ import fr.florianrenaud.avisdevol.dao.repository.AirlineRepository;
 import fr.florianrenaud.avisdevol.dao.repository.RatingRepository;
 import fr.florianrenaud.avisdevol.dao.service.RatingService;
 import fr.florianrenaud.avisdevol.dao.specifications.RatingSearchSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
-
-import static fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType.AIRLINE_NOT_FOUND;
-import static fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType.RATING_NOT_FOUND;
 
 /**
  * Implementation of the RatingService interface.

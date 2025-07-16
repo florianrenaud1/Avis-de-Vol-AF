@@ -8,18 +8,18 @@
             data-search
             [matAutocomplete]="autocomplete"
             [formControl]="control()"
-            [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.AUTOCOMPLETE' | translate:{ field: (label() | translate) }"
+            [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.AUTOCOMPLETE' | translate: { field: (label() | translate) }"
             [attr.aria-describedby]="control().hasError('required') ? 'airline-error' : null"
             (blur)="onBlur($event)"
             (keydown.enter)="onKeydownEnter($event)" />
-        <mat-autocomplete #autocomplete="matAutocomplete" 
-                          class="bg-white" 
-                          data-auto-complete 
-                          [displayWith]="displayAirline"
-                          [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.AIRLINE_FIELD' | translate">
+        <mat-autocomplete
+            #autocomplete="matAutocomplete"
+            class="bg-white"
+            data-auto-complete
+            [displayWith]="displayAirline"
+            [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.AIRLINE_FIELD' | translate">
             @for (airline of airlines | slice: 0 : 4; track airline) {
-                <mat-option [value]="airline"
-                            [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.SELECT_OPTION' | translate:{ field: airline.name }">
+                <mat-option [value]="airline" [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.SELECT_OPTION' | translate: { field: airline.name }">
                     <span class="ellipsis" appShowIfTruncated [matTooltip]="airline.name">{{ airline.name }}</span>
                 </mat-option>
             }
@@ -38,7 +38,7 @@
             data-clear-button
             tabindex="-1"
             class="mr-2"
-            [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.CLEAR_FIELD' | translate:{ field: (label() | translate) }"
+            [attr.aria-label]="'ACCESSIBILITY.ARIA.FORM.CLEAR_FIELD' | translate: { field: (label() | translate) }"
             (click)="control().reset('')">
             <mat-icon aria-hidden="true">close</mat-icon>
         </button>

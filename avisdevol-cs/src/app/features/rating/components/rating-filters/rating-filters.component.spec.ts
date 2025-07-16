@@ -2,64 +2,80 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { of } from 'rxjs';
 import moment from 'moment';
 
 import { RatingFiltersComponent } from './rating-filters.component';
-import { 
-    MaterialModule, 
-    RatingStatus, 
+import {
+    MaterialModule,
+    RatingStatus,
     RATING_STATUS_OPTIONS,
     TruncatePipe,
     DateRangeSummaryComponent,
     DatepickerComponent,
     AirlineAutocompleteComponent,
     YesNoSelectComponent,
-    RatingStatusSelectComponent
+    RatingStatusSelectComponent,
 } from '@avisdevol-cs/shared';
 import { RatingFilters } from '../../../../shared/models';
 import { RatingActions } from '../../../../core/states/actions';
-import { App, LayoutActions } from '@avisdevol-cs/core';
+import { LayoutActions } from '@avisdevol-cs/core';
 
 // Mock components
 @Component({
     selector: 'app-date-range-summary',
     template: '<div>Mock Date Range Summary</div>',
-    inputs: ['label', 'startDate', 'endDate']
 })
-class MockDateRangeSummaryComponent { }
+class MockDateRangeSummaryComponent {
+    @Input() label!: string;
+    @Input() startDate!: any;
+    @Input() endDate!: any;
+}
 
 @Component({
     selector: 'app-datepicker',
     template: '<div>Mock Datepicker</div>',
-    inputs: ['control', 'label', 'max', 'min']
 })
-class MockDatepickerComponent { }
+class MockDatepickerComponent {
+    @Input() control!: any;
+    @Input() label!: string;
+    @Input() max!: any;
+    @Input() min!: any;
+}
 
 @Component({
     selector: 'app-airline-autocomplete',
     template: '<div>Mock Airline Autocomplete</div>',
-    inputs: ['control', 'label', 'allowFreeText', 'pageLoaded']
 })
-class MockAirlineAutocompleteComponent { }
+class MockAirlineAutocompleteComponent {
+    @Input() control!: any;
+    @Input() label!: string;
+    @Input() allowFreeText!: boolean;
+    @Input() pageLoaded!: boolean;
+}
 
 @Component({
     selector: 'app-yes-no-select',
     template: '<div>Mock Yes No Select</div>',
-    inputs: ['control', 'label', 'allowBlankOption']
 })
-class MockYesNoSelectComponent { }
+class MockYesNoSelectComponent {
+    @Input() control!: any;
+    @Input() label!: string;
+    @Input() allowBlankOption!: boolean;
+}
 
 @Component({
     selector: 'app-rating-status-select',
     template: '<div>Mock Rating Status Select</div>',
-    inputs: ['control', 'label', 'allowBlankOption']
 })
-class MockRatingStatusSelectComponent { }
+class MockRatingStatusSelectComponent {
+    @Input() control!: any;
+    @Input() label!: string;
+    @Input() allowBlankOption!: boolean;
+}
 
 describe('RatingFiltersComponent', () => {
     let component: RatingFiltersComponent;
@@ -72,7 +88,7 @@ describe('RatingFiltersComponent', () => {
         startDate: moment('2024-01-01'),
         endDate: moment('2024-01-31'),
         answered: true,
-        status: RatingStatus.PROCESSED
+        status: RatingStatus.PROCESSED,
     };
 
     beforeEach(async () => {
@@ -89,32 +105,29 @@ describe('RatingFiltersComponent', () => {
                 MatExpansionModule,
                 TruncatePipe,
             ],
-            providers: [
-                FormBuilder,
-                { provide: Store, useValue: mockStore },
-            ],
+            providers: [FormBuilder, { provide: Store, useValue: mockStore }],
         })
-        .overrideComponent(RatingFiltersComponent, {
-            remove: {
-                imports: [
-                    DateRangeSummaryComponent,
-                    DatepickerComponent,
-                    AirlineAutocompleteComponent,
-                    YesNoSelectComponent,
-                    RatingStatusSelectComponent
-                ]
-            },
-            add: {
-                imports: [
-                    MockDateRangeSummaryComponent,
-                    MockDatepickerComponent,
-                    MockAirlineAutocompleteComponent,
-                    MockYesNoSelectComponent,
-                    MockRatingStatusSelectComponent
-                ]
-            }
-        })
-        .compileComponents();
+            .overrideComponent(RatingFiltersComponent, {
+                remove: {
+                    imports: [
+                        DateRangeSummaryComponent,
+                        DatepickerComponent,
+                        AirlineAutocompleteComponent,
+                        YesNoSelectComponent,
+                        RatingStatusSelectComponent,
+                    ],
+                },
+                add: {
+                    imports: [
+                        MockDateRangeSummaryComponent,
+                        MockDatepickerComponent,
+                        MockAirlineAutocompleteComponent,
+                        MockYesNoSelectComponent,
+                        MockRatingStatusSelectComponent,
+                    ],
+                },
+            })
+            .compileComponents();
 
         fixture = TestBed.createComponent(RatingFiltersComponent);
         component = fixture.componentInstance;
@@ -137,7 +150,7 @@ describe('RatingFiltersComponent', () => {
                 startDate: '',
                 endDate: '',
                 answered: '',
-                status: ''
+                status: '',
             });
         });
 
@@ -183,7 +196,7 @@ describe('RatingFiltersComponent', () => {
                 startDate: '2024-01-01',
                 endDate: '2024-01-31',
                 answered: true,
-                status: RatingStatus.PROCESSED
+                status: RatingStatus.PROCESSED,
             });
 
             expect(component.searchRatingsForm.get('airline')?.value).toBe('Air France');
@@ -219,7 +232,7 @@ describe('RatingFiltersComponent', () => {
         it('should handle partial filters input', () => {
             const partialFilters: Partial<RatingFilters> = {
                 airline: 'KLM',
-                status: RatingStatus.PUBLISHED
+                status: RatingStatus.PUBLISHED,
             };
 
             fixture.componentRef.setInput('filters', partialFilters);
@@ -240,7 +253,7 @@ describe('RatingFiltersComponent', () => {
                 startDate: '2024-01-01',
                 endDate: '2024-01-31',
                 answered: true,
-                status: RatingStatus.PROCESSED
+                status: RatingStatus.PROCESSED,
             });
         });
 
@@ -284,7 +297,7 @@ describe('RatingFiltersComponent', () => {
                 startDate: '2024-01-01',
                 endDate: '2024-01-31',
                 answered: true,
-                status: RatingStatus.PROCESSED
+                status: RatingStatus.PROCESSED,
             });
         });
 
@@ -295,7 +308,7 @@ describe('RatingFiltersComponent', () => {
 
         it('should reset form to initial state', () => {
             component.clearForm();
-            
+
             const formValue = component.searchRatingsForm.value;
             // When reset({}) is called, form controls get null values
             expect(formValue.airline).toBeNull();
@@ -333,24 +346,22 @@ describe('RatingFiltersComponent', () => {
     describe('Search Functionality', () => {
         it('should emit search when form is submitted', () => {
             spyOn(component.isAskingFilteredRatings$$, 'next');
-            
+
             component.searchRatingsForm.patchValue({
                 airline: 'Air France',
-                flightNumber: 'AF123'
+                flightNumber: 'AF123',
             });
 
             const form = fixture.nativeElement.querySelector('form');
             form.dispatchEvent(new Event('submit'));
 
-            expect(component.isAskingFilteredRatings$$.next).toHaveBeenCalledWith(
-                component.searchRatingsForm.value
-            );
+            expect(component.isAskingFilteredRatings$$.next).toHaveBeenCalledWith(component.searchRatingsForm.value);
         });
 
         it('should dispatch search action when search is triggered', () => {
             const filters: RatingFilters = {
                 airline: 'Air France',
-                flightNumber: 'AF123'
+                flightNumber: 'AF123',
             };
 
             // Trigger search directly
@@ -427,7 +438,7 @@ describe('RatingFiltersComponent', () => {
         it('should call clearForm when clear button is clicked', () => {
             spyOn(component, 'clearForm');
             const clearButton = fixture.nativeElement.querySelector('button[data-clearBtn]');
-            
+
             clearButton.click();
             expect(component.clearForm).toHaveBeenCalled();
         });
@@ -435,17 +446,17 @@ describe('RatingFiltersComponent', () => {
         it('should submit form when search button is clicked', () => {
             spyOn(component.isAskingFilteredRatings$$, 'next');
             const searchButton = fixture.nativeElement.querySelector('button[data-searchBtn]');
-            
+
             searchButton.click();
             expect(component.isAskingFilteredRatings$$.next).toHaveBeenCalled();
         });
 
         it('should update form control when input value changes', () => {
             const input = fixture.nativeElement.querySelector('input[formControlName="flightNumber"]');
-            
+
             input.value = 'KL456';
             input.dispatchEvent(new Event('input'));
-            
+
             expect(component.searchRatingsForm.get('flightNumber')?.value).toBe('KL456');
         });
     });
@@ -455,7 +466,7 @@ describe('RatingFiltersComponent', () => {
             component.searchRatingsForm.patchValue({
                 airline: { name: 'Air France', iataCode: 'AF' },
                 flightNumber: 'AF123',
-                status: RatingStatus.PROCESSED
+                status: RatingStatus.PROCESSED,
             });
             fixture.detectChanges();
         });
@@ -490,7 +501,7 @@ describe('RatingFiltersComponent', () => {
         it('should have proper button types', () => {
             const clearButton = fixture.nativeElement.querySelector('button[data-clearBtn]');
             const searchButton = fixture.nativeElement.querySelector('button[data-searchBtn]');
-            
+
             expect(clearButton.type).toBe('button');
             expect(searchButton.type).toBe('submit');
         });
@@ -517,18 +528,18 @@ describe('RatingFiltersComponent', () => {
             component.searchRatingsForm.patchValue({
                 airline: 'Air France',
                 flightNumber: 'AF123',
-                answered: true
+                answered: true,
             });
-            
+
             component.searchRatingsForm.reset();
-            
+
             expect(component.searchRatingsForm.value).toEqual({
                 airline: null,
                 flightNumber: null,
                 startDate: null,
                 endDate: null,
                 answered: null,
-                status: null
+                status: null,
             });
         });
 
@@ -545,12 +556,12 @@ describe('RatingFiltersComponent', () => {
 
         it('should handle multiple rapid form submissions', () => {
             spyOn(component.isAskingFilteredRatings$$, 'next');
-            
+
             const form = fixture.nativeElement.querySelector('form');
             form.dispatchEvent(new Event('submit'));
             form.dispatchEvent(new Event('submit'));
             form.dispatchEvent(new Event('submit'));
-            
+
             expect(component.isAskingFilteredRatings$$.next).toHaveBeenCalledTimes(3);
         });
     });
@@ -559,7 +570,7 @@ describe('RatingFiltersComponent', () => {
         it('should not create unnecessary observables', () => {
             const initialSearch$ = component.search$;
             fixture.detectChanges();
-            
+
             expect(component.search$).toBe(initialSearch$);
         });
 
@@ -567,7 +578,7 @@ describe('RatingFiltersComponent', () => {
             for (let i = 0; i < 10; i++) {
                 component.searchRatingsForm.get('flightNumber')?.setValue(`AF${i}`);
             }
-            
+
             expect(component.searchRatingsForm.get('flightNumber')?.value).toBe('AF9');
         });
     });
@@ -575,34 +586,30 @@ describe('RatingFiltersComponent', () => {
     describe('Integration with Store', () => {
         it('should dispatch correct search action type', () => {
             const filters: RatingFilters = { airline: 'Test Airline' };
-            
+
             // Clear any previous calls
             mockStore.dispatch.calls.reset();
-            
+
             // Trigger search
             component.isAskingFilteredRatings$$.next(filters);
-            
+
             // Verify dispatch was called
             expect(mockStore.dispatch).toHaveBeenCalled();
             const dispatchCalls = mockStore.dispatch.calls.all();
-            const searchCall = dispatchCalls.find(call => 
-                call.args[0] && typeof call.args[0] === 'object' && 'type' in call.args[0]
-            );
+            const searchCall = dispatchCalls.find(call => call.args[0] && typeof call.args[0] === 'object' && 'type' in call.args[0]);
             expect(searchCall).toBeTruthy();
         });
 
         it('should dispatch reset filters action when clearing form', () => {
             // Clear any previous calls
             mockStore.dispatch.calls.reset();
-            
+
             component.clearForm();
-            
+
             // Verify dispatch was called
             expect(mockStore.dispatch).toHaveBeenCalled();
             const dispatchCalls = mockStore.dispatch.calls.all();
-            const resetCall = dispatchCalls.find(call => 
-                call.args[0] && typeof call.args[0] === 'object' && 'type' in call.args[0]
-            );
+            const resetCall = dispatchCalls.find(call => call.args[0] && typeof call.args[0] === 'object' && 'type' in call.args[0]);
             expect(resetCall).toBeTruthy();
         });
     });
