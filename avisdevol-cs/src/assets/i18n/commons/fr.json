@@ -4,13 +4,15 @@
         "TITLE": "Avis de Vol",
         "DESCRIPTION": "Partagez votre expérience de vol",
         "ACCUEIL": "Accueil",
-        "LOGIN": "Connexion"
+        "LOGIN": "Connexion",
+        "LOGOUT": "Déconnexion"
     },
     "RATING_LIST": {
         "TITLE": "Liste des avis",
         "DESCRIPTION": "Liste de tous les avis",
         "ADD_RATING": "Ajouter un avis",
-        "NO_RATINGS": "Aucun avis disponible"
+        "NO_RATINGS": "Aucun avis disponible",
+        "HINT_FLIGHT": "Format: 2 lettres + chiffres"
     },
     "RATING_CREATE": {
         "TITLE": "Créer un avis",
@@ -141,6 +143,39 @@
       },
   "NOTIFICATION": {
         "CREATE_SUCCESS": "Avis créé avec succès"
-      }
+      },
+      "CONNEXIONPAGE": {
+                "EMAIL": "Email",
+                "PWD": "Mot de passe",
+                "CONNECT": "Connexion",
+                "INVALIDEMAIL": "Veuillez saisir une adresse mail valide",
+                "REQUIREDEMAIL": "Un email est requis",
+                "REQUIREDPASSWORD": "Un mot de passe est requis",
+                "REGISTER": "Créer un compte",
+                "CONNEXION_BACK":"Retourner à la page de connexion",
+                "FORGOT_PASSWORD": "Mot de passe oublié ?",
+                "FORGOT": "Mot de passe oublié ?",
+                "REMEMBER": "Se souvenir de moi",
+                "OR": "ou",
+                "GOOGLE": "Continuer avec Google",
+                "CREATE": "Créer un compte",
+                "TERMS_INTRO": "En vous connectant, vous acceptez nos",
+                "TERMS": "Conditions d'utilisation",
+                "AND": "et",
+                "PRIVACY": "Politique de confidentialité",
+                "WELCOME": "Bienvenue",
+                "DASHBOARD": "Aller au tableau de bord",
+                "LOGOUT": "Déconnexion",
+                "SESSION_EXPIRED": "Votre session a expiré. Veuillez vous reconnecter.",
+                "INVALID_TOKEN": "Token de session invalide. Veuillez vous reconnecter.",
+                "LOGIN_REQUIRED": "Veuillez vous connecter pour accéder à cette page."
+            },            "REGISTER": {
+                "TITLE": "Créer un compte",
+                "CREATE": "Créer le compte",
+                "PSEUDO": "Pseudo",
+                "PSEUDO_PLACEHOLDER": "Ex: Jean Dupont",
+                "PSEUDO_REQUIRED": "Le pseudo est requis",
+                "ALREADY_HAVE_ACCOUNT": "Vous avez déjà un compte ?"
+            }
 }
 }

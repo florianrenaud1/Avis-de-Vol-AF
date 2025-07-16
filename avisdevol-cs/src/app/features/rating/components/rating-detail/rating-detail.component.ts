@@ -9,6 +9,7 @@ import {
     RatingStatus,
     RATING_STATUS_OPTIONS,
     RatingStatusSelectComponent,
+    AuthenticationService,
 } from '@avisdevol-cs/shared';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
@@ -30,6 +31,7 @@ export class RatingDetailComponent {
     private readonly _ratingService = inject(RatingService);
     private readonly _formBuilder = inject(FormBuilder);
     private readonly _notificationService = inject(NotificationService);
+    private readonly _authenticationService = inject(AuthenticationService);
     private readonly addAnswer$$: Subject<void> = new Subject<void>();
     private readonly updateStatus$$: Subject<RatingStatus> = new Subject<RatingStatus>();
     private readonly refreshData$$: Subject<void> = new Subject<void>();
@@ -137,6 +139,13 @@ export class RatingDetailComponent {
      */
     public hasAnswer(rating: Rating): boolean {
         return !!(rating?.answer && rating.answer.trim().length > 0);
+    }
+
+    /**
+     * Vérifie si l'utilisateur a les droits d'administration/modération
+     */
+    public hasManagementAccess(): boolean {
+        return this._authenticationService.isAdminOrModerator();
     }
 
     /**

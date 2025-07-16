@@ -1,0 +1,115 @@
+<div class="relative pt-8 pb-8">
+    <div class="max-w-md mx-auto px-4">
+        <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-800 to-blue-900 py-6 px-8">
+                <h1 class="text-center text-white text-2xl font-medium tracking-tight">
+                    {{ 'COMMONS.REGISTER.TITLE' | translate }}
+                </h1>
+            </div>
+
+            <div class="px-6 py-6">
+                <form class="space-y-3" [formGroup]="createAccountGroup">
+                    <div>
+                        <h3 class="text-slate-700 font-medium mb-2 flex items-center">
+                            <mat-icon class="mr-2 text-blue-600">account_circle</mat-icon>
+                            {{ 'COMMONS.REGISTER.PSEUDO' | translate }}
+                        </h3>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{ 'COMMONS.REGISTER.PSEUDO' | translate }}</mat-label>
+                            <input matInput formControlName="username" placeholder="{{ 'COMMONS.REGISTER.PSEUDO_PLACEHOLDER' | translate }}" />
+                            <mat-icon matPrefix class="mr-2 text-slate-500">person</mat-icon>
+                            <mat-error>
+                                @if (createAccountGroup.get('pseudo')?.hasError('required')) {
+                                    {{ 'COMMONS.REGISTER.PSEUDO_REQUIRED' | translate }}
+                                }
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <h3 class="text-slate-700 font-medium mb-2 flex items-center">
+                            <mat-icon class="mr-2 text-blue-600">email</mat-icon>
+                            {{ 'COMMONS.CONNEXIONPAGE.EMAIL' | translate }}
+                        </h3>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{ 'COMMONS.CONNEXIONPAGE.EMAIL' | translate }}</mat-label>
+                            <input matInput formControlName="email" placeholder="email@exemple.com" />
+                            <mat-icon matPrefix class="mr-2 text-slate-500">email</mat-icon>
+                            <mat-error>
+                                @if (createAccountGroup.get('email')?.hasError('required')) {
+                                    {{ 'COMMONS.CONNEXIONPAGE.REQUIREDEMAIL' | translate }}
+                                }
+                                @if (createAccountGroup.get('email')?.hasError('email')) {
+                                    {{ 'COMMONS.CONNEXIONPAGE.INVALIDEMAIL' | translate }}
+                                }
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <h3 class="text-slate-700 font-medium mb-2 flex items-center">
+                            <mat-icon class="mr-2 text-blue-600">vpn_key</mat-icon>
+                            {{ 'COMMONS.CONNEXIONPAGE.PWD' | translate }}
+                        </h3>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{ 'COMMONS.CONNEXIONPAGE.PWD' | translate }}</mat-label>
+                            <input matInput type="password" formControlName="password" placeholder="••••••••" />
+                            <mat-icon matPrefix class="mr-2 text-slate-500">lock</mat-icon>
+                            @if (createAccountGroup.controls.password.hasError('required') && createAccountGroup.controls.password.touched) {
+                                <mat-error>
+                                    {{ 'COMMONS.CONNEXIONPAGE.REQUIREDPASSWORD' | translate }}
+                                </mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mt-6">
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            class="w-full py-3 px-4 rounded-md shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex justify-center items-center"
+                            (click)="createAccount()"
+                            type="submit"
+                            [disabled]="createAccountGroup.invalid">
+                            <span class="text-lg font-medium">{{ 'COMMONS.REGISTER.CREATE' | translate }}</span>
+                            <mat-icon class="ml-2">person_add</mat-icon>
+                        </button>
+                    </div>
+
+                    <div class="relative mt-8 mb-2">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-slate-500">
+                                {{ 'COMMONS.CONNEXIONPAGE.OR' | translate }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="text-sm text-slate-600 mb-4">
+                            {{ 'COMMONS.REGISTER.ALREADY_HAVE_ACCOUNT' | translate }}
+                        </p>
+                        <button
+                            mat-flat-button
+                            class="w-full py-2 border hover:border-blue-500 transition-colors duration-300 flex justify-center items-center"
+                            (click)="navigateToLogin()">
+                            <mat-icon class="mr-2">login</mat-icon>
+                            {{ 'COMMONS.CONNEXIONPAGE.CONNEXION_BACK' | translate }}
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-6">
+                        <p class="text-sm text-slate-600">
+                            {{ 'COMMONS.CONNEXIONPAGE.TERMS_INTRO' | translate }}
+                            <a href="#" class="text-blue-600 hover:text-blue-800">{{ 'COMMONS.CONNEXIONPAGE.TERMS' | translate }}</a>
+                            {{ 'COMMONS.CONNEXIONPAGE.AND' | translate }}
+                            <a href="#" class="text-blue-600 hover:text-blue-800">{{ 'COMMONS.CONNEXIONPAGE.PRIVACY' | translate }}</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

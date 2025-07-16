@@ -41,6 +41,14 @@ CREATE SEQUENCE IF NOT EXISTS SEQ_RATING
     NO MAXVALUE
     CACHE 1;
 
+-- Séquence pour la table ACCOUNT
+CREATE SEQUENCE IF NOT EXISTS SEQ_ACCOUNT
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
 -- ===========================================
 -- TABLES
 -- ===========================================
@@ -75,6 +83,16 @@ CREATE TABLE IF NOT EXISTS RATING (
     CONSTRAINT chk_status_values CHECK (STATUS IN ('PROCESSED', 'PUBLISHED', 'REJECTED'))
 );
 
+-- Table ACCOUNT
+CREATE TABLE IF NOT EXISTS ACCOUNT (
+    ID BIGINT PRIMARY KEY DEFAULT nextval('SEQ_ACCOUNT'),
+    EMAIL VARCHAR(100) NOT NULL UNIQUE,
+    USERNAME VARCHAR(50) NOT NULL UNIQUE,
+    PASSWORD VARCHAR(500) NOT NULL,
+    ROLE VARCHAR(100) NOT NULL,
+    CONSTRAINT chk_role_values CHECK (ROLE IN ('ADMIN', 'USER', 'MODERATOR'))
+);
+
 -- ===========================================
 -- INDEX
 -- ===========================================
@@ -91,6 +109,11 @@ CREATE INDEX IF NOT EXISTS idx_rating_status ON RATING(STATUS);
 CREATE INDEX IF NOT EXISTS idx_airline_name ON AIRLINE(NAME);
 CREATE INDEX IF NOT EXISTS idx_airline_country ON AIRLINE(COUNTRY);
 CREATE INDEX IF NOT EXISTS idx_airline_active ON AIRLINE(ACTIVE);
+
+-- Index sur la table ACCOUNT
+CREATE INDEX IF NOT EXISTS idx_account_email ON ACCOUNT(EMAIL);
+CREATE INDEX IF NOT EXISTS idx_account_username ON ACCOUNT(USERNAME);
+CREATE INDEX IF NOT EXISTS idx_account_role ON ACCOUNT(ROLE);
 
 -- ===========================================
 -- DONNÉES D'EXEMPLE
@@ -168,6 +191,15 @@ INSERT INTO RATING (FLIGHT_NUMBER, DATE, CREATION_DATE, RATING, COMMENT, LAST_UP
 ('OS434', '2024-11-26', '2024-11-27', 4, 'Austrian Airlines, vol Vienne-New York agréable.', '2024-11-28', 18, '', 'PUBLISHED'),
 ('TP203', '2024-11-25', '2024-11-26', 3, 'TAP Portugal, correct pour le prix payé.', '2024-11-27', 19, '', 'PROCESSED'),
 ('SU150', '2024-11-24', '2024-11-25', 2, 'Aeroflot, service vieillissant, à améliorer.', '2024-11-26', 20, '', 'REJECTED');
+
+-- Insertion des comptes utilisateurs (mots de passe à hasher en production)
+INSERT INTO ACCOUNT (EMAIL, USERNAME, PASSWORD, ROLE) VALUES
+('admin@avisdevol.fr', 'admin', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lbdOIGgeCPw7cO9ca', 'ADMIN'), -- password: admin123
+('moderator@avisdevol.fr', 'moderator', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lbdOIGgeCPw7cO9ca', 'MODERATOR'), -- password: mod123
+('user@avisdevol.fr', 'user1', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lbdOIGgeCPw7cO9ca', 'USER'), -- password: user123
+('john.doe@email.com', 'johndoe', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lbdOIGgeCPw7cO9ca', 'USER'), -- password: password
+('jane.smith@email.com', 'janesmith', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lbdOIGgeCPw7cO9ca', 'USER') -- password: password
+ON CONFLICT (EMAIL) DO NOTHING;
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO avisdevol;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO avisdevol;

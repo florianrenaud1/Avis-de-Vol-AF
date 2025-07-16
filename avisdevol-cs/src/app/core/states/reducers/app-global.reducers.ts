@@ -4,6 +4,7 @@ import { LocalStorageConfig, localStorageSync } from 'ngrx-store-localstorage';
 import * as RatingForm from './ratings.reducers';
 import * as Layout from './layout.reducers';
 import * as Page from './page.reducers';
+import * as User from './user.reducers';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -13,6 +14,8 @@ export interface State {
     layout: Layout.State;
     ratings: RatingForm.State;
     page: Page.State;
+    user: User.State;
+
 }
 
 /**
@@ -24,6 +27,7 @@ export const reducers: ActionReducerMap<State> = {
     layout: Layout.reducer,
     ratings: RatingForm.reducer,
     page: Page.reducer,
+    user: User.reducer,
 };
 
 /**

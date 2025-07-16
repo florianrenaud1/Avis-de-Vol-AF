@@ -90,7 +90,7 @@
                     <mat-cell *matCellDef="let element" class="py-4">
                         <div class="flex items-center space-x-2">
                             <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                                <mat-icon class="text-blue-600 text-sm">flight_takeoff</mat-icon>
+                                <mat-icon class="text-blue-600 text-sm !flex !justify-center">flight_takeoff</mat-icon>
                             </div>
                             <span class="font-mono font-medium text-gray-900">
                                 {{ element.flightNumber }}
@@ -125,7 +125,7 @@
                     <mat-cell *matCellDef="let element" class="py-4">
                         <div class="flex items-center space-x-3">
                             <div class="w-8 h-8 bg-air-france-100 rounded-full flex items-center justify-center">
-                                <mat-icon class="text-air-france-600 text-sm">flight</mat-icon>
+                                <mat-icon class="text-air-france-600 text-sm !flex items-center !justify-center">flight</mat-icon>
                             </div>
                             <span class="font-medium text-gray-900">
                                 {{ element.airline.name | titlecase }}
@@ -138,7 +138,7 @@
                 <ng-container matColumnDef="status">
                     <mat-header-cell *matHeaderCellDef class="font-semibold text-gray-700">
                         <div class="flex items-center space-x-1">
-                            <mat-icon class="text-air-france-600 text-sm">playlist_add_check</mat-icon>
+                            <mat-icon class="text-air-france-600 text-sm !flex !justify-center">playlist_add_check</mat-icon>
                             <span>{{ 'COMMONS.PROPERTY.STATUS' | translate }}</span>
                         </div>
                     </mat-header-cell>
@@ -146,7 +146,6 @@
                         <div class="flex items-center justify-center">
                             @if (element.status) {
                                 <div class="flex items-center space-x-2 px-3 py-1 rounded-full" [ngClass]="getStatusDisplay(element.status).bgColor">
-                                    <div class="w-2 h-2 rounded-full" [ngClass]="getStatusDisplay(element.status).bgColor"></div>
                                     <span class="text-sm font-medium" [ngClass]="getStatusDisplay(element.status).color">
                                         {{ getStatusDisplay(element.status).label | translate }}
                                     </span>
@@ -169,13 +168,13 @@
                     <mat-cell *matCellDef="let element" class="py-4">
                         <div class="flex items-center justify-center">
                             <div
-                                class="w-8 h-8 rounded-full flex items-center justify-center"
+                                class="w-8 h-8 rounded-full !flex items-center !justify-center"
                                 [ngClass]="{
                                     'bg-green-100': element.answer && element.answer.trim().length > 0,
                                     'bg-red-100': !element.answer || element.answer.trim().length === 0,
                                 }">
                                 <mat-icon
-                                    class="text-sm"
+                                    class="text-sm !flex items-center !justify-center !ml-0"
                                     [ngClass]="{
                                         'text-green-600': element.answer && element.answer.trim().length > 0,
                                         'text-red-600': !element.answer || element.answer.trim().length === 0,

@@ -11,6 +11,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { firstValueFrom } from 'rxjs';
 import { App, CoreModule, LayoutEffects, MultiTranslateHttpLoader } from '@avisdevol-cs/core';
 import { ratingsRoutes } from './app/features';
+import { authGuard, guestGuard } from './app/core/guards';
 
 const appInitializerFactory = (translate: TranslateService) => {
     const locale = navigator.languages.includes(Language.FR) ? Language.FR : Language.EN;
@@ -33,6 +34,17 @@ const appRoutes: Routes = [
     {
         path: 'create',
         loadComponent: () => import('./app/features/rating/components/rating-create/rating-create.component').then(m => m.RatingCreateComponent),
+        canActivate: [authGuard],
+    },
+    {
+        path: 'login',
+        loadComponent: () => import('./app/features/auth/components/login/login.component').then(m => m.LoginComponent),
+        canActivate: [guestGuard],
+    },
+        {
+        path: 'register',
+        loadComponent: () => import('./app/features/auth/components/create-account/create-account.component').then(m => m.CreateAccountComponent),
+    canActivate: [guestGuard],
     },
 ];
 
@@ -62,24 +74,6 @@ bootstrapApplication(AppComponent, {
             StoreRouterConnectingModule.forRoot({
                 stateKey: 'router',
             })
-            /*UserModule.forRoot({
-                logoutUrl: `${environment.urlBackend}/logout`,
-                url: `${environment.urlBackend}/me`,
-            }),*/
-            /*StoreModule.forRoot(App.reducers, {
-                metaReducers: [App.localStorageSyncReducer],
-                runtimeChecks: {
-                    strictActionImmutability: false,
-                    strictStateImmutability: false,
-                },
-            }),*/
-            /*StoreDevtoolsModule.instrument({
-                maxAge: 5,
-            }),*/
-            /*EffectsModule.forRoot([LayoutEffects, UserEffects]),
-            StoreRouterConnectingModule.forRoot({
-                stateKey: 'router',
-            })*/
         ),
         {
             provide: APP_INITIALIZER,

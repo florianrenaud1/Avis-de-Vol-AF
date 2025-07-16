@@ -1,0 +1,102 @@
+<div class="relative pt-4 pb-4">
+    <div class="max-w-md mx-auto px-4">
+        <div class="bg-white rounded-xl shadow-xl overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-800 to-blue-900 py-6 px-8">
+                <div class="flex justify-center mb-4">
+                    <img src="assets/img/logo.png" alt="Flight Rating logo" class="w-20" />
+                </div>
+                <h1 class="text-center text-white text-2xl font-medium tracking-tight">
+                    {{ 'COMMONS.HEADER.LOGIN' | translate }}
+                </h1>
+            </div>
+
+            <div class="px-8 py-8">
+                <form class="space-y-5" [formGroup]="connexionGroup">
+                    <div>
+                        <h3 class="text-slate-700 font-medium mb-2 flex items-center">
+                            <mat-icon class="mr-2 text-blue-600">person</mat-icon>
+                            {{ 'COMMONS.CONNEXIONPAGE.EMAIL' | translate }}
+                        </h3>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{ 'COMMONS.CONNEXIONPAGE.EMAIL' | translate }}</mat-label>
+                            <input matInput formControlName="email" placeholder="email@exemple.com" />
+                            <mat-icon matPrefix class="mr-2 text-slate-500">email</mat-icon>
+                            <mat-error>
+                                @if (connexionGroup.get('email')?.hasError('required')) {
+                                    {{ 'COMMONS.CONNEXIONPAGE.EMAIL_REQUIRED' | translate }}
+                                }
+                                @if (connexionGroup.get('email')?.hasError('email')) {
+                                    {{ 'COMMONS.CONNEXIONPAGE.EMAIL_INVALID' | translate }}
+                                }
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <h3 class="text-slate-700 font-medium mb-2 flex items-center">
+                            <mat-icon class="mr-2 text-blue-600">vpn_key</mat-icon>
+                            {{ 'COMMONS.CONNEXIONPAGE.PWD' | translate }}
+                        </h3>
+                        <mat-form-field class="w-full">
+                            <mat-label>{{ 'COMMONS.CONNEXIONPAGE.PWD' | translate }}</mat-label>
+                            <input matInput type="password" formControlName="password" placeholder="••••••••" />
+                            <mat-icon matPrefix class="mr-2 text-slate-500">lock</mat-icon>
+                            @if (connexionGroup.controls.password.hasError('required') && connexionGroup.controls.password.touched) {
+                                <mat-error>
+                                    {{ 'COMMONS.CONNEXIONPAGE.REQUIREDPASSWORD' | translate }}
+                                </mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex justify-center items-center mt-2">
+                        <a routerLink="/forgot-password" class="text-blue-600 hover:text-blue-800 text-sm transition-colors duration-300">
+                            {{ 'COMMONS.CONNEXIONPAGE.FORGOT' | translate }}
+                        </a>
+                    </div>
+
+                    <div class="mt-6">
+                        <button
+                            mat-flat-button
+                            color="primary"
+                            class="w-full py-3 px-4 rounded-md shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex justify-center items-center"
+                            (click)="connexion()"
+                            [disabled]="connexionGroup.invalid">
+                            <span class="text-lg font-medium text-white">{{ 'COMMONS.HEADER.LOGIN' | translate }}</span>
+                            <mat-icon class="ml-2">login</mat-icon>
+                        </button>
+                    </div>
+                    <div class="relative mt-8 mb-2">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-slate-500">
+                                {{ 'COMMONS.CONNEXIONPAGE.OR' | translate }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3 mt-5">
+                        <button
+                            mat-flat-button
+                            class="w-full py-2 border bg-blue-800 btn-primary transition-colors duration-300 flex justify-center items-center"
+                            routerLink="/register">
+                            <mat-icon class="mr-2 text-white">account_circle</mat-icon>
+                            {{ 'COMMONS.CONNEXIONPAGE.CREATE' | translate }}
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-6">
+                        <p class="text-sm text-slate-600">
+                            {{ 'COMMONS.CONNEXIONPAGE.TERMS_INTRO' | translate }}
+                            <a class="text-blue-600 hover:text-blue-800">{{ 'COMMONS.CONNEXIONPAGE.TERMS' | translate }}</a>
+                            {{ 'COMMONS.CONNEXIONPAGE.AND' | translate }}
+                            <a class="text-blue-600 hover:text-blue-800">{{ 'COMMONS.CONNEXIONPAGE.PRIVACY' | translate }}</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

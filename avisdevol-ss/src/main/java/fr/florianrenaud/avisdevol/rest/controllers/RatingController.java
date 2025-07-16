@@ -1,6 +1,7 @@
 package fr.florianrenaud.avisdevol.rest.controllers;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,6 +75,7 @@ public class RatingController {
 	 * @throws RestException raised if the Rating cannot be created due to validation errors
 	 * @throws NotFoundException raised if the Rating cannot be created due to missing dependencies
 	 */
+	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
 	@Operation(summary = "Create a new Rating.")
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
 	public void createRating(@RequestBody RatingResource createRating) throws RestException, NotFoundException {
@@ -87,6 +89,7 @@ public class RatingController {
 	 * @return retrieved Rating
 	 * @throws NotFoundException raised if the Rating is not found
 	 */
+	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR') or hasRole('USER')")
 	@Operation(summary = "Retrieve information of a Rating.")
 	@GetMapping(value = "/{ratingId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RatingResource getRating(@PathVariable("ratingId") Integer ratingId) throws NotFoundException {
@@ -99,6 +102,7 @@ public class RatingController {
 	 * @param answer the answer text to add
 	 * @throws NotFoundException raised if the Rating is not found
 	 */
+	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
 	@Operation(summary = "Add an answer to a Rating.")
 	@PutMapping(value = "/answer/{ratingId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public void addAnswer(@PathVariable("ratingId") Integer ratingId, @RequestBody String answer) throws NotFoundException {
@@ -113,6 +117,7 @@ public class RatingController {
 	 * @throws NotFoundException raised if the Rating is not found
 	 * @throws RestException raised if the status value is invalid
 	 */
+	@PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
 	@Operation(summary = "Update the status of a Rating.")
 	@PutMapping(value = "/status/{ratingId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public RatingResource updateStatus(@PathVariable("ratingId") Integer ratingId, @RequestBody String status) throws NotFoundException, RestException {

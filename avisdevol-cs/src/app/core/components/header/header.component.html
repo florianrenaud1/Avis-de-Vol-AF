@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
             <!-- Logo et titre -->
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4" routerLink="/avis">
                 <div class="flex items-center space-x-3 group">
                     <div class="p-2 bg-white/10 rounded-xl group-hover:bg-white/20 transition-all duration-300">
                         <img
@@ -45,23 +45,42 @@
                     </mat-menu>
                 </div>
 
-                <!-- Bouton de connexion -->
-                <button
-                    class="bg-white text-air-france-700 hover:bg-air-france-50 hover:text-air-france-800 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 shadow-sm hover:shadow-md flex items-center space-x-2 group"
-                    routerLink="/login"
-                    routerLinkActive="ring-2 ring-white ring-opacity-50">
-                    <span class="hidden sm:inline">{{ 'COMMONS.HEADER.LOGIN' | translate }}</span>
-                    <mat-icon class="text-lg group-hover:scale-110 transition-transform duration-300">login</mat-icon>
-                </button>
+                <!-- Bouton de connexion / Profil utilisateur -->
+                @if (!isLoggedIn()) {
+                    <!-- Bouton de connexion pour utilisateurs non connectés -->
+                    <button
+                        class="bg-white text-air-france-700 hover:bg-air-france-50 hover:text-air-france-800 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 shadow-sm hover:shadow-md flex items-center space-x-2 group"
+                        routerLink="/login"
+                        routerLinkActive="ring-2 ring-white ring-opacity-50">
+                        <span class="hidden sm:inline">{{ 'COMMONS.HEADER.LOGIN' | translate }}</span>
+                        <mat-icon class="text-lg group-hover:scale-110 transition-transform duration-300">login</mat-icon>
+                    </button>
+                } @else {
+                    <!-- Menu utilisateur pour utilisateurs connectés -->
+                    <div class="relative">
+                        <button
+                            mat-button
+                            [matMenuTriggerFor]="userMenu"
+                            class="!bg-white text-air-france-700 hover:bg-air-france-50 hover:text-air-france-800 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 shadow-sm hover:shadow-md flex items-center space-x-2 group"
+                            [attr.aria-label]="'Menu utilisateur pour ' + username()">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-6 h-6 bg-air-france-100 rounded-full flex items-center justify-center">
+                                    <mat-icon class="text-sm text-air-france-600">person</mat-icon>
+                                </div>
+                                <span class="hidden sm:inline max-w-24 truncate">{{ username() }}</span>
+                            </div>
+                            <mat-icon class="text-sm group-hover:scale-110 transition-transform duration-300">keyboard_arrow_down</mat-icon>
+                        </button>
 
-                <!-- Menu mobile -->
-                <button class="lg:hidden text-white hover:bg-white/10 p-2 rounded-lg transition-all duration-300">
-                    <mat-icon>menu</mat-icon>
-                </button>
+                        <mat-menu #userMenu="matMenu" class="mt-2">
+                            <button mat-menu-item (click)="logout()" class="flex items-center space-x-2 text-red-600">
+                                <mat-icon class="text-red-600">logout</mat-icon>
+                                <span>{{ 'COMMONS.HEADER.LOGOUT' | translate }}</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                }
             </div>
         </div>
     </div>
-
-    <!-- Barre de progression ou indicateur de charge (optionnel) -->
-    <div class="h-1 bg-gradient-to-r from-air-france-400 to-air-france-600 opacity-0 transition-opacity duration-300" id="loading-bar"></div>
 </header>

@@ -23,6 +23,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -35,6 +37,8 @@ import fr.florianrenaud.avisdevol.business.resources.RatingFiltersResource;
 import fr.florianrenaud.avisdevol.business.resources.RatingResource;
 import fr.florianrenaud.avisdevol.business.service.BizRatingService;
 import fr.florianrenaud.avisdevol.business.utils.Pagination;
+import fr.florianrenaud.avisdevol.config.JwtFilter;
+import fr.florianrenaud.avisdevol.config.JwtService;
 import fr.florianrenaud.avisdevol.dao.exceptions.InfrastructureErrorType;
 import fr.florianrenaud.avisdevol.dao.exceptions.NotFoundException;
 import fr.florianrenaud.avisdevol.rest.controllers.RatingController;
@@ -43,7 +47,11 @@ import fr.florianrenaud.avisdevol.utils.mothers.RatingMother;
 @WebMvcTest(controllers = RatingController.class,
     excludeAutoConfiguration = {
         SecurityAutoConfiguration.class
-    })
+    },
+    excludeFilters = @ComponentScan.Filter(
+        type = FilterType.ASSIGNABLE_TYPE, 
+        classes = {JwtFilter.class, JwtService.class}
+    ))
 @ActiveProfiles("test")
 class RatingControllerTest {
 

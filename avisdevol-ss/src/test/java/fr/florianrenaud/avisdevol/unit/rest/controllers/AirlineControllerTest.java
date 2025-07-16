@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -23,13 +25,19 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import fr.florianrenaud.avisdevol.business.resources.AirlineResource;
 import fr.florianrenaud.avisdevol.business.service.BizAirlineService;
+import fr.florianrenaud.avisdevol.config.JwtFilter;
+import fr.florianrenaud.avisdevol.config.JwtService;
 import fr.florianrenaud.avisdevol.rest.controllers.AirlineController;
 import fr.florianrenaud.avisdevol.utils.mothers.AirlineMother;
 
 @WebMvcTest(controllers = AirlineController.class, 
     excludeAutoConfiguration = {
         SecurityAutoConfiguration.class
-    })
+    },
+    excludeFilters = @ComponentScan.Filter(
+        type = FilterType.ASSIGNABLE_TYPE, 
+        classes = {JwtFilter.class, JwtService.class}
+    ))
 @ActiveProfiles("test")
 class AirlineControllerTest {
 

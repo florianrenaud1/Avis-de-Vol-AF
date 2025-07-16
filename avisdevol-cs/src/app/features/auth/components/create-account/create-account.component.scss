@@ -1,0 +1,40 @@
+
+// Animation subtile pour les champs de formulaire
+.mat-mdc-form-field {
+  transition: all 0.3s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// Style pour les icônes de préfixe
+.mat-icon[matPrefix] {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.mat-mdc-form-field:focus-within .mat-icon[matPrefix] {
+  opacity: 1;
+  color: #1976d2;
+}
+
+// Amélioration de l'apparence des boutons
+button[mat-raised-button] {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+button[mat-stroked-button] {
+  font-weight: 500;
+}
+
+// Style pour les liens
+a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}

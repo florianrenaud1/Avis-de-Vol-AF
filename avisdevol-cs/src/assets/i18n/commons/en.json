@@ -4,13 +4,15 @@
         "TITLE": "Flight rating",
         "DESCRIPTION": "Share your flight experience",
         "ACCUEIL": "Accueil",
-        "LOGIN": "Login"
+        "LOGIN": "Login",
+        "LOGOUT": "Logout"
     },
     "RATING_LIST": {
         "TITLE": "Rating List",
         "DESCRIPTION": "List of all ratings",
         "ADD_RATING": "Add Rating",
-        "NO_RATINGS": "No ratings available"
+        "NO_RATINGS": "No ratings available",
+        "HINT_FLIGHT": "Format: 2 letters + numbers"
     },
     "RATING_CREATE": {
         "TITLE": "Create Rating",
@@ -147,6 +149,40 @@
         "CREATE_SUCCESS": "Rating created successfully",
         "UPDATE_SUCCESS": "Rating updated successfully",
         "ERROR": "An error occurred, please try again later"
-      }
+      },
+      "CONNEXIONPAGE": {
+                "EMAIL": "Email",
+                "PWD": "Password",
+                "CONNECT": "Connect",
+                "INVALIDEMAIL": "Please enter a valid email address",
+                "REQUIREDEMAIL": "Email is required",
+                "REQUIREDPASSWORD": "Password is required",
+                "REGISTER": "Register",
+                "CONNEXION_BACK":"Go back to the connection page",
+                "FORGOT_PASSWORD": "Forgot password?",
+                "EMAIL_INVALID": "L'adresse e-mail saisie n'est pas valide.",
+                "FORGOT": "Forgot password?",
+                "REMEMBER": "Remember me",
+                "OR": "or",
+                "GOOGLE": "Continue with Google",
+                "CREATE": "Create an account",
+                "TERMS_INTRO": "By logging in, you agree to our",
+                "TERMS": "Terms of Service",
+                "AND": "and",
+                "PRIVACY": "Privacy Policy",
+                "WELCOME": "Welcome",
+                "DASHBOARD": "Go to Dashboard",
+                "LOGOUT": "Logout",
+                "SESSION_EXPIRED": "Your session has expired. Please log in again.",
+                "INVALID_TOKEN": "Invalid session token. Please log in again.",
+                "LOGIN_REQUIRED": "Please log in to access this page."
+            },            "REGISTER": {
+                "TITLE": "Create account",
+                "CREATE": "Create the account",
+                "PSEUDO": "Username",
+                "PSEUDO_PLACEHOLDER": "Ex: John Doe",
+                "PSEUDO_REQUIRED": "Username is required",
+                "ALREADY_HAVE_ACCOUNT": "Already have an account?"
+            }
 }
 }
