@@ -7,6 +7,8 @@ Elle est construite avec **Angular 19** pour le frontend et **Spring Boot 3.5.3*
 
 L’objectif : permettre à chacun de **consulter, publier et modérer des avis de vol**, dans une interface fluide, sécurisée et multilingue.
 
+Lien pour récupérer la vidéo de présentation du projet : https://1drv.ms/v/s!AoIIyp97mpwHhx42kMisGVejiOzZ?e=5IgJaK
+
 ---
 
 ## Fonctionnalités Principales
@@ -208,6 +210,7 @@ De l’intelligence artificielle a été utilisé sur ce projet, en complément 
 - **Structurer et générer des cas de test**
 - **Aide a la Rédaction et organisation de ce README**
 - **Corriger certains bugs**, en explorant des solutions suggérées par l’IA
+- **Ajouts de données en base**
 
 
 
